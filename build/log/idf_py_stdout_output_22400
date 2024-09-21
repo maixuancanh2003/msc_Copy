@@ -1,0 +1,108 @@
+�J�ESP-ROM:esp32s3-20210327
+Build:Mar 27 2021
+rst:0x1 (POWERON),boot:0x2b (SPI_FAST_FLASH_BOOT)
+SPIWP:0xee
+mode:DIO, clock div:1
+load:0x3fce2810,len:0x178c
+load:0x403c8700,len:0x4
+load:0x403c8704,len:0xcb8
+load:0x403cb700,len:0x2db0
+entry 0x403c8914
+[0;32mI (27) boot: ESP-IDF v5.3.1-dirty 2nd stage bootloader[0m
+[0;32mI (27) boot: compile time Sep 21 2024 09:34:58[0m
+[0;32mI (27) boot: Multicore bootloader[0m
+[0;32mI (30) boot: chip revision: v0.2[0m
+[0;32mI (34) boot.esp32s3: Boot SPI Speed : 80MHz[0m
+[0;32mI (39) boot.esp32s3: SPI Mode       : DIO[0m
+[0;32mI (44) boot.esp32s3: SPI Flash Size : 2MB[0m
+[0;32mI (49) boot: Enabling RNG early entropy source...[0m
+[0;32mI (54) boot: Partition Table:[0m
+[0;32mI (58) boot: ## Label            Usage          Type ST Offset   Length[0m
+[0;32mI (65) boot:  0 nvs              WiFi data        01 02 00009000 00006000[0m
+[0;32mI (72) boot:  1 phy_init         RF data          01 01 0000f000 00001000[0m
+[0;32mI (80) boot:  2 factory          factory app      00 00 00010000 00100000[0m
+[0;32mI (87) boot: End of partition table[0m
+[0;32mI (91) esp_image: segment 0: paddr=00010020 vaddr=3c0a0020 size=243a8h (148392) map[0m
+[0;32mI (126) esp_image: segment 1: paddr=000343d0 vaddr=3fc99900 size=049f8h ( 18936) load[0m
+[0;32mI (131) esp_image: segment 2: paddr=00038dd0 vaddr=40374000 size=07248h ( 29256) load[0m
+[0;32mI (139) esp_image: segment 3: paddr=00040020 vaddr=42000020 size=95a54h (612948) map[0m
+[0;32mI (251) esp_image: segment 4: paddr=000d5a7c vaddr=4037b248 size=0e67ch ( 59004) load[0m
+[0;32mI (273) boot: Loaded app from partition at offset 0x10000[0m
+[0;32mI (273) boot: Disabling RNG early entropy source...[0m
+[0;32mI (285) cpu_start: Multicore app[0m
+[0;32mI (294) cpu_start: Pro cpu start user code[0m
+[0;32mI (294) cpu_start: cpu freq: 160000000 Hz[0m
+[0;32mI (294) app_init: Application information:[0m
+[0;32mI (297) app_init: Project name:     usb-msc[0m
+[0;32mI (302) app_init: App version:      1[0m
+[0;32mI (306) app_init: Compile time:     Sep 21 2024 09:34:36[0m
+[0;32mI (312) app_init: ELF file SHA256:  be9b129c7...[0m
+[0;32mI (318) app_init: ESP-IDF:          v5.3.1-dirty[0m
+[0;32mI (323) efuse_init: Min chip rev:     v0.0[0m
+[0;32mI (328) efuse_init: Max chip rev:     v0.99 [0m
+[0;32mI (333) efuse_init: Chip rev:         v0.2[0m
+[0;32mI (337) heap_init: Initializing. RAM available for dynamic allocation:[0m
+[0;32mI (345) heap_init: At 3FCA1F48 len 000477C8 (285 KiB): RAM[0m
+[0;32mI (351) heap_init: At 3FCE9710 len 00005724 (21 KiB): RAM[0m
+[0;32mI (357) heap_init: At 3FCF0000 len 00008000 (32 KiB): DRAM[0m
+[0;32mI (363) heap_init: At 600FE100 len 00001EE8 (7 KiB): RTCRAM[0m
+[0;32mI (370) spi_flash: detected chip: gd[0m
+[0;32mI (374) spi_flash: flash io: dio[0m
+[0;33mW (377) spi_flash: Detected size(16384k) larger than the size in the binary image header(2048k). Using the size in the binary image header.[0m
+[0;32mI (391) sleep: Configure to isolate all GPIO pins in sleep state[0m
+[0;32mI (398) sleep: Enable automatic switching of GPIO sleep configuration[0m
+[0;32mI (405) main_task: Started on CPU0[0m
+[0;32mI (425) main_task: Calling app_main()[0m
+[0;32mI (445) pp: pp rom version: e7ae62f[0m
+[0;32mI (445) net80211: net80211 rom version: e7ae62f[0m
+I (465) wifi:wifi driver task: 3fcac25c, prio:23, stack:6656, core=0
+I (475) wifi:wifi firmware version: ccaebfa
+I (475) wifi:wifi certification version: v7.0
+I (475) wifi:config NVS flash: enabled
+I (475) wifi:config nano formating: disabled
+I (475) wifi:Init data frame dynamic rx buffer num: 32
+I (485) wifi:Init static rx mgmt buffer num: 5
+I (485) wifi:Init management short buffer num: 32
+I (495) wifi:Init dynamic tx buffer num: 32
+I (495) wifi:Init static tx FG buffer num: 2
+I (495) wifi:Init static rx buffer size: 1600
+I (505) wifi:Init static rx buffer num: 10
+I (505) wifi:Init dynamic rx buffer num: 32
+[0;32mI (515) wifi_init: rx ba win: 6[0m
+[0;32mI (515) wifi_init: accept mbox: 6[0m
+[0;32mI (515) wifi_init: tcpip mbox: 32[0m
+[0;32mI (525) wifi_init: udp mbox: 6[0m
+[0;32mI (525) wifi_init: tcp mbox: 6[0m
+[0;32mI (535) wifi_init: tcp tx win: 5760[0m
+[0;32mI (535) wifi_init: tcp rx win: 5760[0m
+[0;32mI (535) wifi_init: tcp mss: 1440[0m
+[0;32mI (545) wifi_init: WiFi IRAM OP enabled[0m
+[0;32mI (545) wifi_init: WiFi RX IRAM OP enabled[0m
+[0;32mI (555) phy_init: phy_version 680,a6008b2,Jun  4 2024,16:41:10[0m
+I (595) wifi:mode : sta (84:fc:e6:6a:0d:b0)
+I (595) wifi:enable tsf
+[0;32mI (595) usb_msc_http: WiFi initialization finished.[0m
+[0;32mI (605) usb_msc_http: Initializing USB host[0m
+I (605) wifi:new:<11,0>, old:<1,0>, ap:<255,255>, sta:<11,0>, prof:1, snd_ch_cfg:0x0
+I (605) wifi:state: init -> auth (0xb0)
+I (615) wifi:state: auth -> assoc (0x0)
+I (625) wifi:state: assoc -> run (0x10)
+[0;32mI (635) usb_msc_http: USB host installed successfully.[0m
+[0;32mI (635) usb_msc_http: USB host client registered successfully.[0m
+[0;31mE (635) usb_msc_http: Failed to open USB device: ESP_ERR_NOT_FOUND[0m
+I (645) wifi:connected with HELLO, aid = 5, channel 11, BW20, bssid = 6a:54:5a:7b:6e:c5
+I (645) wifi:security: WPA2-PSK, phy: bgn, rssi: -30
+I (655) wifi:pm start, type: 1
+
+I (655) wifi:dp: 1, bi: 102400, li: 3, scale listen interval from 307200 us to 307200 us
+I (665) wifi:set rx beacon pti, rx_bcn_pti: 0, bcn_timeout: 25000, mt_pti: 0, mt_time: 10000
+I (675) wifi:AP's beacon interval = 102400 us, DTIM period = 3
+[0;32mI (675) usb_msc_http: HTTP server started. You can access the web interface now.[0m
+[0;32mI (685) main_task: Returned from app_main()[0m
+[0;32mI (1675) esp_netif_handlers: sta ip: 192.168.137.146, mask: 255.255.255.0, gw: 192.168.137.1[0m
+[0;32mI (1675) usb_msc_http: Got IP: 192.168.137.146[0m
+I (8085) wifi:<ba-add>idx:0 (ifx:0, 6a:54:5a:7b:6e:c5), tid:0, ssn:10, winSize:64
+[0;33mW (11105) httpd_parse: parse_block: request URI/header too long[0m
+[0;33mW (11105) httpd_txrx: httpd_resp_send_err: 431 Request Header Fields Too Large - Header fields are too long[0m
+[0;33mW (11135) httpd_parse: parse_block: request URI/header too long[0m
+[0;33mW (11135) httpd_txrx: httpd_resp_send_err: 431 Request Header Fields Too Large - Header fields are too long[0m

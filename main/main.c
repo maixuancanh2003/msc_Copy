@@ -6,12 +6,9 @@
 #include <nvs_flash.h>
 #include <esp_event.h>
 #include <esp_wifi.h>
-#include "tinyusb.h"
 #include "usb/usb_host.h"
 #include "esp_vfs_fat.h"
-#include "sdmmc_cmd.h"
 
-// Tag for logging
 static const char *TAG = "usb_msc_http";
 
 // WiFi credentials
@@ -21,20 +18,46 @@ static const char *TAG = "usb_msc_http";
 // HTTP server handle
 httpd_handle_t server = NULL;
 
-// Hàm để ghi dữ liệu xuống USB disk
-esp_err_t write_data_to_usb(const char *data) {
-    FILE *f = fopen("/usb/data.txt", "a");
-    if (f == NULL) {
-        ESP_LOGE(TAG, "Failed to open file for writing. Ensure that USB is mounted and accessible.");
-        return ESP_FAIL;
-    }
-    fprintf(f, "%s\n", data);
-    fclose(f);
-    ESP_LOGI(TAG, "Data written to USB: %s", data);
+// USB device handle
+usb_device_handle_t msc_device;
+
+// HTML trang web
+const char html_page[] = "<!DOCTYPE html>"
+    "<html lang=\"en\">"
+    "<head>"
+    "<meta charset=\"UTF-8\">"
+    "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">"
+    "<title>ESP32 USB Data</title>"
+    "<style>"
+    "body {font-family: Arial, sans-serif;background-color: #f0f0f0;margin: 0;padding: 0;display: flex;justify-content: center;align-items: center;height: 100vh;}"
+    ".container {background-color: #fff;padding: 20px;border-radius: 10px;box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);max-width: 400px;text-align: center;}"
+    "h1 {color: #333;}"
+    "form {display: flex;flex-direction: column;}"
+    "textarea {padding: 10px;margin: 10px 0;border: 1px solid #ddd;border-radius: 5px;font-size: 16px;}"
+    "input[type=\"submit\"] {background-color: #28a745;color: white;border: none;padding: 10px;border-radius: 5px;cursor: pointer;font-size: 16px;}"
+    "input[type=\"submit\"]:hover {background-color: #218838;}"
+    "footer {margin-top: 20px;font-size: 12px;color: #999;}"
+    "</style>"
+    "</head>"
+    "<body>"
+    "<div class=\"container\">"
+    "<h1>Send Data to USB</h1>"
+    "<form action=\"/send\" method=\"POST\">"
+    "<textarea name=\"data\" rows=\"5\" placeholder=\"Enter your data here...\"></textarea>"
+    "<input type=\"submit\" value=\"Send Data\">"
+    "</form>"
+    "<footer>Powered by ESP32</footer>"
+    "</div>"
+    "</body>"
+    "</html>";
+
+// Xử lý yêu cầu HTTP GET cho trang web chính
+esp_err_t handle_get_root(httpd_req_t *req) {
+    httpd_resp_send(req, html_page, HTTPD_RESP_USE_STRLEN);
     return ESP_OK;
 }
 
-// Hàm xử lý POST từ HTTP server
+// Xử lý POST từ HTTP server để ghi dữ liệu xuống USB disk
 esp_err_t handle_post_data(httpd_req_t *req) {
     char content[100];
     int ret = httpd_req_recv(req, content, sizeof(content));
@@ -47,20 +70,46 @@ esp_err_t handle_post_data(httpd_req_t *req) {
     content[ret] = '\0';  // Đảm bảo chuỗi kết thúc
 
     // Ghi dữ liệu xuống USB disk
-    if (write_data_to_usb(content) == ESP_OK) {
-        httpd_resp_send(req, "Data written to USB", HTTPD_RESP_USE_STRLEN);
-    } else {
+    FILE *f = fopen("/usb/data.txt", "a");
+    if (f == NULL) {
+        ESP_LOGE(TAG, "Failed to open file for writing.");
         httpd_resp_send(req, "Failed to write data to USB", HTTPD_RESP_USE_STRLEN);
+        return ESP_FAIL;
     }
+    fprintf(f, "%s\n", content);
+    fclose(f);
+    ESP_LOGI(TAG, "Data written to USB: %s", content);
+    httpd_resp_send(req, "Data written to USB", HTTPD_RESP_USE_STRLEN);
+
     return ESP_OK;
 }
 
 // Khởi tạo HTTP server
+// Khởi tạo HTTP server
 httpd_handle_t start_webserver(void) {
     httpd_config_t config = HTTPD_DEFAULT_CONFIG();
+    
+    // Tăng giới hạn kích thước cho URI handlers và response headers
+    config.max_uri_handlers = 16;   // Số lượng handler tối đa
+    config.max_resp_headers = 20;   // Số lượng header tối đa trong phản hồi
+    
+    // Đặt timeout để tránh lỗi nhận yêu cầu lớn
+    config.recv_wait_timeout = 10;  // Tăng thời gian chờ nhận request lên 10 giây
+
+    config.lru_purge_enable = true; // Bật tính năng loại bỏ các handler ít được sử dụng nhất
 
     // Khởi tạo HTTP server
     if (httpd_start(&server, &config) == ESP_OK) {
+        // Đăng ký xử lý GET cho đường dẫn "/"
+        httpd_uri_t uri_get = {
+            .uri = "/",
+            .method = HTTP_GET,
+            .handler = handle_get_root,
+            .user_ctx = NULL
+        };
+        httpd_register_uri_handler(server, &uri_get);
+
+        // Xử lý POST dữ liệu cho đường dẫn "/send"
         httpd_uri_t uri_post = {
             .uri = "/send",
             .method = HTTP_POST,
@@ -72,36 +121,33 @@ httpd_handle_t start_webserver(void) {
     return server;
 }
 
+
+// Hàm khởi tạo USB host
 void init_usb_host(void) {
     ESP_LOGI(TAG, "Initializing USB host");
 
-    // Gỡ cài đặt chỉ khi USB host đã được khởi tạo
-    esp_err_t err = usb_host_uninstall();
-    if (err == ESP_ERR_NOT_FOUND) {
-        ESP_LOGI(TAG, "USB host not found, skipping uninstallation.");
-    } else if (err == ESP_ERR_INVALID_STATE) {
-        ESP_LOGW(TAG, "USB host not in valid state for uninstallation. Continuing without uninstall.");
-    } else if (err != ESP_OK) {
-        ESP_LOGE(TAG, "Failed to uninstall existing USB host: %s", esp_err_to_name(err));
+    // Cài đặt USB host
+    usb_host_config_t host_config = {
+        .intr_flags = ESP_INTR_FLAG_LEVEL1
+    };
+    esp_err_t err = usb_host_install(&host_config);
+    if (err != ESP_OK) {
+        ESP_LOGE(TAG, "Failed to install USB host: %s", esp_err_to_name(err));
         return;
-    } else {
-        ESP_LOGI(TAG, "USB host uninstalled successfully.");
     }
+    ESP_LOGI(TAG, "USB host installed successfully.");
 
-    // Khởi tạo USB host client
+    // Cấu hình và đăng ký USB client
     usb_host_client_handle_t client_hdl;
-    usb_device_handle_t msc_device;
-
     usb_host_client_config_t client_config = {
         .is_synchronous = true,
-        .max_num_event_msg = 5,
+        .max_num_event_msg = 5
     };
 
-    // Kiểm tra nếu USB host client đã được đăng ký
     err = usb_host_client_register(&client_config, &client_hdl);
     if (err == ESP_ERR_INVALID_STATE) {
         ESP_LOGW(TAG, "USB host client already registered. Skipping registration.");
-        return;  // Nếu đã đăng ký, thoát hàm để tránh lỗi.
+        return;
     } else if (err != ESP_OK) {
         ESP_LOGE(TAG, "USB host client registration failed: %s", esp_err_to_name(err));
         return;
@@ -109,18 +155,22 @@ void init_usb_host(void) {
     ESP_LOGI(TAG, "USB host client registered successfully.");
 
     // Mở thiết bị USB
-    ESP_ERROR_CHECK(usb_host_device_open(client_hdl, 1, &msc_device));
+    err = usb_host_device_open(client_hdl, 1, &msc_device);  // Mở thiết bị USB đầu tiên
+    if (err != ESP_OK) {
+        ESP_LOGE(TAG, "Failed to open USB device: %s", esp_err_to_name(err));
+        return;
+    }
+    ESP_LOGI(TAG, "USB device opened successfully.");
 
-    // Đăng ký VFS cho hệ thống file FAT
+    // Mount hệ thống file FAT trên USB disk
     esp_err_t ret = esp_vfs_fat_register("/usb", "usb", 4, NULL);
     if (ret != ESP_OK) {
         ESP_LOGE(TAG, "Failed to register FAT filesystem on USB storage: %s", esp_err_to_name(ret));
-        return;  // Nếu mount thất bại, dừng lại và không tiếp tục ghi dữ liệu
+        return;
     } else {
-        ESP_LOGI(TAG, "USB storage mounted successfully");
+        ESP_LOGI(TAG, "USB storage mounted successfully.");
     }
 }
-
 
 // Sự kiện WiFi
 static void wifi_event_handler(void *arg, esp_event_base_t event_base,
@@ -175,7 +225,7 @@ void init_wifi(void) {
 }
 
 void app_main(void) {
-    // Khởi tạo NVS (lưu trữ không biến đổi)
+    // Khởi tạo NVS (Non-Volatile Storage)
     ESP_ERROR_CHECK(nvs_flash_init());
 
     // Khởi động WiFi
@@ -187,12 +237,5 @@ void app_main(void) {
     // Khởi tạo HTTP server
     start_webserver();
 
-    ESP_LOGI(TAG, "HTTP server started. You can post data now.");
-
-    // Ghi dữ liệu trực tiếp vào USB (chạy thử nghiệm không qua HTTP)
-    if (write_data_to_usb("Test data from USB write function") == ESP_OK) {
-        ESP_LOGI(TAG, "Test data written to USB successfully.");
-    } else {
-        ESP_LOGE(TAG, "Failed to write test data to USB.");
-    }
+    ESP_LOGI(TAG, "HTTP server started. You can access the web interface now.");
 }
