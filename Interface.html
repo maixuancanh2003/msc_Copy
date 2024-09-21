@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Upload - Mai Xuân Cảnh</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f8ff; /* Màu nền nhạt */
+            color: #333;
+            text-align: center;
+            padding: 50px;
+        }
+
+        h1 {
+            color: #0073e6; /* Màu xanh logo ĐH Bách Khoa */
+            margin-bottom: 10px;
+        }
+
+        h2 {
+            color: #333;
+            margin-bottom: 30px;
+        }
+
+        .container {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            width: 150px;
+            margin-bottom: 20px;
+        }
+
+        .form-container {
+            background-color: #e6f7ff; /* Nền form xanh nhạt */
+            border-radius: 10px;
+            padding: 20px;
+        }
+
+        input[type="file"] {
+            margin-bottom: 20px;
+        }
+
+        input[type="submit"] {
+            background-color: #0073e6; /* Màu xanh Bách Khoa */
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #005bb5; /* Màu xanh đậm khi hover */
+        }
+
+        footer {
+            margin-top: 30px;
+            font-size: 0.9em;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Sử dụng đường dẫn cục bộ tới file logo -->
+        <img src="HCMUT_official_logo.png" alt="HCMUT Logo" class="logo">
+        <h1>Project 2</h1>
+        <h2>Mai Xuan Canh</h2>       
+        <h3>ID: 2110834</h3>
+        <h4>Ho Chi Minh City University of Technology</h4>
+        <div class="form-container">
+            <h2>Upload your file to Data Logger</h2>
+        <!-- Change ESP32 IP board to Reciving your files -->
+        <!-- Change ESP32 IP board to Reciving your files -->
+<!-- Please Check esp32 is running with http server and Make sure that ESP cans recieve file -->
+            <form action="http://192.168.137.145/upload" method="post" enctype="multipart/form-data">
+                <input type="file" name="file" required>
+                <br>
+                <input type="submit" value="Upload File">
+            </form>
+        </div>
+    </div>
+
+    <footer>
+        &copy; 2024 Mai Xuan Canh - Ho Chi Minh City University of Technology
+    </footer>
+</body>
+</html>

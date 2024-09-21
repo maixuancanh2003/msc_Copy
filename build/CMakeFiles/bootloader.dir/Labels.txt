@@ -1,0 +1,13 @@
+# Target labels
+ bootloader
+# Source files and their labels
+D:/HK241/Project2/code/msc_Copy/build/CMakeFiles/bootloader
+D:/HK241/Project2/code/msc_Copy/build/CMakeFiles/bootloader.rule
+D:/HK241/Project2/code/msc_Copy/build/CMakeFiles/bootloader-complete.rule
+D:/HK241/Project2/code/msc_Copy/build/bootloader-prefix/src/bootloader-stamp/bootloader-build.rule
+D:/HK241/Project2/code/msc_Copy/build/bootloader-prefix/src/bootloader-stamp/bootloader-configure.rule
+D:/HK241/Project2/code/msc_Copy/build/bootloader-prefix/src/bootloader-stamp/bootloader-download.rule
+D:/HK241/Project2/code/msc_Copy/build/bootloader-prefix/src/bootloader-stamp/bootloader-install.rule
+D:/HK241/Project2/code/msc_Copy/build/bootloader-prefix/src/bootloader-stamp/bootloader-mkdir.rule
+D:/HK241/Project2/code/msc_Copy/build/bootloader-prefix/src/bootloader-stamp/bootloader-patch.rule
+D:/HK241/Project2/code/msc_Copy/build/bootloader-prefix/src/bootloader-stamp/bootloader-update.rule
