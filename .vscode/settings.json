@@ -14,6 +14,12 @@
         "tinyusb.h": "c",
         "esp_heap_caps.h": "c",
         "freertos.h": "c",
-        "esp_types.h": "c"
+        "esp_types.h": "c",
+        "stat.h": "c",
+        "errno.h": "c",
+        "dirent.h": "c",
+        "msc_host_vfs.h": "c",
+        "string.h": "c",
+        "stdio.h": "c"
     }
 }
