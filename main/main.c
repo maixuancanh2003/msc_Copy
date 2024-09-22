@@ -71,35 +71,217 @@ static void gpio_cb(void *arg)
     }
 }
 
-// HTML trang web
-const char html_page[] = "<!DOCTYPE html>"
-    "<html lang=\"en\">"
-    "<head>"
-    "<meta charset=\"UTF-8\">"
-    "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">"
-    "<title>ESP32 Data</title>"
-    "<style>"
-    "body {font-family: Arial, sans-serif;background-color: #f0f0f0;margin: 0;padding: 0;display: flex;justify-content: center;align-items: center;height: 100vh;}"
-    ".container {background-color: #fff;padding: 20px;border-radius: 10px;box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);max-width: 400px;text-align: center;}"
-    "h1 {color: #333;}"
-    "form {display: flex;flex-direction: column;}"
-    "textarea {padding: 10px;margin: 10px 0;border: 1px solid #ddd;border-radius: 5px;font-size: 16px;}"
-    "input[type=\"submit\"] {background-color: #28a745;color: white;border: none;padding: 10px;border-radius: 5px;cursor: pointer;font-size: 16px;}"
-    "input[type=\"submit\"]:hover {background-color: #218838;}"
-    "footer {margin-top: 20px;font-size: 12px;color: #999;}"
-    "</style>"
-    "</head>"
-    "<body>"
-    "<div class=\"container\">"
-    "<h1>Send Data</h1>"
-    "<form action=\"/send\" method=\"POST\">"
-    "<textarea name=\"data\" rows=\"5\" placeholder=\"Enter your data here...\"></textarea>"
-    "<input type=\"submit\" value=\"Send Data\">"
-    "</form>"
-    "<footer>Powered by ESP32</footer>"
-    "</div>"
-    "</body>"
-    "</html>";
+const char *html_page = R"rawliteral(
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ESP32 Data</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            background-color: #e0f7fa; 
+            margin: 0; 
+            padding: 0; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            height: 100vh; 
+        }
+        .container { 
+            background-color: #ffffff; 
+            padding: 20px; 
+            border-radius: 15px; 
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); 
+            max-width: 450px; 
+            text-align: center; 
+        }
+        h1 { color: #007bb5; }
+        form { display: flex; flex-direction: column; }
+        textarea { 
+            padding: 10px; 
+            margin: 10px 0; 
+            border: 1px solid #ddd; 
+            border-radius: 5px; 
+            font-size: 16px; 
+            width: 100%; 
+        }
+        input[type="file"] { margin: 10px 0; }
+        input[type="submit"], button { 
+            background-color: #007bb5; 
+            color: white; 
+            border: none; 
+            padding: 12px; 
+            border-radius: 5px; 
+            cursor: pointer; 
+            font-size: 16px; 
+            margin: 10px 0;
+        }
+        input[type="submit"]:hover, button:hover { 
+            background-color: #005f8a; 
+        }
+        #message { margin-top: 15px; font-size: 16px; }
+        footer { margin-top: 20px; font-size: 12px; color: #999; }
+        .toggle-switch { display: flex; justify-content: center; align-items: center; margin: 20px 0; }
+        .switch-label { margin-right: 10px; font-size: 16px; color: #007bb5; }
+        .switch { position: relative; display: inline-block; width: 50px; height: 24px; }
+        .switch input { opacity: 0; width: 0; height: 0; }
+        .slider { 
+            position: absolute; 
+            cursor: pointer; 
+            top: 0; 
+            left: 0; 
+            right: 0; 
+            bottom: 0; 
+            background-color: #ccc; 
+            transition: .4s; 
+            border-radius: 24px; 
+        }
+        .slider:before { 
+            position: absolute; 
+            content: ""; 
+            height: 20px; 
+            width: 20px; 
+            left: 4px; 
+            bottom: 2px; 
+            background-color: white; 
+            transition: .4s; 
+            border-radius: 50%; 
+        }
+        input:checked + .slider { background-color: #007bb5; }
+        input:checked + .slider:before { transform: translateX(26px); }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Send Data</h1>
+        <p><strong>Name:</strong> Mai Xuan Canh</p>
+        <p><strong>Student ID:</strong> 2110834</p>
+        <p><strong>University:</strong> Ho Chi Minh City University of Technology</p>
+        <form id="dataForm">
+            <textarea name="data" rows="5" placeholder="Enter your data here..."></textarea>
+            <input type="file" name="file">
+            <input type="submit" value="Send Data">
+        </form>
+        <div class="toggle-switch">
+            <span class="switch-label">USB:</span>
+            <label class="switch">
+                <input type="checkbox" id="usbToggle">
+                <span class="slider"></span>
+            </label>
+        </div>
+        <p id="usbStatus">USB is disabled</p>
+        <button id="sendUsbStatus">Send USB Status</button> <!-- Nút gửi trạng thái của switch -->
+        <p id="message"></p> <!-- Thông báo hiển thị ở đây -->
+        <footer>Powered by ESP32</footer>
+    </div>
+
+    <script>
+        document.getElementById('dataForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Ngăn trang tải lại
+            
+            var data = document.querySelector('textarea').value;
+            var file = document.querySelector('input[type="file"]').files[0];
+            var usbStatus = document.getElementById('usbToggle').checked ? "enabled" : "disabled"; // Trạng thái của công tắc USB
+
+            var formData = new FormData();
+            formData.append("data", data);
+            formData.append("usbStatus", usbStatus);
+            if (file) {
+                formData.append("file", file);
+            }
+
+            // Hiển thị trạng thái "Sending..."
+            var messageElement = document.getElementById('message');
+            messageElement.textContent = 'Sending...';
+            messageElement.style.color = 'blue';
+            messageElement.style.display = 'block';
+
+            // Bắt đầu gửi dữ liệu
+            fetch('/send', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.text())
+            .then(result => {
+                messageElement.textContent = 'Data sent successfully!';
+                messageElement.style.color = 'green';
+
+                // Ẩn thông báo sau 3 giây
+                setTimeout(() => {
+                    messageElement.style.display = 'none';
+                }, 3000);
+            })
+            .catch(error => {
+                messageElement.textContent = 'Error sending data!';
+                messageElement.style.color = 'red';
+
+                // Ẩn thông báo sau 3 giây
+                setTimeout(() => {
+                    messageElement.style.display = 'none';
+                }, 3000);
+
+                console.error('Error:', error);
+            });
+        });
+
+        // Xử lý công tắc USB
+        var usbToggle = document.getElementById('usbToggle');
+        var usbStatusText = document.getElementById('usbStatus');
+        usbToggle.addEventListener('change', function() {
+            if (usbToggle.checked) {
+                usbStatusText.textContent = 'USB is enabled';
+            } else {
+                usbStatusText.textContent = 'USB is disabled';
+            }
+        });
+
+        // Xử lý khi nhấn nút "Send USB Status"
+        document.getElementById('sendUsbStatus').addEventListener('click', function() {
+            var usbStatus = document.getElementById('usbToggle').checked ? "enabled" : "disabled";
+            
+            // Hiển thị trạng thái "Sending USB Status..."
+            var messageElement = document.getElementById('message');
+            messageElement.textContent = 'Sending USB Status...';
+            messageElement.style.color = 'blue';
+            messageElement.style.display = 'block';
+
+            fetch('/send_usb_status', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ usbStatus: usbStatus })
+            })
+            .then(response => response.text())
+            .then(result => {
+                messageElement.textContent = 'USB Status sent successfully!';
+                messageElement.style.color = 'green';
+
+                // Ẩn thông báo sau 3 giây
+                setTimeout(() => {
+                    messageElement.style.display = 'none';
+                }, 3000);
+            })
+            .catch(error => {
+                messageElement.textContent = 'Error sending USB Status!';
+                messageElement.style.color = 'red';
+
+                // Ẩn thông báo sau 3 giây
+                setTimeout(() => {
+                    messageElement.style.display = 'none';
+                }, 3000);
+
+                console.error('Error:', error);
+            });
+        });
+    </script>
+</body>
+</html>
+)rawliteral";
+
+
 
 // Xử lý yêu cầu HTTP GET cho trang web chính
 esp_err_t handle_get_root(httpd_req_t *req) {
@@ -390,7 +572,6 @@ void app_main(void)
     init_wifi();
 
     // Khởi tạo HTTP server
-    start_webserver();
     // Create FreeRTOS primitives
     app_queue = xQueueCreate(5, sizeof(app_message_t));
     assert(app_queue);
@@ -447,11 +628,13 @@ void app_main(void)
 
             // 4. The disk is mounted to Virtual File System, perform some basic demo file operation
             file_operations();
-
+            start_webserver();
             // 5. Perform speed test
             speed_test();
+            // while (1) {
+            // ESP_LOGI(TAG, "InitDone");
+            // }
 
-            ESP_LOGI(TAG, "Example finished, you can disconnect the USB flash drive");
         }
         if ((msg.id == APP_DEVICE_DISCONNECTED) || (msg.id == APP_QUIT)) {
             if (vfs_handle) {

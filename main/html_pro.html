@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ESP32 Data</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 400px; /* Giữ nguyên chiều rộng ban đầu */
+            text-align: center;
+        }
+        h1 {
+            color: #333;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        textarea {
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            width: 100%;
+        }
+        input[type="file"] {
+            margin: 10px 0;
+        }
+        input[type="submit"] {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        input[type="submit"]:hover {
+            background-color: #218838;
+        }
+        #message {
+            color: green;
+            margin-top: 15px;
+        }
+        footer {
+            margin-top: 20px;
+            font-size: 12px;
+            color: #999;
+        }
+        .toggle-switch {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 20px 0;
+        }
+        .switch-label {
+            margin-right: 10px;
+        }
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 24px;
+        }
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 24px;
+        }
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 20px;
+            width: 20px;
+            left: 4px;
+            bottom: 2px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+        input:checked + .slider {
+            background-color: #28a745;
+        }
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Send Data</h1>
+        <p><strong>Name:</strong> Mai Xuan Canh</p>
+        <p><strong>Student ID:</strong> 2110834</p>
+        <p><strong>University:</strong> Ho Chi Minh City University of Technology</p>
+        <form id="dataForm">
+            <textarea name="data" rows="5" placeholder="Enter your data here..."></textarea>
+            <input type="file" name="file">
+            <input type="submit" value="Send Data">
+        </form>
+        <div class="toggle-switch">
+            <span class="switch-label">USB:</span>
+            <label class="switch">
+                <input type="checkbox" id="usbToggle">
+                <span class="slider"></span>
+            </label>
+        </div>
+        <p id="usbStatus">USB is disabled</p>
+        <p id="message"></p> <!-- Thông báo hiển thị ở đây -->
+        <footer>Powered by ESP32</footer>
+    </div>
+
+    <script>
+        document.getElementById('dataForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Ngăn trang tải lại
+            
+            var data = document.querySelector('textarea').value;
+            var file = document.querySelector('input[type="file"]').files[0];
+            var usbStatus = document.getElementById('usbToggle').checked ? "enabled" : "disabled"; // Trạng thái của công tắc USB
+
+            var formData = new FormData();
+            formData.append("data", data);
+            formData.append("usbStatus", usbStatus);
+            if (file) {
+                formData.append("file", file);
+            }
+
+            fetch('/send', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.text())
+            .then(result => {
+                document.getElementById('message').textContent = 'Data sent successfully!'; // In thông báo
+            })
+            .catch(error => {
+                document.getElementById('message').textContent = 'Error sending data!';
+                console.error('Error:', error);
+            });
+        });
+
+        // Xử lý công tắc USB
+        var usbToggle = document.getElementById('usbToggle');
+        var usbStatusText = document.getElementById('usbStatus');
+        usbToggle.addEventListener('change', function() {
+            if (usbToggle.checked) {
+                usbStatusText.textContent = 'USB is enabled';
+            } else {
+                usbStatusText.textContent = 'USB is disabled';
+            }
+        });
+    </script>
+</body>
+</html>
