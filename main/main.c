@@ -22,6 +22,9 @@
 #include <nvs_flash.h>
 #include <esp_event.h>
 #include <esp_wifi.h>
+#include <string.h>
+#define MAX_DATA_LEN 100
+
 // WiFi credentials
 #define WIFI_SSID "HELLO"          // SSID của WiFi
 #define WIFI_PASS "12345678"       // Mật khẩu của WiFi
@@ -79,218 +82,360 @@ const char *html_page = R"rawliteral(
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ESP32 Data</title>
     <style>
-        body { 
-            font-family: Arial, sans-serif; 
-            background-color: #e0f7fa; 
-            margin: 0; 
-            padding: 0; 
-            display: flex; 
-            justify-content: center; 
-            align-items: center; 
-            height: 100vh; 
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f4f8;  /* Màu nền sáng */
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
         }
-        .container { 
-            background-color: #ffffff; 
-            padding: 20px; 
-            border-radius: 15px; 
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); 
-            max-width: 450px; 
-            text-align: center; 
+
+        .container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            text-align: center;
         }
-        h1 { color: #007bb5; }
-        form { display: flex; flex-direction: column; }
-        textarea { 
-            padding: 10px; 
-            margin: 10px 0; 
-            border: 1px solid #ddd; 
-            border-radius: 5px; 
-            font-size: 16px; 
-            width: 100%; 
+
+        h1 {
+            color: #0071C8;  /* Màu xanh Bách Khoa */
+            margin-bottom: 20px;
         }
-        input[type="file"] { margin: 10px 0; }
-        input[type="submit"], button { 
-            background-color: #007bb5; 
-            color: white; 
-            border: none; 
-            padding: 12px; 
-            border-radius: 5px; 
-            cursor: pointer; 
-            font-size: 16px; 
+
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        textarea, input[type="file"] {
+            padding: 10px;
             margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            width: 100%;
         }
-        input[type="submit"]:hover, button:hover { 
-            background-color: #005f8a; 
+
+        input[type="submit"], button {
+            background-color: #0071C8;  /* Màu xanh Bách Khoa */
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 10px;
+            width: 100%;
         }
-        #message { margin-top: 15px; font-size: 16px; }
-        footer { margin-top: 20px; font-size: 12px; color: #999; }
-        .toggle-switch { display: flex; justify-content: center; align-items: center; margin: 20px 0; }
-        .switch-label { margin-right: 10px; font-size: 16px; color: #007bb5; }
-        .switch { position: relative; display: inline-block; width: 50px; height: 24px; }
-        .switch input { opacity: 0; width: 0; height: 0; }
-        .slider { 
-            position: absolute; 
-            cursor: pointer; 
-            top: 0; 
-            left: 0; 
-            right: 0; 
-            bottom: 0; 
-            background-color: #ccc; 
-            transition: .4s; 
-            border-radius: 24px; 
+
+        input[type="submit"]:hover, button:hover {
+            background-color: #005999;  /* Màu xanh đậm hơn khi hover */
         }
-        .slider:before { 
-            position: absolute; 
-            content: ""; 
-            height: 20px; 
-            width: 20px; 
-            left: 4px; 
-            bottom: 2px; 
-            background-color: white; 
-            transition: .4s; 
-            border-radius: 50%; 
+
+        #message {
+            color: green;
+            margin-top: 15px;
+            visibility: hidden;  /* Ẩn thông báo mặc định */
         }
-        input:checked + .slider { background-color: #007bb5; }
-        input:checked + .slider:before { transform: translateX(26px); }
+
+        footer {
+            margin-top: 20px;
+            font-size: 12px;
+            color: #999;
+        }
+
+        .file-upload-section,
+        .toggle-section {
+            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+        }
+
+        .file-button,
+        .status-button {
+            background-color: #0071C8;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 10px;
+            width: 100%;
+        }
+
+        .file-button:hover, 
+        .status-button:hover {
+            background-color: #005999;
+        }
+
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 24px;
+            margin-right: 10px;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 24px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 20px;
+            width: 20px;
+            left: 4px;
+            bottom: 2px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: #0071C8;
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+        
+        .toggle-section {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            margin-top: 20px;
+        }
+
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Send Data</h1>
+        <h1>ESP32 Data Interface</h1>
         <p><strong>Name:</strong> Mai Xuan Canh</p>
         <p><strong>Student ID:</strong> 2110834</p>
         <p><strong>University:</strong> Ho Chi Minh City University of Technology</p>
+
+        <!-- Form gửi dữ liệu (textarea) -->
         <form id="dataForm">
             <textarea name="data" rows="5" placeholder="Enter your data here..."></textarea>
-            <input type="file" name="file">
-            <input type="submit" value="Send Data">
+            <input type="submit" value="Send Data">  <!-- Nút gửi dữ liệu -->
         </form>
-        <div class="toggle-switch">
-            <span class="switch-label">USB:</span>
+
+        <!-- Input chọn file và nút gửi file -->
+        <div class="file-upload-section">
+            <input type="file" id="fileInput">  <!-- Input chọn file -->
+            <button class="file-button" id="sendFileButton">Send File</button>  <!-- Nút gửi file -->
+        </div>
+
+        <!-- Công tắc bật tắt USB và nút gửi trạng thái -->
+        <div class="toggle-section">
             <label class="switch">
                 <input type="checkbox" id="usbToggle">
                 <span class="slider"></span>
             </label>
+            <button class="status-button" id="sendStatusButton">Send USB Status</button>  <!-- Nút gửi trạng thái -->
         </div>
-        <p id="usbStatus">USB is disabled</p>
-        <button id="sendUsbStatus">Send USB Status</button> <!-- Nút gửi trạng thái của switch -->
+        
         <p id="message"></p> <!-- Thông báo hiển thị ở đây -->
         <footer>Powered by ESP32</footer>
     </div>
 
     <script>
+        // Hàm để hiển thị thông báo "Sending..." và ẩn sau khi gửi xong
+        function showMessage(text, isError = false) {
+            const messageElement = document.getElementById('message');
+            messageElement.style.visibility = 'visible';
+            messageElement.textContent = text;
+            messageElement.style.color = isError ? 'red' : 'green';
+
+            // Tự động ẩn sau 3 giây
+            setTimeout(() => {
+                messageElement.style.visibility = 'hidden';
+            }, 3000);
+        }
+
+        // Khi nhấn nút "Send Data" (gửi dữ liệu từ textarea)
         document.getElementById('dataForm').addEventListener('submit', function(event) {
-            event.preventDefault(); // Ngăn trang tải lại
-            
-            var data = document.querySelector('textarea').value;
-            var file = document.querySelector('input[type="file"]').files[0];
-            var usbStatus = document.getElementById('usbToggle').checked ? "enabled" : "disabled"; // Trạng thái của công tắc USB
+            event.preventDefault();  // Ngăn trang tải lại
+            showMessage('Sending...');  // Hiển thị "Sending..."
 
+            var data = document.querySelector('textarea').value;  // Lấy giá trị của data
             var formData = new FormData();
-            formData.append("data", data);
-            formData.append("usbStatus", usbStatus);
-            if (file) {
-                formData.append("file", file);
-            }
-
-            // Hiển thị trạng thái "Sending..."
-            var messageElement = document.getElementById('message');
-            messageElement.textContent = 'Sending...';
-            messageElement.style.color = 'blue';
-            messageElement.style.display = 'block';
-
-            // Bắt đầu gửi dữ liệu
+            formData.append("data", data);  // Chỉ gửi trường "data"
+            
             fetch('/send', {
                 method: 'POST',
                 body: formData
             })
             .then(response => response.text())
             .then(result => {
-                messageElement.textContent = 'Data sent successfully!';
-                messageElement.style.color = 'green';
-
-                // Ẩn thông báo sau 3 giây
-                setTimeout(() => {
-                    messageElement.style.display = 'none';
-                }, 3000);
+                showMessage('Data sent successfully!');
             })
             .catch(error => {
-                messageElement.textContent = 'Error sending data!';
-                messageElement.style.color = 'red';
-
-                // Ẩn thông báo sau 3 giây
-                setTimeout(() => {
-                    messageElement.style.display = 'none';
-                }, 3000);
-
+                showMessage('Error sending data!', true);
                 console.error('Error:', error);
             });
         });
 
-        // Xử lý công tắc USB
-        var usbToggle = document.getElementById('usbToggle');
-        var usbStatusText = document.getElementById('usbStatus');
-        usbToggle.addEventListener('change', function() {
-            if (usbToggle.checked) {
-                usbStatusText.textContent = 'USB is enabled';
-            } else {
-                usbStatusText.textContent = 'USB is disabled';
-            }
-        });
-
-        // Xử lý khi nhấn nút "Send USB Status"
-        document.getElementById('sendUsbStatus').addEventListener('click', function() {
-            var usbStatus = document.getElementById('usbToggle').checked ? "enabled" : "disabled";
+        // Khi nhấn nút "Send USB Status" (gửi trạng thái của công tắc USB)
+        document.getElementById('sendStatusButton').addEventListener('click', function() {
+            showMessage('Sending...');  // Hiển thị "Sending..."
+            var usbStatus = document.getElementById('usbToggle').checked ? "enabled" : "disabled";  // Lấy giá trị của công tắc USB
             
-            // Hiển thị trạng thái "Sending USB Status..."
-            var messageElement = document.getElementById('message');
-            messageElement.textContent = 'Sending USB Status...';
-            messageElement.style.color = 'blue';
-            messageElement.style.display = 'block';
-
-            fetch('/send_usb_status', {
+            var formData = new FormData();
+            formData.append("usbStatus", usbStatus);  // Chỉ gửi trường "usbStatus"
+            
+            fetch('/send', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ usbStatus: usbStatus })
+                body: formData
             })
             .then(response => response.text())
             .then(result => {
-                messageElement.textContent = 'USB Status sent successfully!';
-                messageElement.style.color = 'green';
-
-                // Ẩn thông báo sau 3 giây
-                setTimeout(() => {
-                    messageElement.style.display = 'none';
-                }, 3000);
+                showMessage('USB Status sent successfully!');
             })
             .catch(error => {
-                messageElement.textContent = 'Error sending USB Status!';
-                messageElement.style.color = 'red';
-
-                // Ẩn thông báo sau 3 giây
-                setTimeout(() => {
-                    messageElement.style.display = 'none';
-                }, 3000);
-
+                showMessage('Error sending USB status!', true);
                 console.error('Error:', error);
             });
+        });
+
+        // Khi nhấn nút "Send File" (gửi file mà người dùng đã chọn)
+        document.getElementById('sendFileButton').addEventListener('click', function() {
+            showMessage('Sending...');  // Hiển thị "Sending..."
+            var fileInput = document.getElementById('fileInput');
+            var file = fileInput.files[0];  // Lấy file từ input
+            
+            if (file) {
+                var formData = new FormData();
+                formData.append("file", file);  // Gửi file
+
+                fetch('/send', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.text())
+                .then(result => {
+                    showMessage('File sent successfully!');
+                })
+                .catch(error => {
+                    showMessage('Error sending file!', true);
+                    console.error('Error:', error);
+                });
+            } else {
+                showMessage('No file selected!', true);
+            }
         });
     </script>
 </body>
 </html>
 )rawliteral";
 
+// Hàm phân tích dữ liệu multipart
+static esp_err_t parse_multipart_data(const char *data, char *output, size_t output_len) {
+    const char *boundary = "------WebKitFormBoundary";  // Cần thay thế biên giới tương ứng với client gửi lên
+    const char *data_field = "Content-Disposition: form-data; name=\"data\"";
+    
+    const char *data_start = strstr(data, data_field);
+    if (data_start) {
+        data_start = strstr(data_start, "\r\n\r\n");  // Tìm phần thân dữ liệu
+        if (data_start) {
+            data_start += 4;  // Bỏ qua các ký tự \r\n\r\n
+            const char *data_end = strstr(data_start, boundary);  // Tìm điểm kết thúc dữ liệu
+            if (data_end) {
+                size_t len = data_end - data_start - 4;  // Trừ đi khoảng cách biên giới
+                if (len > output_len) {
+                    len = output_len;  // Đảm bảo không vượt quá kích thước buffer
+                }
+                strncpy(output, data_start, len);
+                output[len] = '\0';  // Kết thúc chuỗi
+                return ESP_OK;
+            }
+        }
+    }
+    return ESP_FAIL;
+}
 
 
 // Xử lý yêu cầu HTTP GET cho trang web chính
 esp_err_t handle_get_root(httpd_req_t *req) {
-    httpd_resp_send(req, html_page, HTTPD_RESP_USE_STRLEN);
+    // Trả về HTML trang web
+    const char *resp_str = (const char *)html_page;
+    httpd_resp_send(req, resp_str, HTTPD_RESP_USE_STRLEN);
+    return ESP_OK;
+}
+httpd_uri_t uri_get_root = {
+    .uri      = "/",
+    .method   = HTTP_GET,
+    .handler  = handle_get_root,
+    .user_ctx = NULL
+};
+
+// Hàm xử lý POST từ HTTP server để in dữ liệu lên console
+// Hàm xử lý POST từ HTTP server để nhận dữ liệu từ form
+esp_err_t handle_post_data(httpd_req_t *req) {
+    char content[300];  // Bộ đệm để chứa dữ liệu
+    int total_len = req->content_len;  // Tổng số byte từ yêu cầu POST
+    int cur_len = 0;
+    int received = 0;
+
+    if (total_len >= sizeof(content)) {
+        // Nếu dữ liệu vượt quá kích thước bộ đệm, ta sẽ xử lý lỗi
+        ESP_LOGI(TAG, "Request content too long");
+        httpd_resp_send_500(req);
+        return ESP_FAIL;
+    }
+
+    while (cur_len < total_len) {
+        // Nhận dữ liệu từ HTTP request
+        received = httpd_req_recv(req, content + cur_len, total_len - cur_len);
+        if (received <= 0) {
+            // Nếu có lỗi khi nhận, trả về lỗi
+            if (received == HTTPD_SOCK_ERR_TIMEOUT) {
+                httpd_resp_send_408(req);
+            }
+            return ESP_FAIL;
+        }
+        cur_len += received;
+    }
+
+    content[cur_len] = '\0';  // Đảm bảo kết thúc chuỗi
+
+    // In dữ liệu lên console (dữ liệu đầy đủ)
+    ESP_LOGI(TAG, "Received data: %s", content);
+
+    // Trả về phản hồi cho client
+    httpd_resp_send(req, "Data received and logged", HTTPD_RESP_USE_STRLEN);
     return ESP_OK;
 }
 
-// Hàm xử lý POST từ HTTP server để in dữ liệu lên console
-esp_err_t handle_post_data(httpd_req_t *req) {
+
+// Định nghĩa handler cho send_usb_status
+esp_err_t handle_post_usb_status(httpd_req_t *req) {
     char content[100];
     int ret = httpd_req_recv(req, content, sizeof(content));
     if (ret <= 0) {
@@ -301,41 +446,54 @@ esp_err_t handle_post_data(httpd_req_t *req) {
     }
     content[ret] = '\0';  // Đảm bảo chuỗi kết thúc
 
-    // In dữ liệu lên console
-    ESP_LOGI(TAG, "Received data: %s", content);
+    // In dữ liệu trạng thái USB lên console
+    ESP_LOGI(TAG, "Received USB status: %s", content);
 
-    httpd_resp_send(req, "Data received and logged", HTTPD_RESP_USE_STRLEN);
+    httpd_resp_send(req, "USB status received and logged", HTTPD_RESP_USE_STRLEN);
     return ESP_OK;
 }
+// Đăng ký URI handler cho đường dẫn /send_usb_status
+httpd_uri_t uri_post_usb_status = {
+    .uri      = "/send_usb_status",
+    .method   = HTTP_POST,
+    .handler  = handle_post_usb_status,
+    .user_ctx = NULL
+};
 
-// Khởi tạo HTTP server
+httpd_uri_t uri_post = {
+    .uri      = "/send",
+    .method   = HTTP_POST,
+    .handler  = handle_post_data, // Gọi hàm handle_post_data
+    .user_ctx = NULL
+};
+
+
+
+// Đăng ký URI handler trong server
+// Khởi động webserver và đăng ký các handler
 httpd_handle_t start_webserver(void) {
+    httpd_handle_t server = NULL;
     httpd_config_t config = HTTPD_DEFAULT_CONFIG();
 
-    // Khởi tạo HTTP server
+    // Khởi động HTTP server
     if (httpd_start(&server, &config) == ESP_OK) {
-        // Đăng ký xử lý GET cho đường dẫn "/"
-        httpd_uri_t uri_get = {
-            .uri = "/",
-            .method = HTTP_GET,
-            .handler = handle_get_root,
-            .user_ctx = NULL
-        };
-        httpd_register_uri_handler(server, &uri_get);
+        // Đăng ký URI handler cho đường dẫn /
+        httpd_register_uri_handler(server, &uri_get_root);
 
-        // Xử lý POST dữ liệu cho đường dẫn "/send"
-        httpd_uri_t uri_post = {
-            .uri = "/send",
-            .method = HTTP_POST,
-            .handler = handle_post_data,
-            .user_ctx = NULL
-        };
-        httpd_register_uri_handler(server, &uri_post);
-        return server;  // Trả về server nếu khởi tạo thành công
+        // Đăng ký URI handler cho đường dẫn /send
+        httpd_register_uri_handler(server, &uri_post); // Thêm dòng này
+
+        // Đăng ký URI handler cho đường dẫn /send_usb_status
+        httpd_register_uri_handler(server, &uri_post_usb_status);
+
+        return server;
     }
 
-    return NULL;  // Trả về NULL nếu khởi tạo thất bại
+    ESP_LOGI(TAG, "Error starting server!");
+    return NULL;
 }
+
+
 
 // Sự kiện WiFi
 static void wifi_event_handler(void *arg, esp_event_base_t event_base,
