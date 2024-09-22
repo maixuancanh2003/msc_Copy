@@ -572,13 +572,6 @@ D:/HK241/Project2/code/msc_Copy/build/esp-idf/fatfs/CMakeFiles/list_install_comp
 D:/HK241/Project2/code/msc_Copy/build/esp-idf/fatfs/CMakeFiles/install.dir
 D:/HK241/Project2/code/msc_Copy/build/esp-idf/fatfs/CMakeFiles/install/local.dir
 D:/HK241/Project2/code/msc_Copy/build/esp-idf/fatfs/CMakeFiles/install/strip.dir
-D:/HK241/Project2/code/msc_Copy/build/esp-idf/espressif__tinyusb/CMakeFiles/__idf_espressif__tinyusb.dir
-D:/HK241/Project2/code/msc_Copy/build/esp-idf/espressif__tinyusb/CMakeFiles/edit_cache.dir
-D:/HK241/Project2/code/msc_Copy/build/esp-idf/espressif__tinyusb/CMakeFiles/rebuild_cache.dir
-D:/HK241/Project2/code/msc_Copy/build/esp-idf/espressif__tinyusb/CMakeFiles/list_install_components.dir
-D:/HK241/Project2/code/msc_Copy/build/esp-idf/espressif__tinyusb/CMakeFiles/install.dir
-D:/HK241/Project2/code/msc_Copy/build/esp-idf/espressif__tinyusb/CMakeFiles/install/local.dir
-D:/HK241/Project2/code/msc_Copy/build/esp-idf/espressif__tinyusb/CMakeFiles/install/strip.dir
 D:/HK241/Project2/code/msc_Copy/build/esp-idf/usb/CMakeFiles/__idf_usb.dir
 D:/HK241/Project2/code/msc_Copy/build/esp-idf/usb/CMakeFiles/edit_cache.dir
 D:/HK241/Project2/code/msc_Copy/build/esp-idf/usb/CMakeFiles/rebuild_cache.dir
@@ -586,6 +579,13 @@ D:/HK241/Project2/code/msc_Copy/build/esp-idf/usb/CMakeFiles/list_install_compon
 D:/HK241/Project2/code/msc_Copy/build/esp-idf/usb/CMakeFiles/install.dir
 D:/HK241/Project2/code/msc_Copy/build/esp-idf/usb/CMakeFiles/install/local.dir
 D:/HK241/Project2/code/msc_Copy/build/esp-idf/usb/CMakeFiles/install/strip.dir
+D:/HK241/Project2/code/msc_Copy/build/esp-idf/espressif__tinyusb/CMakeFiles/__idf_espressif__tinyusb.dir
+D:/HK241/Project2/code/msc_Copy/build/esp-idf/espressif__tinyusb/CMakeFiles/edit_cache.dir
+D:/HK241/Project2/code/msc_Copy/build/esp-idf/espressif__tinyusb/CMakeFiles/rebuild_cache.dir
+D:/HK241/Project2/code/msc_Copy/build/esp-idf/espressif__tinyusb/CMakeFiles/list_install_components.dir
+D:/HK241/Project2/code/msc_Copy/build/esp-idf/espressif__tinyusb/CMakeFiles/install.dir
+D:/HK241/Project2/code/msc_Copy/build/esp-idf/espressif__tinyusb/CMakeFiles/install/local.dir
+D:/HK241/Project2/code/msc_Copy/build/esp-idf/espressif__tinyusb/CMakeFiles/install/strip.dir
 D:/HK241/Project2/code/msc_Copy/build/esp-idf/espressif__esp_tinyusb/CMakeFiles/__idf_espressif__esp_tinyusb.dir
 D:/HK241/Project2/code/msc_Copy/build/esp-idf/espressif__esp_tinyusb/CMakeFiles/edit_cache.dir
 D:/HK241/Project2/code/msc_Copy/build/esp-idf/espressif__esp_tinyusb/CMakeFiles/rebuild_cache.dir

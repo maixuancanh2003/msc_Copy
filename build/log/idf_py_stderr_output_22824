@@ -1,0 +1,548 @@
+[0;33m--- WARNING: GDB cannot open serial ports accessed as COMx[0m
+[0;33m--- Using \\.\COM4 instead...[0m
+[0;33m--- esp-idf-monitor 1.4.0 on \\.\COM4 115200 ---[0m
+[0;33m--- Quit: Ctrl+] | Menu: Ctrl+T | Help: Ctrl+T followed by Ctrl+H ---[0m
+[0;33m0x40375af2: panic_abort at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/panic.c:463
+0x4037a18d: esp_system_abort at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/port/esp_system_chip.c:92
+0x40380dd5: __assert_func at C:/Espressif/frameworks/esp-idf-v5.3.1/components/newlib/assert.c:80
+0x4201f316: tcpip_send_msg_wait_sem at C:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/lwip/src/api/tcpip.c:449 (discriminator 1)
+0x4202b2a9: netconn_apimsg at C:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/lwip/src/api/api_lib.c:131
+0x4202b332: netconn_new_with_proto_and_callback at C:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/lwip/src/api/api_lib.c:161
+0x4201f171: lwip_socket at C:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/lwip/src/api/sockets.c:1720 (discriminator 4)
+0x4201b5cd: socket at C:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/include/lwip/sockets.h:48
+ (inlined by) httpd_server_init at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_http_server/src/httpd_main.c:352
+0x4201bc95: httpd_start at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_http_server/src/httpd_main.c:519
+0x4200ac7c: start_webserver at D:/HK241/Project2/code/msc_Copy/main/main.c:175
+0x4200b226: app_main at D:/HK241/Project2/code/msc_Copy/main/main.c:376
+0x42048503: main_task at C:/Espressif/frameworks/esp-idf-v5.3.1/components/freertos/app_startup.c:208
+0x4037ac21: vPortTaskWrapper at C:/Espressif/frameworks/esp-idf-v5.3.1/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:134
+[0m
+[0;33m0x40375a2c: esp_restart_noos at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/port/soc/esp32s3/system_internal.c:158
+[0m
+[0;33m0x40375af2: panic_abort at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/panic.c:463
+0x4037a18d: esp_system_abort at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/port/esp_system_chip.c:92
+0x40380dd5: __assert_func at C:/Espressif/frameworks/esp-idf-v5.3.1/components/newlib/assert.c:80
+0x4201f316: tcpip_send_msg_wait_sem at C:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/lwip/src/api/tcpip.c:449 (discriminator 1)
+0x4202b2a9: netconn_apimsg at C:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/lwip/src/api/api_lib.c:131
+0x4202b332: netconn_new_with_proto_and_callback at C:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/lwip/src/api/api_lib.c:161
+0x4201f171: lwip_socket at C:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/lwip/src/api/sockets.c:1720 (discriminator 4)
+0x4201b5cd: socket at C:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/include/lwip/sockets.h:48
+ (inlined by) httpd_server_init at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_http_server/src/httpd_main.c:352
+0x4201bc95: httpd_start at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_http_server/src/httpd_main.c:519
+0x4200ac7c: start_webserver at D:/HK241/Project2/code/msc_Copy/main/main.c:175
+0x4200b226: app_main at D:/HK241/Project2/code/msc_Copy/main/main.c:376
+0x42048503: main_task at C:/Espressif/frameworks/esp-idf-v5.3.1/components/freertos/app_startup.c:208
+0x4037ac21: vPortTaskWrapper at C:/Espressif/frameworks/esp-idf-v5.3.1/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:134
+[0m
+[0;33m0x40375a2c: esp_restart_noos at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/port/soc/esp32s3/system_internal.c:158
+[0m
+[0;33m0x40375af2: panic_abort at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/panic.c:463
+0x4037a18d: esp_system_abort at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/port/esp_system_chip.c:92
+0x40380dd5: __assert_func at C:/Espressif/frameworks/esp-idf-v5.3.1/components/newlib/assert.c:80
+0x4201f316: tcpip_send_msg_wait_sem at C:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/lwip/src/api/tcpip.c:449 (discriminator 1)
+0x4202b2a9: netconn_apimsg at C:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/lwip/src/api/api_lib.c:131
+0x4202b332: netconn_new_with_proto_and_callback at C:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/lwip/src/api/api_lib.c:161
+0x4201f171: lwip_socket at C:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/lwip/src/api/sockets.c:1720 (discriminator 4)
+0x4201b5cd: socket at C:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/include/lwip/sockets.h:48
+ (inlined by) httpd_server_init at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_http_server/src/httpd_main.c:352
+0x4201bc95: httpd_start at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_http_server/src/httpd_main.c:519
+0x4200ac7c: start_webserver at D:/HK241/Project2/code/msc_Copy/main/main.c:175
+0x4200b226: app_main at D:/HK241/Project2/code/msc_Copy/main/main.c:376
+0x42048503: main_task at C:/Espressif/frameworks/esp-idf-v5.3.1/components/freertos/app_startup.c:208
+0x4037ac21: vPortTaskWrapper at C:/Espressif/frameworks/esp-idf-v5.3.1/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:134
+[0m
+[0;33m0x40375a2c: esp_restart_noos at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/port/soc/esp32s3/system_internal.c:158
+[0m
+[0;33m0x40375af2: panic_abort at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/panic.c:463
+0x4037a18d: esp_system_abort at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/port/esp_system_chip.c:92
+0x40380dd5: __assert_func at C:/Espressif/frameworks/esp-idf-v5.3.1/components/newlib/assert.c:80
+0x4201f316: tcpip_send_msg_wait_sem at C:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/lwip/src/api/tcpip.c:449 (discriminator 1)
+0x4202b2a9: netconn_apimsg at C:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/lwip/src/api/api_lib.c:131
+0x4202b332: netconn_new_with_proto_and_callback at C:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/lwip/src/api/api_lib.c:161
+0x4201f171: lwip_socket at C:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/lwip/src/api/sockets.c:1720 (discriminator 4)
+0x4201b5cd: socket at C:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/include/lwip/sockets.h:48
+ (inlined by) httpd_server_init at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_http_server/src/httpd_main.c:352
+0x4201bc95: httpd_start at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_http_server/src/httpd_main.c:519
+[0m
+[0;33m0x4200b226: app_main at D:/HK241/Project2/code/msc_Copy/main/main.c:376
+0x42048503: main_task at C:/Espressif/frameworks/esp-idf-v5.3.1/components/freertos/app_startup.c:208
+[0m
+[0;33m0x40375a2c: esp_restart_noos at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/port/soc/esp32s3/system_internal.c:158
+[0m
+[0;33m0x40375af2: panic_abort at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/panic.c:463
+0x4037a18d: esp_system_abort at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/port/esp_system_chip.c:92
+0x40380dd5: __assert_func at C:/Espressif/frameworks/esp-idf-v5.3.1/components/newlib/assert.c:80
+0x4201f316: tcpip_send_msg_wait_sem at C:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/lwip/src/api/tcpip.c:449 (discriminator 1)
+0x4202b2a9: netconn_apimsg at C:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/lwip/src/api/api_lib.c:131
+0x4202b332: netconn_new_with_proto_and_callback at C:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/lwip/src/api/api_lib.c:161
+0x4201f171: lwip_socket at C:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/lwip/src/api/sockets.c:1720 (discriminator 4)
+0x4201b5cd: socket at C:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/include/lwip/sockets.h:48
+ (inlined by) httpd_server_init at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_http_server/src/httpd_main.c:352
+0x4201bc95: httpd_start at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_http_server/src/httpd_main.c:519
+0x4200ac7c: start_webserver at D:/HK241/Project2/code/msc_Copy/main/main.c:175
+0x4200b226: app_main at D:/HK241/Project2/code/msc_Copy/main/main.c:376
+0x42048503: main_task at C:/Espressif/frameworks/esp-idf-v5.3.1/components/freertos/app_startup.c:208
+0x4037ac21: vPortTaskWrapper at C:/Espressif/frameworks/esp-idf-v5.3.1/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:134
+[0m
+[0;33m0x40375a2c: esp_restart_noos at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/port/soc/esp32s3/system_internal.c:158
+[0m
+[0;33m0x40375af2: panic_abort at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/panic.c:463
+0x4037a18d: esp_system_abort at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/port/esp_system_chip.c:92
+0x40380dd5: __assert_func at C:/Espressif/frameworks/esp-idf-v5.3.1/components/newlib/assert.c:80
+0x4201f316: tcpip_send_msg_wait_sem at C:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/lwip/src/api/tcpip.c:449 (discriminator 1)
+0x4202b2a9: netconn_apimsg at C:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/lwip/src/api/api_lib.c:131
+0x4202b332: netconn_new_with_proto_and_callback at C:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/lwip/src/api/api_lib.c:161
+0x4201f171: lwip_socket at C:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/lwip/src/api/sockets.c:1720 (discriminator 4)
+0x4201b5cd: socket at C:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/include/lwip/sockets.h:48
+ (inlined by) httpd_server_init at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_http_server/src/httpd_main.c:352
+0x4201bc95: httpd_start at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_http_server/src/httpd_main.c:519
+0x4200ac7c: start_webserver at D:/HK241/Project2/code/msc_Copy/main/main.c:175
+0x4200b226: app_main at D:/HK241/Project2/code/msc_Copy/main/main.c:376
+0x42048503: main_task at C:/Espressif/frameworks/esp-idf-v5.3.1/components/freertos/app_startup.c:208
+0x4037ac21: vPortTaskWrapper at C:/Espressif/frameworks/esp-idf-v5.3.1/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:134
+[0m
+[0;33m0x40375a2c: esp_restart_noos at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/port/soc/esp32s3/system_internal.c:158
+[0m
+[0;33m0x40375af2: panic_abort at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/panic.c:463
+0x4037a18d: esp_system_abort at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/port/esp_system_chip.c:92
+0x40380dd5: __assert_func at C:/Espressif/frameworks/esp-idf-v5.3.1/components/newlib/assert.c:80
+0x4201f316: tcpip_send_msg_wait_sem at C:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/lwip/src/api/tcpip.c:449 (discriminator 1)
+0x4202b2a9: netconn_apimsg at C:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/lwip/src/api/api_lib.c:131
+0x4202b332: netconn_new_with_proto_and_callback at C:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/lwip/src/api/api_lib.c:161
+0x4201f171: lwip_socket at C:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/lwip/src/api/sockets.c:1720 (discriminator 4)
+0x4201b5cd: socket at C:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/include/lwip/sockets.h:48
+ (inlined by) httpd_server_init at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_http_server/src/httpd_main.c:352
+0x4201bc95: httpd_start at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_http_server/src/httpd_main.c:519
+0x4200ac7c: start_webserver at D:/HK241/Project2/code/msc_Copy/main/main.c:175
+0x4200b226: app_main at D:/HK241/Project2/code/msc_Copy/main/main.c:376
+0x42048503: main_task at C:/Espressif/frameworks/esp-idf-v5.3.1/components/freertos/app_startup.c:208
+0x4037ac21: vPortTaskWrapper at C:/Espressif/frameworks/esp-idf-v5.3.1/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:134
+[0m
+[0;33m0x40375a2c: esp_restart_noos at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/port/soc/esp32s3/system_internal.c:158
+[0m
+[0;33m0x40375af2: panic_abort at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/panic.c:463
+0x4037a18d: esp_system_abort at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/port/esp_system_chip.c:92
+0x40380dd5: __assert_func at C:/Espressif/frameworks/esp-idf-v5.3.1/components/newlib/assert.c:80
+0x4201f316: tcpip_send_msg_wait_sem at C:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/lwip/src/api/tcpip.c:449 (discriminator 1)
+0x4202b2a9: netconn_apimsg at C:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/lwip/src/api/api_lib.c:131
+0x4202b332: netconn_new_with_proto_and_callback at C:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/lwip/src/api/api_lib.c:161
+0x4201f171: lwip_socket at C:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/lwip/src/api/sockets.c:1720 (discriminator 4)
+0x4201b5cd: socket at C:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/include/lwip/sockets.h:48
+ (inlined by) httpd_server_init at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_http_server/src/httpd_main.c:352
+0x4201bc95: httpd_start at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_http_server/src/httpd_main.c:519
+0x4200ac7c: start_webserver at D:/HK241/Project2/code/msc_Copy/main/main.c:175
+0x4200b226: app_main at D:/HK241/Project2/code/msc_Copy/main/main.c:376
+0x42048503: main_task at C:/Espressif/frameworks/esp-idf-v5.3.1/components/freertos/app_startup.c:208
+0x4037ac21: vPortTaskWrapper at C:/Espressif/frameworks/esp-idf-v5.3.1/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:134
+[0m
+[0;33m0x40375a2c: esp_restart_noos at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/port/soc/esp32s3/system_internal.c:158
+[0m
+[0;33m0x40375af2: panic_abort at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/panic.c:463
+0x4037a18d: esp_system_abort at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/port/esp_system_chip.c:92
+0x40380dd5: __assert_func at C:/Espressif/frameworks/esp-idf-v5.3.1/components/newlib/assert.c:80
+0x4201f316: tcpip_send_msg_wait_sem at C:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/lwip/src/api/tcpip.c:449 (discriminator 1)
+0x4202b2a9: netconn_apimsg at C:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/lwip/src/api/api_lib.c:131
+0x4202b332: netconn_new_with_proto_and_callback at C:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/lwip/src/api/api_lib.c:161
+0x4201f171: lwip_socket at C:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/lwip/src/api/sockets.c:1720 (discriminator 4)
+0x4201b5cd: socket at C:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/include/lwip/sockets.h:48
+ (inlined by) httpd_server_init at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_http_server/src/httpd_main.c:352
+0x4201bc95: httpd_start at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_http_server/src/httpd_main.c:519
+0x4200ac7c: start_webserver at D:/HK241/Project2/code/msc_Copy/main/main.c:175
+0x4200b226: app_main at D:/HK241/Project2/code/msc_Copy/main/main.c:376
+0x42048503: main_task at C:/Espressif/frameworks/esp-idf-v5.3.1/components/freertos/app_startup.c:208
+0x4037ac21: vPortTaskWrapper at C:/Espressif/frameworks/esp-idf-v5.3.1/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:134
+[0m
+[0;33m0x40375a2c: esp_restart_noos at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/port/soc/esp32s3/system_internal.c:158
+[0m
+[0;33m0x40375af2: panic_abort at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/panic.c:463
+0x4037a18d: esp_system_abort at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/port/esp_system_chip.c:92
+0x40380dd5: __assert_func at C:/Espressif/frameworks/esp-idf-v5.3.1/components/newlib/assert.c:80
+0x4201f316: tcpip_send_msg_wait_sem at C:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/lwip/src/api/tcpip.c:449 (discriminator 1)
+0x4202b2a9: netconn_apimsg at C:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/lwip/src/api/api_lib.c:131
+0x4202b332: netconn_new_with_proto_and_callback at C:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/lwip/src/api/api_lib.c:161
+0x4201f171: lwip_socket at C:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/lwip/src/api/sockets.c:1720 (discriminator 4)
+0x4201b5cd: socket at C:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/include/lwip/sockets.h:48
+ (inlined by) httpd_server_init at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_http_server/src/httpd_main.c:352
+0x4201bc95: httpd_start at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_http_server/src/httpd_main.c:519
+0x4200ac7c: start_webserver at D:/HK241/Project2/code/msc_Copy/main/main.c:175
+0x4200b226: app_main at D:/HK241/Project2/code/msc_Copy/main/main.c:376
+0x42048503: main_task at C:/Espressif/frameworks/esp-idf-v5.3.1/components/freertos/app_startup.c:208
+0x4037ac21: vPortTaskWrapper at C:/Espressif/frameworks/esp-idf-v5.3.1/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:134
+[0m
+[0;33m0x40375a2c: esp_restart_noos at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/port/soc/esp32s3/system_internal.c:158
+[0m
+[0;33m0x40375af2: panic_abort at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/panic.c:463
+0x4037a18d: esp_system_abort at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/port/esp_system_chip.c:92
+0x40380dd5: __assert_func at C:/Espressif/frameworks/esp-idf-v5.3.1/components/newlib/assert.c:80
+0x4201f316: tcpip_send_msg_wait_sem at C:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/lwip/src/api/tcpip.c:449 (discriminator 1)
+0x4202b2a9: netconn_apimsg at C:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/lwip/src/api/api_lib.c:131
+0x4202b332: netconn_new_with_proto_and_callback at C:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/lwip/src/api/api_lib.c:161
+0x4201f171: lwip_socket at C:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/lwip/src/api/sockets.c:1720 (discriminator 4)
+0x4201b5cd: socket at C:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/include/lwip/sockets.h:48
+ (inlined by) httpd_server_init at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_http_server/src/httpd_main.c:352
+0x4201bc95: httpd_start at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_http_server/src/httpd_main.c:519
+0x4200ac7c: start_webserver at D:/HK241/Project2/code/msc_Copy/main/main.c:175
+0x4200b226: app_main at D:/HK241/Project2/code/msc_Copy/main/main.c:376
+0x42048503: main_task at C:/Espressif/frameworks/esp-idf-v5.3.1/components/freertos/app_startup.c:208
+0x4037ac21: vPortTaskWrapper at C:/Espressif/frameworks/esp-idf-v5.3.1/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:134
+[0m
+[0;33m0x40375a2c: esp_restart_noos at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/port/soc/esp32s3/system_internal.c:158
+[0m
+[0;33m0x40375af2: panic_abort at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/panic.c:463
+0x4037a18d: esp_system_abort at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/port/esp_system_chip.c:92
+0x40380dd5: __assert_func at C:/Espressif/frameworks/esp-idf-v5.3.1/components/newlib/assert.c:80
+0x4201f316: tcpip_send_msg_wait_sem at C:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/lwip/src/api/tcpip.c:449 (discriminator 1)
+0x4202b2a9: netconn_apimsg at C:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/lwip/src/api/api_lib.c:131
+0x4202b332: netconn_new_with_proto_and_callback at C:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/lwip/src/api/api_lib.c:161
+0x4201f171: lwip_socket at C:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/lwip/src/api/sockets.c:1720 (discriminator 4)
+0x4201b5cd: socket at C:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/include/lwip/sockets.h:48
+ (inlined by) httpd_server_init at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_http_server/src/httpd_main.c:352
+0x4201bc95: httpd_start at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_http_server/src/httpd_main.c:519
+0x4200ac7c: start_webserver at D:/HK241/Project2/code/msc_Copy/main/main.c:175
+0x4200b226: app_main at D:/HK241/Project2/code/msc_Copy/main/main.c:376
+0x42048503: main_task at C:/Espressif/frameworks/esp-idf-v5.3.1/components/freertos/app_startup.c:208
+0x4037ac21: vPortTaskWrapper at C:/Espressif/frameworks/esp-idf-v5.3.1/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:134
+[0m
+[0;33m0x40375a2c: esp_restart_noos at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/port/soc/esp32s3/system_internal.c:158
+[0m
+[0;33m0x40375af2: panic_abort at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/panic.c:463
+0x4037a18d: esp_system_abort at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/port/esp_system_chip.c:92
+0x40380dd5: __assert_func at C:/Espressif/frameworks/esp-idf-v5.3.1/components/newlib/assert.c:80
+0x4201f316: tcpip_send_msg_wait_sem at C:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/lwip/src/api/tcpip.c:449 (discriminator 1)
+0x4202b2a9: netconn_apimsg at C:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/lwip/src/api/api_lib.c:131
+0x4202b332: netconn_new_with_proto_and_callback at C:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/lwip/src/api/api_lib.c:161
+0x4201f171: lwip_socket at C:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/lwip/src/api/sockets.c:1720 (discriminator 4)
+0x4201b5cd: socket at C:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/include/lwip/sockets.h:48
+ (inlined by) httpd_server_init at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_http_server/src/httpd_main.c:352
+0x4201bc95: httpd_start at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_http_server/src/httpd_main.c:519
+0x4200ac7c: start_webserver at D:/HK241/Project2/code/msc_Copy/main/main.c:175
+0x4200b226: app_main at D:/HK241/Project2/code/msc_Copy/main/main.c:376
+0x42048503: main_task at C:/Espressif/frameworks/esp-idf-v5.3.1/components/freertos/app_startup.c:208
+0x4037ac21: vPortTaskWrapper at C:/Espressif/frameworks/esp-idf-v5.3.1/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:134
+[0m
+[0;33m0x40375a2c: esp_restart_noos at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/port/soc/esp32s3/system_internal.c:158
+[0m
+[0;33m0x40375af2: panic_abort at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/panic.c:463
+0x4037a18d: esp_system_abort at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/port/esp_system_chip.c:92
+0x40380dd5: __assert_func at C:/Espressif/frameworks/esp-idf-v5.3.1/components/newlib/assert.c:80
+0x4201f316: tcpip_send_msg_wait_sem at C:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/lwip/src/api/tcpip.c:449 (discriminator 1)
+0x4202b2a9: netconn_apimsg at C:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/lwip/src/api/api_lib.c:131
+0x4202b332: netconn_new_with_proto_and_callback at C:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/lwip/src/api/api_lib.c:161
+0x4201f171: lwip_socket at C:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/lwip/src/api/sockets.c:1720 (discriminator 4)
+0x4201b5cd: socket at C:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/include/lwip/sockets.h:48
+ (inlined by) httpd_server_init at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_http_server/src/httpd_main.c:352
+0x4201bc95: httpd_start at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_http_server/src/httpd_main.c:519
+0x4200ac7c: start_webserver at D:/HK241/Project2/code/msc_Copy/main/main.c:175
+0x4200b226: app_main at D:/HK241/Project2/code/msc_Copy/main/main.c:376
+0x42048503: main_task at C:/Espressif/frameworks/esp-idf-v5.3.1/components/freertos/app_startup.c:208
+0x4037ac21: vPortTaskWrapper at C:/Espressif/frameworks/esp-idf-v5.3.1/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:134
+[0m
+[0;33m0x40375a2c: esp_restart_noos at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/port/soc/esp32s3/system_internal.c:158
+[0m
+[0;33m0x40375af2: panic_abort at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/panic.c:463
+0x4037a18d: esp_system_abort at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/port/esp_system_chip.c:92
+0x40380dd5: __assert_func at C:/Espressif/frameworks/esp-idf-v5.3.1/components/newlib/assert.c:80
+0x4201f316: tcpip_send_msg_wait_sem at C:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/lwip/src/api/tcpip.c:449 (discriminator 1)
+0x4202b2a9: netconn_apimsg at C:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/lwip/src/api/api_lib.c:131
+0x4202b332: netconn_new_with_proto_and_callback at C:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/lwip/src/api/api_lib.c:161
+0x4201f171: lwip_socket at C:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/lwip/src/api/sockets.c:1720 (discriminator 4)
+0x4201b5cd: socket at C:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/include/lwip/sockets.h:48
+ (inlined by) httpd_server_init at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_http_server/src/httpd_main.c:352
+0x4201bc95: httpd_start at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_http_server/src/httpd_main.c:519
+0x4200ac7c: start_webserver at D:/HK241/Project2/code/msc_Copy/main/main.c:175
+0x4200b226: app_main at D:/HK241/Project2/code/msc_Copy/main/main.c:376
+0x42048503: main_task at C:/Espressif/frameworks/esp-idf-v5.3.1/components/freertos/app_startup.c:208
+0x4037ac21: vPortTaskWrapper at C:/Espressif/frameworks/esp-idf-v5.3.1/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:134
+[0m
+[0;33m0x40375a2c: esp_restart_noos at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/port/soc/esp32s3/system_internal.c:158
+[0m
+[0;33m0x40375af2: panic_abort at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/panic.c:463
+0x4037a18d: esp_system_abort at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/port/esp_system_chip.c:92
+0x40380dd5: __assert_func at C:/Espressif/frameworks/esp-idf-v5.3.1/components/newlib/assert.c:80
+0x4201f316: tcpip_send_msg_wait_sem at C:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/lwip/src/api/tcpip.c:449 (discriminator 1)
+0x4202b2a9: netconn_apimsg at C:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/lwip/src/api/api_lib.c:131
+0x4202b332: netconn_new_with_proto_and_callback at C:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/lwip/src/api/api_lib.c:161
+0x4201f171: lwip_socket at C:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/lwip/src/api/sockets.c:1720 (discriminator 4)
+0x4201b5cd: socket at C:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/include/lwip/sockets.h:48
+ (inlined by) httpd_server_init at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_http_server/src/httpd_main.c:352
+0x4201bc95: httpd_start at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_http_server/src/httpd_main.c:519
+0x4200ac7c: start_webserver at D:/HK241/Project2/code/msc_Copy/main/main.c:175
+0x4200b226: app_main at D:/HK241/Project2/code/msc_Copy/main/main.c:376
+0x42048503: main_task at C:/Espressif/frameworks/esp-idf-v5.3.1/components/freertos/app_startup.c:208
+0x4037ac21: vPortTaskWrapper at C:/Espressif/frameworks/esp-idf-v5.3.1/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:134
+[0m
+[0;33m0x40375a2c: esp_restart_noos at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/port/soc/esp32s3/system_internal.c:158
+[0m
+[0;33m0x40375af2: panic_abort at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/panic.c:463
+0x4037a18d: esp_system_abort at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/port/esp_system_chip.c:92
+0x40380dd5: __assert_func at C:/Espressif/frameworks/esp-idf-v5.3.1/components/newlib/assert.c:80
+0x4201f316: tcpip_send_msg_wait_sem at C:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/lwip/src/api/tcpip.c:449 (discriminator 1)
+0x4202b2a9: netconn_apimsg at C:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/lwip/src/api/api_lib.c:131
+0x4202b332: netconn_new_with_proto_and_callback at C:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/lwip/src/api/api_lib.c:161
+0x4201f171: lwip_socket at C:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/lwip/src/api/sockets.c:1720 (discriminator 4)
+0x4201b5cd: socket at C:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/include/lwip/sockets.h:48
+ (inlined by) httpd_server_init at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_http_server/src/httpd_main.c:352
+0x4201bc95: httpd_start at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_http_server/src/httpd_main.c:519
+0x4200ac7c: start_webserver at D:/HK241/Project2/code/msc_Copy/main/main.c:175
+0x4200b226: app_main at D:/HK241/Project2/code/msc_Copy/main/main.c:376
+0x42048503: main_task at C:/Espressif/frameworks/esp-idf-v5.3.1/components/freertos/app_startup.c:208
+0x4037ac21: vPortTaskWrapper at C:/Espressif/frameworks/esp-idf-v5.3.1/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:134
+[0m
+[0;33m0x40375a2c: esp_restart_noos at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/port/soc/esp32s3/system_internal.c:158
+[0m
+[0;33m0x40375af2: panic_abort at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/panic.c:463
+0x4037a18d: esp_system_abort at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/port/esp_system_chip.c:92
+0x40380dd5: __assert_func at C:/Espressif/frameworks/esp-idf-v5.3.1/components/newlib/assert.c:80
+0x4201f316: tcpip_send_msg_wait_sem at C:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/lwip/src/api/tcpip.c:449 (discriminator 1)
+0x4202b2a9: netconn_apimsg at C:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/lwip/src/api/api_lib.c:131
+0x4202b332: netconn_new_with_proto_and_callback at C:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/lwip/src/api/api_lib.c:161
+0x4201f171: lwip_socket at C:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/lwip/src/api/sockets.c:1720 (discriminator 4)
+0x4201b5cd: socket at C:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/include/lwip/sockets.h:48
+ (inlined by) httpd_server_init at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_http_server/src/httpd_main.c:352
+0x4201bc95: httpd_start at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_http_server/src/httpd_main.c:519
+0x4200ac7c: start_webserver at D:/HK241/Project2/code/msc_Copy/main/main.c:175
+0x4200b226: app_main at D:/HK241/Project2/code/msc_Copy/main/main.c:376
+0x42048503: main_task at C:/Espressif/frameworks/esp-idf-v5.3.1/components/freertos/app_startup.c:208
+0x4037ac21: vPortTaskWrapper at C:/Espressif/frameworks/esp-idf-v5.3.1/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:134
+[0m
+[0;33m0x40375a2c: esp_restart_noos at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/port/soc/esp32s3/system_internal.c:158
+[0m
+[0;33m0x40375af2: panic_abort at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/panic.c:463
+0x4037a18d: esp_system_abort at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/port/esp_system_chip.c:92
+0x40380dd5: __assert_func at C:/Espressif/frameworks/esp-idf-v5.3.1/components/newlib/assert.c:80
+0x4201f316: tcpip_send_msg_wait_sem at C:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/lwip/src/api/tcpip.c:449 (discriminator 1)
+0x4202b2a9: netconn_apimsg at C:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/lwip/src/api/api_lib.c:131
+0x4202b332: netconn_new_with_proto_and_callback at C:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/lwip/src/api/api_lib.c:161
+0x4201f171: lwip_socket at C:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/lwip/src/api/sockets.c:1720 (discriminator 4)
+0x4201b5cd: socket at C:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/include/lwip/sockets.h:48
+ (inlined by) httpd_server_init at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_http_server/src/httpd_main.c:352
+0x4201bc95: httpd_start at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_http_server/src/httpd_main.c:519
+0x4200ac7c: start_webserver at D:/HK241/Project2/code/msc_Copy/main/main.c:175
+0x4200b226: app_main at D:/HK241/Project2/code/msc_Copy/main/main.c:376
+0x42048503: main_task at C:/Espressif/frameworks/esp-idf-v5.3.1/components/freertos/app_startup.c:208
+0x4037ac21: vPortTaskWrapper at C:/Espressif/frameworks/esp-idf-v5.3.1/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:134
+[0m
+[0;33m0x40375a2c: esp_restart_noos at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/port/soc/esp32s3/system_internal.c:158
+[0m
+[0;33m0x40375af2: panic_abort at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/panic.c:463
+0x4037a18d: esp_system_abort at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/port/esp_system_chip.c:92
+0x40380dd5: __assert_func at C:/Espressif/frameworks/esp-idf-v5.3.1/components/newlib/assert.c:80
+0x4201f316: tcpip_send_msg_wait_sem at C:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/lwip/src/api/tcpip.c:449 (discriminator 1)
+0x4202b2a9: netconn_apimsg at C:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/lwip/src/api/api_lib.c:131
+0x4202b332: netconn_new_with_proto_and_callback at C:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/lwip/src/api/api_lib.c:161
+0x4201f171: lwip_socket at C:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/lwip/src/api/sockets.c:1720 (discriminator 4)
+0x4201b5cd: socket at C:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/include/lwip/sockets.h:48
+ (inlined by) httpd_server_init at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_http_server/src/httpd_main.c:352
+0x4201bc95: httpd_start at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_http_server/src/httpd_main.c:519
+0x4200ac7c: start_webserver at D:/HK241/Project2/code/msc_Copy/main/main.c:175
+0x4200b226: app_main at D:/HK241/Project2/code/msc_Copy/main/main.c:376
+0x42048503: main_task at C:/Espressif/frameworks/esp-idf-v5.3.1/components/freertos/app_startup.c:208
+0x4037ac21: vPortTaskWrapper at C:/Espressif/frameworks/esp-idf-v5.3.1/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:134
+[0m
+[0;33m0x40375a2c: esp_restart_noos at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/port/soc/esp32s3/system_internal.c:158
+[0m
+[0;33m0x40375af2: panic_abort at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/panic.c:463
+0x4037a18d: esp_system_abort at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/port/esp_system_chip.c:92
+0x40380dd5: __assert_func at C:/Espressif/frameworks/esp-idf-v5.3.1/components/newlib/assert.c:80
+0x4201f316: tcpip_send_msg_wait_sem at C:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/lwip/src/api/tcpip.c:449 (discriminator 1)
+0x4202b2a9: netconn_apimsg at C:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/lwip/src/api/api_lib.c:131
+0x4202b332: netconn_new_with_proto_and_callback at C:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/lwip/src/api/api_lib.c:161
+0x4201f171: lwip_socket at C:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/lwip/src/api/sockets.c:1720 (discriminator 4)
+0x4201b5cd: socket at C:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/include/lwip/sockets.h:48
+ (inlined by) httpd_server_init at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_http_server/src/httpd_main.c:352
+0x4201bc95: httpd_start at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_http_server/src/httpd_main.c:519
+0x4200ac7c: start_webserver at D:/HK241/Project2/code/msc_Copy/main/main.c:175
+0x4200b226: app_main at D:/HK241/Project2/code/msc_Copy/main/main.c:376
+0x42048503: main_task at C:/Espressif/frameworks/esp-idf-v5.3.1/components/freertos/app_startup.c:208
+0x4037ac21: vPortTaskWrapper at C:/Espressif/frameworks/esp-idf-v5.3.1/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:134
+[0m
+[0;33m0x40375a2c: esp_restart_noos at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/port/soc/esp32s3/system_internal.c:158
+[0m
+[0;33mTo exit from IDF monitor please use "Ctrl+]". Alternatively, you can use Ctrl+T Ctrl+X to exit.[0m
+[0;33m0x40375a2c: esp_restart_noos at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/port/soc/esp32s3/system_internal.c:158
+[0m
+[0;33mTo exit from IDF monitor please use "Ctrl+]". Alternatively, you can use Ctrl+T Ctrl+X to exit.[0m
+[0;33m0x40375a2c: esp_restart_noos at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/port/soc/esp32s3/system_internal.c:158
+[0m
+[0;33m0x40375af2: panic_abort at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/panic.c:463
+0x4037a18d: esp_system_abort at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/port/esp_system_chip.c:92
+0x40380dd5: __assert_func at C:/Espressif/frameworks/esp-idf-v5.3.1/components/newlib/assert.c:80
+0x4201f316: tcpip_send_msg_wait_sem at C:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/lwip/src/api/tcpip.c:449 (discriminator 1)
+0x4202b2a9: netconn_apimsg at C:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/lwip/src/api/api_lib.c:131
+0x4202b332: netconn_new_with_proto_and_callback at C:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/lwip/src/api/api_lib.c:161
+0x4201f171: lwip_socket at C:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/lwip/src/api/sockets.c:1720 (discriminator 4)
+0x4201b5cd: socket at C:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/include/lwip/sockets.h:48
+ (inlined by) httpd_server_init at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_http_server/src/httpd_main.c:352
+0x4201bc95: httpd_start at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_http_server/src/httpd_main.c:519
+0x4200ac7c: start_webserver at D:/HK241/Project2/code/msc_Copy/main/main.c:175
+0x4200b226: app_main at D:/HK241/Project2/code/msc_Copy/main/main.c:376
+0x42048503: main_task at C:/Espressif/frameworks/esp-idf-v5.3.1/components/freertos/app_startup.c:208
+0x4037ac21: vPortTaskWrapper at C:/Espressif/frameworks/esp-idf-v5.3.1/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:134
+[0m
+[0;33m0x40375a2c: esp_restart_noos at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/port/soc/esp32s3/system_internal.c:158
+[0m
+[0;33m0x40375af2: panic_abort at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/panic.c:463
+0x4037a18d: esp_system_abort at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/port/esp_system_chip.c:92
+0x40380dd5: __assert_func at C:/Espressif/frameworks/esp-idf-v5.3.1/components/newlib/assert.c:80
+0x4201f316: tcpip_send_msg_wait_sem at C:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/lwip/src/api/tcpip.c:449 (discriminator 1)
+0x4202b2a9: netconn_apimsg at C:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/lwip/src/api/api_lib.c:131
+0x4202b332: netconn_new_with_proto_and_callback at C:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/lwip/src/api/api_lib.c:161
+0x4201f171: lwip_socket at C:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/lwip/src/api/sockets.c:1720 (discriminator 4)
+0x4201b5cd: socket at C:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/include/lwip/sockets.h:48
+ (inlined by) httpd_server_init at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_http_server/src/httpd_main.c:352
+0x4201bc95: httpd_start at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_http_server/src/httpd_main.c:519
+0x4200ac7c: start_webserver at D:/HK241/Project2/code/msc_Copy/main/main.c:175
+0x4200b226: app_main at D:/HK241/Project2/code/msc_Copy/main/main.c:376
+0x42048503: main_task at C:/Espressif/frameworks/esp-idf-v5.3.1/components/freertos/app_startup.c:208
+0x4037ac21: vPortTaskWrapper at C:/Espressif/frameworks/esp-idf-v5.3.1/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:134
+[0m
+[0;33m0x40375a2c: esp_restart_noos at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/port/soc/esp32s3/system_internal.c:158
+[0m
+[1;31mNone[0m
+[0;33mWaiting for the device to reconnect[0m[0;33m0x40375af2: panic_abort at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/panic.c:463
+0x4037a18d: esp_system_abort at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/port/esp_system_chip.c:92
+0x40380dd5: __assert_func at C:/Espressif/frameworks/esp-idf-v5.3.1/components/newlib/assert.c:80
+0x4201f316: tcpip_send_msg_wait_sem at C:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/lwip/src/api/tcpip.c:449 (discriminator 1)
+0x4202b2a9: netconn_apimsg at C:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/lwip/src/api/api_lib.c:131
+0x4202b332: netconn_new_with_proto_and_callback at C:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/lwip/src/api/api_lib.c:161
+0x4201f171: lwip_socket at C:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/lwip/src/api/sockets.c:1720 (discriminator 4)
+0x4201b5cd: socket at C:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/include/lwip/sockets.h:48
+ (inlined by) httpd_server_init at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_http_server/src/httpd_main.c:352
+0x4201bc95: httpd_start at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_http_server/src/httpd_main.c:519
+0x4200ac7c: start_webserver at D:/HK241/Project2/code/msc_Copy/main/main.c:175
+0x4200b226: app_main at D:/HK241/Project2/code/msc_Copy/main/main.c:376
+0x42048503: main_task at C:/Espressif/frameworks/esp-idf-v5.3.1/components/freertos/app_startup.c:208
+0x4037ac21: vPortTaskWrapper at C:/Espressif/frameworks/esp-idf-v5.3.1/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:134
+[0m
+[0;33m0x40375a2c: esp_restart_noos at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/port/soc/esp32s3/system_internal.c:158
+[0m
+[0;33m.[0m[0;33m.[0m[0;33m0x40375af2: panic_abort at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/panic.c:463
+0x4037a18d: esp_system_abort at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/port/esp_system_chip.c:92
+0x40380dd5: __assert_func at C:/Espressif/frameworks/esp-idf-v5.3.1/components/newlib/assert.c:80
+0x4201f316: tcpip_send_msg_wait_sem at C:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/lwip/src/api/tcpip.c:449 (discriminator 1)
+0x4202b2a9: netconn_apimsg at C:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/lwip/src/api/api_lib.c:131
+0x4202b332: netconn_new_with_proto_and_callback at C:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/lwip/src/api/api_lib.c:161
+0x4201f171: lwip_socket at C:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/lwip/src/api/sockets.c:1720 (discriminator 4)
+0x4201b5cd: socket at C:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/include/lwip/sockets.h:48
+ (inlined by) httpd_server_init at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_http_server/src/httpd_main.c:352
+0x4201bc95: httpd_start at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_http_server/src/httpd_main.c:519
+0x4200ac7c: start_webserver at D:/HK241/Project2/code/msc_Copy/main/main.c:175
+0x4200b226: app_main at D:/HK241/Project2/code/msc_Copy/main/main.c:376
+0x42048503: main_task at C:/Espressif/frameworks/esp-idf-v5.3.1/components/freertos/app_startup.c:208
+0x4037ac21: vPortTaskWrapper at C:/Espressif/frameworks/esp-idf-v5.3.1/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:134
+[0m
+[0;33m0x40375a2c: esp_restart_noos at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/port/soc/esp32s3/system_internal.c:158
+[0m
+[0;33m.[0m[0;33m.[0m[0;33m0x40375af2: panic_abort at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/panic.c:463
+0x4037a18d: esp_system_abort at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/port/esp_system_chip.c:92
+0x40380dd5: __assert_func at C:/Espressif/frameworks/esp-idf-v5.3.1/components/newlib/assert.c:80
+0x4201f316: tcpip_send_msg_wait_sem at C:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/lwip/src/api/tcpip.c:449 (discriminator 1)
+0x4202b2a9: netconn_apimsg at C:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/lwip/src/api/api_lib.c:131
+0x4202b332: netconn_new_with_proto_and_callback at C:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/lwip/src/api/api_lib.c:161
+0x4201f171: lwip_socket at C:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/lwip/src/api/sockets.c:1720 (discriminator 4)
+0x4201b5cd: socket at C:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/include/lwip/sockets.h:48
+ (inlined by) httpd_server_init at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_http_server/src/httpd_main.c:352
+0x4201bc95: httpd_start at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_http_server/src/httpd_main.c:519
+0x4200ac7c: start_webserver at D:/HK241/Project2/code/msc_Copy/main/main.c:175
+0x4200b226: app_main at D:/HK241/Project2/code/msc_Copy/main/main.c:376
+0x42048503: main_task at C:/Espressif/frameworks/esp-idf-v5.3.1/components/freertos/app_startup.c:208
+0x4037ac21: vPortTaskWrapper at C:/Espressif/frameworks/esp-idf-v5.3.1/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:134
+[0m
+[0;33m0x40375a2c: esp_restart_noos at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/port/soc/esp32s3/system_internal.c:158
+[0m
+[0;33m.[0m[0;33m.[0m[0;33m0x40375af2: panic_abort at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/panic.c:463
+0x4037a18d: esp_system_abort at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/port/esp_system_chip.c:92
+0x40380dd5: __assert_func at C:/Espressif/frameworks/esp-idf-v5.3.1/components/newlib/assert.c:80
+0x4201f316: tcpip_send_msg_wait_sem at C:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/lwip/src/api/tcpip.c:449 (discriminator 1)
+0x4202b2a9: netconn_apimsg at C:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/lwip/src/api/api_lib.c:131
+0x4202b332: netconn_new_with_proto_and_callback at C:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/lwip/src/api/api_lib.c:161
+0x4201f171: lwip_socket at C:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/lwip/src/api/sockets.c:1720 (discriminator 4)
+0x4201b5cd: socket at C:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/include/lwip/sockets.h:48
+ (inlined by) httpd_server_init at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_http_server/src/httpd_main.c:352
+0x4201bc95: httpd_start at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_http_server/src/httpd_main.c:519
+0x4200ac7c: start_webserver at D:/HK241/Project2/code/msc_Copy/main/main.c:175
+0x4200b226: app_main at D:/HK241/Project2/code/msc_Copy/main/main.c:376
+0x42048503: main_task at C:/Espressif/frameworks/esp-idf-v5.3.1/components/freertos/app_startup.c:208
+0x4037ac21: vPortTaskWrapper at C:/Espressif/frameworks/esp-idf-v5.3.1/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:134
+[0m
+[0;33m0x40375a2c: esp_restart_noos at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/port/soc/esp32s3/system_internal.c:158
+[0m
+[0;33m.[0m[0;33m0x40375af2: panic_abort at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/panic.c:463
+0x4037a18d: esp_system_abort at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/port/esp_system_chip.c:92
+0x40380dd5: __assert_func at C:/Espressif/frameworks/esp-idf-v5.3.1/components/newlib/assert.c:80
+0x4201f316: tcpip_send_msg_wait_sem at C:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/lwip/src/api/tcpip.c:449 (discriminator 1)
+0x4202b2a9: netconn_apimsg at C:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/lwip/src/api/api_lib.c:131
+0x4202b332: netconn_new_with_proto_and_callback at C:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/lwip/src/api/api_lib.c:161
+0x4201f171: lwip_socket at C:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/lwip/src/api/sockets.c:1720 (discriminator 4)
+0x4201b5cd: socket at C:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/include/lwip/sockets.h:48
+ (inlined by) httpd_server_init at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_http_server/src/httpd_main.c:352
+0x4201bc95: httpd_start at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_http_server/src/httpd_main.c:519
+0x4200ac7c: start_webserver at D:/HK241/Project2/code/msc_Copy/main/main.c:175
+0x4200b226: app_main at D:/HK241/Project2/code/msc_Copy/main/main.c:376
+0x42048503: main_task at C:/Espressif/frameworks/esp-idf-v5.3.1/components/freertos/app_startup.c:208
+0x4037ac21: vPortTaskWrapper at C:/Espressif/frameworks/esp-idf-v5.3.1/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:134
+[0m
+[0;33m0x40375a2c: esp_restart_noos at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/port/soc/esp32s3/system_internal.c:158
+[0m
+[0;33m.[0m[0;33m.[0m[0;33m0x40375af2: panic_abort at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/panic.c:463
+0x4037a18d: esp_system_abort at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/port/esp_system_chip.c:92
+0x40380dd5: __assert_func at C:/Espressif/frameworks/esp-idf-v5.3.1/components/newlib/assert.c:80
+0x4201f316: tcpip_send_msg_wait_sem at C:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/lwip/src/api/tcpip.c:449 (discriminator 1)
+0x4202b2a9: netconn_apimsg at C:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/lwip/src/api/api_lib.c:131
+0x4202b332: netconn_new_with_proto_and_callback at C:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/lwip/src/api/api_lib.c:161
+0x4201f171: lwip_socket at C:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/lwip/src/api/sockets.c:1720 (discriminator 4)
+0x4201b5cd: socket at C:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/include/lwip/sockets.h:48
+ (inlined by) httpd_server_init at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_http_server/src/httpd_main.c:352
+0x4201bc95: httpd_start at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_http_server/src/httpd_main.c:519
+0x4200ac7c: start_webserver at D:/HK241/Project2/code/msc_Copy/main/main.c:175
+0x4200b226: app_main at D:/HK241/Project2/code/msc_Copy/main/main.c:376
+0x42048503: main_task at C:/Espressif/frameworks/esp-idf-v5.3.1/components/freertos/app_startup.c:208
+0x4037ac21: vPortTaskWrapper at C:/Espressif/frameworks/esp-idf-v5.3.1/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:134
+[0m
+[0;33m0x40375a2c: esp_restart_noos at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/port/soc/esp32s3/system_internal.c:158
+[0m
+[0;33m.[0m[0;33m.[0m[0;33m0x40375af2: panic_abort at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/panic.c:463
+0x4037a18d: esp_system_abort at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/port/esp_system_chip.c:92
+0x40380dd5: __assert_func at C:/Espressif/frameworks/esp-idf-v5.3.1/components/newlib/assert.c:80
+0x4201f316: tcpip_send_msg_wait_sem at C:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/lwip/src/api/tcpip.c:449 (discriminator 1)
+0x4202b2a9: netconn_apimsg at C:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/lwip/src/api/api_lib.c:131
+0x4202b332: netconn_new_with_proto_and_callback at C:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/lwip/src/api/api_lib.c:161
+0x4201f171: lwip_socket at C:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/lwip/src/api/sockets.c:1720 (discriminator 4)
+0x4201b5cd: socket at C:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/include/lwip/sockets.h:48
+ (inlined by) httpd_server_init at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_http_server/src/httpd_main.c:352
+0x4201bc95: httpd_start at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_http_server/src/httpd_main.c:519
+0x4200ac7c: start_webserver at D:/HK241/Project2/code/msc_Copy/main/main.c:175
+0x4200b226: app_main at D:/HK241/Project2/code/msc_Copy/main/main.c:376
+0x42048503: main_task at C:/Espressif/frameworks/esp-idf-v5.3.1/components/freertos/app_startup.c:208
+0x4037ac21: vPortTaskWrapper at C:/Espressif/frameworks/esp-idf-v5.3.1/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:134
+[0m
+[0;33m0x40375a2c: esp_restart_noos at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/port/soc/esp32s3/system_internal.c:158
+[0m
+[0;33m.[0m[0;33m.[0m[0;33m0x40375af2: panic_abort at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/panic.c:463
+0x4037a18d: esp_system_abort at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/port/esp_system_chip.c:92
+0x40380dd5: __assert_func at C:/Espressif/frameworks/esp-idf-v5.3.1/components/newlib/assert.c:80
+0x4201f316: tcpip_send_msg_wait_sem at C:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/lwip/src/api/tcpip.c:449 (discriminator 1)
+0x4202b2a9: netconn_apimsg at C:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/lwip/src/api/api_lib.c:131
+0x4202b332: netconn_new_with_proto_and_callback at C:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/lwip/src/api/api_lib.c:161
+0x4201f171: lwip_socket at C:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/lwip/src/api/sockets.c:1720 (discriminator 4)
+0x4201b5cd: socket at C:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/include/lwip/sockets.h:48
+ (inlined by) httpd_server_init at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_http_server/src/httpd_main.c:352
+0x4201bc95: httpd_start at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_http_server/src/httpd_main.c:519
+0x4200ac7c: start_webserver at D:/HK241/Project2/code/msc_Copy/main/main.c:175
+0x4200b226: app_main at D:/HK241/Project2/code/msc_Copy/main/main.c:376
+0x42048503: main_task at C:/Espressif/frameworks/esp-idf-v5.3.1/components/freertos/app_startup.c:208
+0x4037ac21: vPortTaskWrapper at C:/Espressif/frameworks/esp-idf-v5.3.1/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:134
+[0m
+[0;33m0x40375a2c: esp_restart_noos at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/port/soc/esp32s3/system_internal.c:158
+[0m
+[0;33m.[0m[0;33m[0m
+[0m
+Traceback (most recent call last):
+  File "C:\Espressif\frameworks\esp-idf-v5.3.1\tools/idf_monitor.py", line 11, in <module>
+    sys.exit(subprocess.run([sys.executable, '-m', 'esp_idf_monitor'] + sys.argv[1:]).returncode)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "subprocess.py", line 550, in run
+  File "subprocess.py", line 1199, in communicate
+  File "subprocess.py", line 1262, in wait
+  File "subprocess.py", line 1543, in _wait
+KeyboardInterrupt

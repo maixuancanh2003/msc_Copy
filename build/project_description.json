@@ -1,7 +1,7 @@
 {
     "version":            "1.1",
     "project_name":       "usb-msc",
-    "project_version":    "81e0dd3-dirty",
+    "project_version":    "d527dd2-dirty",
     "project_path":       "D:/HK241/Project2/code/msc_Copy",
     "idf_path":           "C:/Espressif/frameworks/esp-idf-v5.3.1",
     "build_dir":          "D:/HK241/Project2/code/msc_Copy/build",
@@ -861,7 +861,7 @@
             "type": "LIBRARY",
             "lib": "__idf_main",
             "reqs": [],
-            "priv_reqs": [ "freertos", "esp_wifi", "esp_http_server", "nvs_flash", "fatfs", "esp_netif", "espressif__esp_tinyusb", "espressif__usb_host_msc" ],
+            "priv_reqs": [ "freertos", "esp_wifi", "esp_http_server", "nvs_flash", "fatfs", "esp_netif", "usb", "esp_driver_gpio", "esp_timer", "espressif__esp_tinyusb", "espressif__usb_host_msc" ],
             "managed_reqs": [],
             "managed_priv_reqs": [ "espressif__esp_tinyusb", "espressif__usb_host_msc" ],
             "file": "D:/HK241/Project2/code/msc_Copy/build/esp-idf/main/libmain.a",
@@ -2308,7 +2308,7 @@
             "dir": "D:/HK241/Project2/code/msc_Copy/main",
             "lib": "__idf_main",
             "reqs": [],
-            "priv_reqs": [ "freertos", "esp_wifi", "esp_http_server", "nvs_flash", "fatfs", "esp_netif", "espressif__esp_tinyusb", "espressif__usb_host_msc" ],
+            "priv_reqs": [ "freertos", "esp_wifi", "esp_http_server", "nvs_flash", "fatfs", "esp_netif", "usb", "esp_driver_gpio", "esp_timer", "espressif__esp_tinyusb", "espressif__usb_host_msc" ],
             "managed_reqs": [],
             "managed_priv_reqs": [ "espressif__esp_tinyusb", "espressif__usb_host_msc" ],
             "include_dirs": [ ".", "../components/tinyusb/src" ]

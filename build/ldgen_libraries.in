@@ -54,8 +54,8 @@ $<TARGET_FILE:__idf_http_parser>
 $<TARGET_FILE:__idf_esp_http_server>
 $<TARGET_FILE:__idf_wear_levelling>
 $<TARGET_FILE:__idf_fatfs>
-$<TARGET_FILE:__idf_espressif__tinyusb>
 $<TARGET_FILE:__idf_usb>
+$<TARGET_FILE:__idf_espressif__tinyusb>
 $<TARGET_FILE:__idf_espressif__esp_tinyusb>
 $<TARGET_FILE:__idf_espressif__usb_host_msc>
 $<TARGET_FILE:__idf_main>
