@@ -2,16 +2,87 @@
 [1/1] cmd.exe /C "cd /D D:\HK241\Project2\code\msc_Copy\build\bootloader\esp-idf\esptool_py && C:\Espressif\python_env\idf5.3_py3.11_env\Scripts\python.exe C:/Espressif/frameworks/esp-idf-v5.3.1/components/partition_table/check_sizes.py --offset 0x8000 bootloader 0x0 D:/HK241/Project2/code/msc_Copy/build/bootloader/bootloader.bin"
 Bootloader binary size 0x5260 bytes. 0x2da0 bytes (36%) free.
 [2/8] Building C object esp-idf/main/CMakeFiles/__idf_main.dir/main.c.obj
-FAILED: esp-idf/main/CMakeFiles/__idf_main.dir/main.c.obj 
-ccache C:\Espressif\tools\xtensa-esp-elf\esp-13.2.0_20240530\xtensa-esp-elf\bin\xtensa-esp32s3-elf-gcc.exe -DESP_PLATFORM -DIDF_VER=\"v5.3.1-dirty\" -DSOC_MMU_PAGE_SIZE=CONFIG_MMU_PAGE_SIZE -DSOC_XTAL_FREQ_MHZ=CONFIG_XTAL_FREQ -D_GLIBCXX_HAVE_POSIX_SEMAPHORE -D_GLIBCXX_USE_POSIX_SEMAPHORE -D_GNU_SOURCE -D_POSIX_READER_WRITER_LOCKS -ID:/HK241/Project2/code/msc_Copy/build/config -ID:/HK241/Project2/code/msc_Copy/main -ID:/HK241/Project2/code/msc_Copy/components/tinyusb/src -IC:/Espressif/frameworks/esp-idf-v5.3.1/components/newlib/platform_include -IC:/Espressif/frameworks/esp-idf-v5.3.1/components/freertos/config/include -IC:/Espressif/frameworks/esp-idf-v5.3.1/components/freertos/config/include/freertos -IC:/Espressif/frameworks/esp-idf-v5.3.1/components/freertos/config/xtensa/include -IC:/Espressif/frameworks/esp-idf-v5.3.1/components/freertos/FreeRTOS-Kernel/include -IC:/Espressif/frameworks/esp-idf-v5.3.1/components/freertos/FreeRTOS-Kernel/portable/xtensa/include -IC:/Espressif/frameworks/esp-idf-v5.3.1/components/freertos/FreeRTOS-Kernel/portable/xtensa/include/freertos -IC:/Espressif/frameworks/esp-idf-v5.3.1/components/freertos/esp_additions/include -IC:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_hw_support/include -IC:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_hw_support/include/soc -IC:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_hw_support/include/soc/esp32s3 -IC:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_hw_support/dma/include -IC:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_hw_support/ldo/include -IC:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_hw_support/port/esp32s3/. -IC:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_hw_support/port/esp32s3/include -IC:/Espressif/frameworks/esp-idf-v5.3.1/components/heap/include -IC:/Espressif/frameworks/esp-idf-v5.3.1/components/log/include -IC:/Espressif/frameworks/esp-idf-v5.3.1/components/soc/include -IC:/Espressif/frameworks/esp-idf-v5.3.1/components/soc/esp32s3 -IC:/Espressif/frameworks/esp-idf-v5.3.1/components/soc/esp32s3/include -IC:/Espressif/frameworks/esp-idf-v5.3.1/components/hal/platform_port/include -IC:/Espressif/frameworks/esp-idf-v5.3.1/components/hal/esp32s3/include -IC:/Espressif/frameworks/esp-idf-v5.3.1/components/hal/include -IC:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_rom/include -IC:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_rom/include/esp32s3 -IC:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_rom/esp32s3 -IC:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_common/include -IC:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/include -IC:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/port/soc -IC:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/port/include/private -IC:/Espressif/frameworks/esp-idf-v5.3.1/components/xtensa/esp32s3/include -IC:/Espressif/frameworks/esp-idf-v5.3.1/components/xtensa/include -IC:/Espressif/frameworks/esp-idf-v5.3.1/components/xtensa/deprecated_include -IC:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/include -IC:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/include/apps -IC:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/include/apps/sntp -IC:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/lwip/src/include -IC:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/port/include -IC:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/port/freertos/include -IC:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/port/esp32xx/include -IC:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/port/esp32xx/include/arch -IC:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip/port/esp32xx/include/sys -IC:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_wifi/include -IC:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_wifi/wifi_apps/include -IC:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_wifi/wifi_apps/nan_app/include -IC:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_wifi/include/local -IC:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_event/include -IC:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_phy/include -IC:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_phy/esp32s3/include -IC:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_netif/include -IC:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_http_server/include -IC:/Espressif/frameworks/esp-idf-v5.3.1/components/http_parser -IC:/Espressif/frameworks/esp-idf-v5.3.1/components/nvs_flash/include -IC:/Espressif/frameworks/esp-idf-v5.3.1/components/spi_flash/include -IC:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_partition/include -IC:/Espressif/frameworks/esp-idf-v5.3.1/components/fatfs/diskio -IC:/Espressif/frameworks/esp-idf-v5.3.1/components/fatfs/src -IC:/Espressif/frameworks/esp-idf-v5.3.1/components/fatfs/vfs -IC:/Espressif/frameworks/esp-idf-v5.3.1/components/wear_levelling/include -IC:/Espressif/frameworks/esp-idf-v5.3.1/components/sdmmc/include -IC:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_driver_sdmmc/include -IC:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_driver_gpio/include -IC:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_driver_sdspi/include -IC:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_driver_spi/include -IC:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_pm/include -ID:/HK241/Project2/code/msc_Copy/managed_components/espressif__esp_tinyusb/include -ID:/HK241/Project2/code/msc_Copy/managed_components/espressif__tinyusb/src -IC:/Espressif/frameworks/esp-idf-v5.3.1/components/freertos/FreeRTOS-Kernel/include/freertos -ID:/HK241/Project2/code/msc_Copy/managed_components/espressif__usb_host_msc/include -ID:/HK241/Project2/code/msc_Copy/managed_components/espressif__usb_host_msc/include/usb -IC:/Espressif/frameworks/esp-idf-v5.3.1/components/usb/include -mlongcalls  -fno-builtin-memcpy -fno-builtin-memset -fno-builtin-bzero -fno-builtin-stpcpy -fno-builtin-strncpy -fdiagnostics-color=always -ffunction-sections -fdata-sections -Wall -Werror=all -Wno-error=unused-function -Wno-error=unused-variable -Wno-error=unused-but-set-variable -Wno-error=deprecated-declarations -Wextra -Wno-unused-parameter -Wno-sign-compare -Wno-enum-conversion -gdwarf-4 -ggdb -Og -fno-shrink-wrap -fmacro-prefix-map=D:/HK241/Project2/code/msc_Copy=. -fmacro-prefix-map=C:/Espressif/frameworks/esp-idf-v5.3.1=/IDF -fstrict-volatile-bitfields -fno-jump-tables -fno-tree-switch-conversion -std=gnu17 -Wno-old-style-declaration -DCFG_TUSB_MCU=OPT_MCU_ESP32S3 -MD -MT esp-idf/main/CMakeFiles/__idf_main.dir/main.c.obj -MF esp-idf\main\CMakeFiles\__idf_main.dir\main.c.obj.d -o esp-idf/main/CMakeFiles/__idf_main.dir/main.c.obj -c D:/HK241/Project2/code/msc_Copy/main/main.c
-D:/HK241/Project2/code/msc_Copy/main/main.c: In function 'init_usb_host':
-D:/HK241/Project2/code/msc_Copy/main/main.c:119:5: error: unknown type name 'usb_host_device_info_t'; did you mean 'usb_host_lib_info_t'?
-  119 |     usb_host_device_info_t *device_info;
-      |     ^~~~~~~~~~~~~~~~~~~~~~
-      |     usb_host_lib_info_t
-D:/HK241/Project2/code/msc_Copy/main/main.c:120:11: error: implicit declaration of function 'usb_host_device_info_list'; did you mean 'usb_host_device_info'? [-Werror=implicit-function-declaration]
-  120 |     err = usb_host_device_info_list(client_hdl, &device_info, &num_devices);
-      |           ^~~~~~~~~~~~~~~~~~~~~~~~~
-      |           usb_host_device_info
-cc1.exe: some warnings being treated as errors
-ninja: build stopped: subcommand failed.
+In file included from D:/HK241/Project2/code/msc_Copy/main/main.c:34:
+C:/Espressif/frameworks/esp-idf-v5.3.1/components/driver/deprecated/driver/rmt.h:18:2: warning: #warning "The legacy RMT driver is deprecated, please use driver/rmt_tx.h and/or driver/rmt_rx.h" [-Wcpp]
+   18 | #warning "The legacy RMT driver is deprecated, please use driver/rmt_tx.h and/or driver/rmt_rx.h"
+      |  ^~~~~~~
+[3/8] Linking C static library esp-idf\main\libmain.a
+[4/8] Generating ld/sections.ld
+[5/8] Linking CXX executable usb-msc.elf
+[6/8] Generating binary image from built executable
+esptool.py v4.8.dev5
+Creating esp32s3 image...
+Merged 2 ELF sections
+Successfully created esp32s3 image.
+Generated D:/HK241/Project2/code/msc_Copy/build/usb-msc.bin
+[7/8] cmd.exe /C "cd /D D:\HK241\Project2\code\msc_Copy\build\esp-idf\esptool_py && C:\Espressif\python_env\idf5.3_py3.11_env\Scripts\python.exe C:/Espressif/frameworks/esp-idf-v5.3.1/components/partition_table/check_sizes.py --offset 0x8000 partition --type app D:/HK241/Project2/code/msc_Copy/build/partition_table/partition-table.bin D:/HK241/Project2/code/msc_Copy/build/usb-msc.bin"
+usb-msc.bin binary size 0xe9a70 bytes. Smallest app partition is 0x100000 bytes. 0x16590 bytes (9%) free.
+[7/8] cmd.exe /C "cd /D C:\Espressif\frameworks\esp-idf-v5.3.1\components\esptool_py && C:\Espressif\tools\cmake\3.24.0\bin\cmake.exe -D IDF_PATH=C:/Espressif/frameworks/esp-idf-v5.3.1 -D SERIAL_Tesptool.py --chip esp32s3 -p COM5 -b 460800 --before=default_reset --after=hard_reset write_flash --flash_mode dio --flash_freq 80m --flash_size 2MB 0x0 bootloader/bootloader.bin 0x10000 usb-msc.bin 0x8000 partition_table/partition-table.bin
+esptool.py v4.8.dev5
+Serial port COM5
+Connecting....
+Chip is ESP32-S3 (QFN56) (revision v0.2)
+Features: WiFi, BLE, Embedded PSRAM 2MB (AP_3v3)
+Crystal is 40MHz
+MAC: 24:ec:4a:46:12:48
+Uploading stub...
+Running stub...
+Stub running...
+Changing baud rate to 460800
+Changed.
+Configuring flash size...
+Flash will be erased from 0x00000000 to 0x00005fff...
+Flash will be erased from 0x00010000 to 0x000f9fff...
+Flash will be erased from 0x00008000 to 0x00008fff...
+SHA digest in image updated
+Compressed 21088 bytes to 13054...
+Writing at 0x00000000... (100 %)
+Wrote 21088 bytes (13054 compressed) at 0x00000000 in 0.6 seconds (effective 286.7 kbit/s)...
+Hash of data verified.
+Compressed 957040 bytes to 589664...
+Writing at 0x00010000... (2 %)
+Writing at 0x0001d61f... (5 %)
+Writing at 0x00029845... (8 %)
+Writing at 0x0002eaed... (11 %)
+Writing at 0x00034eed... (13 %)
+Writing at 0x00040911... (16 %)
+Writing at 0x00046c69... (19 %)
+Writing at 0x0004d155... (22 %)
+Writing at 0x00052d58... (25 %)
+Writing at 0x00059485... (27 %)
+Writing at 0x0005f6cb... (30 %)
+Writing at 0x000658f8... (33 %)
+Writing at 0x0006b869... (36 %)
+Writing at 0x000713c2... (38 %)
+Writing at 0x00077148... (41 %)
+Writing at 0x0007c054... (44 %)
+Writing at 0x00081228... (47 %)
+Writing at 0x000862ec... (50 %)
+Writing at 0x0008b5fe... (52 %)
+Writing at 0x0009099a... (55 %)
+Writing at 0x000966e1... (58 %)
+Writing at 0x0009bf4d... (61 %)
+Writing at 0x000a1a1d... (63 %)
+Writing at 0x000a7762... (66 %)
+Writing at 0x000ad288... (69 %)
+Writing at 0x000b2bf8... (72 %)
+Writing at 0x000b8945... (75 %)
+Writing at 0x000befc0... (77 %)
+Writing at 0x000c43c3... (80 %)
+Writing at 0x000ca303... (83 %)
+Writing at 0x000d46b9... (86 %)
+Writing at 0x000dbebd... (88 %)
+Writing at 0x000e1bf4... (91 %)
+Writing at 0x000e7adc... (94 %)
+Writing at 0x000edc7b... (97 %)
+Writing at 0x000f42ad... (100 %)
+Wrote 957040 bytes (589664 compressed) at 0x00010000 in 13.7 seconds (effective 560.1 kbit/s)...
+Hash of data verified.
+Compressed 3072 bytes to 103...
+Writing at 0x00008000... (100 %)
+Wrote 3072 bytes (103 compressed) at 0x00008000 in 0.0 seconds (effective 494.3 kbit/s)...
+Hash of data verified.
+
+Leaving...
+Hard resetting via RTS pin...
+OOL=C:/Espressif/python_env/idf5.3_py3.11_env/Scripts/python.exe;;C:/Espressif/frameworks/esp-idf-v5.3.1/components/esptool_py/esptool/esptool.py;--chip;esp32s3 -D SERIAL_TOOL_ARGS=--before=default_reset;--after=hard_reset;write_flash;@flash_args -D WORKING_DIRECTORY=D:/HK241/Project2/code/msc_Copy/build -P C:/Espressif/frameworks/esp-idf-v5.3.1/components/esptool_py/run_serial_tool.cmake"

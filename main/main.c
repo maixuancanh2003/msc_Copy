@@ -25,6 +25,7 @@
 #include <esp_event.h>
 #include <esp_wifi.h>
 #include <string.h>
+#include "esp_system.h"
 
 #include <stdio.h>
 #include "freertos/FreeRTOS.h"
@@ -48,6 +49,7 @@ static const char *TAG = "example";
 #define MNT_PATH         "/usb"     // Path in the Virtual File System, where the USB flash drive is going to be mounted
 #define APP_QUIT_PIN     GPIO_NUM_0 // BOOT button on most boards
 #define BUFFER_SIZE      4096       // The read/write performance can be improved with larger buffer for the cost of RAM, 4kB is enough for most usecases
+static led_strip_t *strip;
 
 /**
  * @brief Application Queue and its messages ID
@@ -63,7 +65,6 @@ typedef struct {
         uint8_t new_dev_address; // Address of new USB device for APP_DEVICE_CONNECTED event if
     } data;
 } app_message_t;
-static led_strip_t *strip;
 
 /**
  * @brief BOOT button pressed callback
@@ -72,7 +73,6 @@ static led_strip_t *strip;
  *
  * @param[in] arg Unused
  */
-
 void setup_ws2812()
 {
     // Cấu hình RMT
@@ -85,6 +85,7 @@ void setup_ws2812()
     led_strip_config_t strip_config = LED_STRIP_DEFAULT_CONFIG(LED_NUMBER, RMT_TX_CHANNEL);
     strip = led_strip_new_rmt_ws2812(&strip_config);
     
+    // Kiểm tra nếu khởi tạo không thành công
     if (!strip) {
         printf("Failed to initialize WS2812 LED strip\n");
         return;
@@ -95,8 +96,13 @@ void setup_ws2812()
 }
 void set_color(uint8_t red, uint8_t green, uint8_t blue)
 {
-    // Đặt màu cho đèn
-    strip->set_pixel(strip, 0, red, green, blue);
+    // Giảm độ sáng (50% sáng so với giá trị tối đa)
+    uint8_t dim_red = red / 6;
+    uint8_t dim_green = green / 6;
+    uint8_t dim_blue = blue / 6;
+
+    // Đặt màu cho đèn WS2812
+    strip->set_pixel(strip, 0, dim_red, dim_green, dim_blue);
     strip->refresh(strip, 100);  // Cập nhật màu
 }
 
@@ -143,27 +149,7 @@ static void configure_gpio() {
     gpio_set_level(GPIO_3, 1);  // ENABLE USB
     // gpio_set_level(GPIO_4, 1);  // GPIO 4 mặc định mức 0
 }
-// Hàm kiểm tra và điều khiển GPIO
-static void control_gpio_based_on_data(const char *data) {
-    // Loại bỏ các ký tự \r\n không cần thiết
-    char trimmed_data[128];
-    strncpy(trimmed_data, data, sizeof(trimmed_data));
-    trim(trimmed_data);
 
-    if (strcmp(trimmed_data, "enabled") == 0) {
-        // Đẩy GPIO 3 và 4 lên mức 1
-        gpio_set_level(GPIO_3, 1);
-        // gpio_set_level(GPIO_4, 1);
-        printf("GPIO 3 và GPIO 4 đã được đẩy lên mức 1 (enabled)\n");
-    } else if (strcmp(trimmed_data, "disabled") == 0) {
-        // Đẩy GPIO 3 và 4 xuống mức 0
-        gpio_set_level(GPIO_3, 0);
-        // gpio_set_level(GPIO_4, 0);
-        printf("GPIO 3 và GPIO 4 đã được đẩy xuống mức 0 (disabled)\n");
-    } else {
-        printf("Dữ liệu không hợp lệ: %s\n", trimmed_data);
-    }
-}
 const char *html_page = R"rawliteral(
 <!DOCTYPE html>
 <html lang="en">
@@ -503,6 +489,25 @@ esp_err_t handle_post_data(httpd_req_t *req) {
         // In dữ liệu chính lên console
         ESP_LOGI(TAG, "Extracted data: %s", data_start);
         httpd_resp_send(req, "Data received and extracted", HTTPD_RESP_USE_STRLEN);
+       // Loại bỏ các ký tự \r\n hoặc khoảng trắng thừa
+    char trimmed_data[128];
+    strncpy(trimmed_data, data_start, sizeof(trimmed_data));
+    trimmed_data[strcspn(trimmed_data, "\r\n")] = 0;  // Loại bỏ ký tự xuống dòng
+
+    // So sánh chuỗi nhận được với "disabled" hoặc "enabled"
+    if (strcmp(trimmed_data, "disabled") == 0) {
+        // Đèn sáng màu đỏ khi nhận "disabled"
+        set_color(255, 0, 0);
+        gpio_set_level(GPIO_3, 0);  
+        printf("Đèn LED đã được đặt thành màu đỏ (disabled)\n");
+    } else if (strcmp(trimmed_data, "enabled") == 0) {
+        // Đèn sáng màu xanh khi nhận "enabled"
+        set_color(0, 255, 0);
+        gpio_set_level(GPIO_3, 1);  
+        // esp_restart();
+
+        printf("Đèn LED đã được đặt thành màu xanh (enabled)\n");
+    }
     } else {
         ESP_LOGI(TAG, "Could not find data");
         httpd_resp_send_500(req);
@@ -804,9 +809,7 @@ static void usb_task(void *args)
 void app_main(void)
 {
     configure_gpio();
-    setup_ws2812();  // Khởi tạo WS2812
-    set_color(255, 0, 0);
-    vTaskDelay(1000);
+    setup_ws2812();
       // Khởi tạo NVS (Non-Volatile Storage)
     ESP_ERROR_CHECK(nvs_flash_init());
 
