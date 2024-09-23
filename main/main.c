@@ -820,7 +820,8 @@ void app_main(void)
     configure_gpio();
     setup_ws2812();  // Khởi tạo WS2812
     set_color(255, 0, 0);
-  vTaskDelay(pdMS_TO_TICKS(1000));  // Đợi 1 giây      // Khởi tạo NVS (Non-Volatile Storage)
+    vTaskDelay(1000);
+      // Khởi tạo NVS (Non-Volatile Storage)
     ESP_ERROR_CHECK(nvs_flash_init());
 
     // Khởi động WiFi

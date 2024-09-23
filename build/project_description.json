@@ -1,7 +1,7 @@
 {
     "version":            "1.1",
     "project_name":       "usb-msc",
-    "project_version":    "d7d60ef-dirty",
+    "project_version":    "0b3cc0f-dirty",
     "project_path":       "D:/HK241/Project2/code/msc_Copy",
     "idf_path":           "C:/Espressif/frameworks/esp-idf-v5.3.1",
     "build_dir":          "D:/HK241/Project2/code/msc_Copy/build",
