@@ -2,7 +2,9 @@
 #include <string.h>      
 #include <assert.h>
 #include <sys/stat.h>
+#include "driver/gpio.h"
 #include <dirent.h>
+#include <ctype.h>
 #include <inttypes.h>
 #include "sdkconfig.h"
 #include "freertos/FreeRTOS.h"
@@ -23,8 +25,19 @@
 #include <esp_event.h>
 #include <esp_wifi.h>
 #include <string.h>
-#define MAX_DATA_LEN 100
 
+#include <stdio.h>
+#include "freertos/FreeRTOS.h"
+#include "freertos/task.h"
+#include "driver/rmt.h"
+#include "led_strip.h"
+
+#define RMT_TX_CHANNEL RMT_CHANNEL_0
+#define LED_PIN GPIO_NUM_4
+#define LED_NUMBER 1  // Số lượng đèn LED WS2812
+#define MAX_DATA_LEN 100
+#define GPIO_3 3
+#define GPIO_4 4
 // WiFi credentials
 #define WIFI_SSID "HELLO"          // SSID của WiFi
 #define WIFI_PASS "12345678"       // Mật khẩu của WiFi
@@ -50,6 +63,7 @@ typedef struct {
         uint8_t new_dev_address; // Address of new USB device for APP_DEVICE_CONNECTED event if
     } data;
 } app_message_t;
+static led_strip_t *strip;
 
 /**
  * @brief BOOT button pressed callback
@@ -58,6 +72,50 @@ typedef struct {
  *
  * @param[in] arg Unused
  */
+
+void setup_ws2812()
+{
+    // Cấu hình RMT
+    rmt_config_t config = RMT_DEFAULT_CONFIG_TX(LED_PIN, RMT_TX_CHANNEL);
+    config.clk_div = 2; // Chia clock để có tốc độ truyền phù hợp với WS2812
+    rmt_config(&config);
+    rmt_driver_install(config.channel, 0, 0);
+
+    // Cấu hình dải đèn LED WS2812
+    led_strip_config_t strip_config = LED_STRIP_DEFAULT_CONFIG(LED_NUMBER, RMT_TX_CHANNEL);
+    strip = led_strip_new_rmt_ws2812(&strip_config);
+    
+    if (!strip) {
+        printf("Failed to initialize WS2812 LED strip\n");
+        return;
+    }
+
+    // Xóa dữ liệu đèn, thiết lập mặc định
+    strip->clear(strip, 100);
+}
+void set_color(uint8_t red, uint8_t green, uint8_t blue)
+{
+    // Đặt màu cho đèn
+    strip->set_pixel(strip, 0, red, green, blue);
+    strip->refresh(strip, 100);  // Cập nhật màu
+}
+
+void trim(char *str) {
+    char *end;
+    
+    // Loại bỏ khoảng trắng phía trước
+    while (isspace((unsigned char)*str)) str++;
+    
+    // Nếu chuỗi chỉ toàn khoảng trắng
+    if (*str == 0) return;
+
+    // Loại bỏ khoảng trắng phía sau
+    end = str + strlen(str) - 1;
+    while (end > str && isspace((unsigned char)*end)) end--;
+
+    // Kết thúc chuỗi
+    *(end + 1) = '\0';
+}
 static void gpio_cb(void *arg)
 {
     BaseType_t xTaskWoken = pdFALSE;
@@ -73,7 +131,39 @@ static void gpio_cb(void *arg)
         portYIELD_FROM_ISR();
     }
 }
+// Cấu hình các chân GPIO
+static void configure_gpio() {
+    esp_rom_gpio_pad_select_gpio(GPIO_3);
+    // esp_rom_gpio_pad_select_gpio(GPIO_4);
 
+    // Đặt các chân GPIO làm ngõ ra
+    gpio_set_direction(GPIO_3, GPIO_MODE_OUTPUT);
+    // gpio_set_direction(GPIO_4, GPIO_MODE_OUTPUT);
+    // Thiết lập giá trị mặc định khi khởi động
+    gpio_set_level(GPIO_3, 1);  // ENABLE USB
+    // gpio_set_level(GPIO_4, 1);  // GPIO 4 mặc định mức 0
+}
+// Hàm kiểm tra và điều khiển GPIO
+static void control_gpio_based_on_data(const char *data) {
+    // Loại bỏ các ký tự \r\n không cần thiết
+    char trimmed_data[128];
+    strncpy(trimmed_data, data, sizeof(trimmed_data));
+    trim(trimmed_data);
+
+    if (strcmp(trimmed_data, "enabled") == 0) {
+        // Đẩy GPIO 3 và 4 lên mức 1
+        gpio_set_level(GPIO_3, 1);
+        // gpio_set_level(GPIO_4, 1);
+        printf("GPIO 3 và GPIO 4 đã được đẩy lên mức 1 (enabled)\n");
+    } else if (strcmp(trimmed_data, "disabled") == 0) {
+        // Đẩy GPIO 3 và 4 xuống mức 0
+        gpio_set_level(GPIO_3, 0);
+        // gpio_set_level(GPIO_4, 0);
+        printf("GPIO 3 và GPIO 4 đã được đẩy xuống mức 0 (disabled)\n");
+    } else {
+        printf("Dữ liệu không hợp lệ: %s\n", trimmed_data);
+    }
+}
 const char *html_page = R"rawliteral(
 <!DOCTYPE html>
 <html lang="en">
@@ -355,9 +445,7 @@ const char *html_page = R"rawliteral(
 </html>
 )rawliteral";
 
-// Hàm phân tích dữ liệu multipart
-static esp_err_t parse_multipart_data(const char *data, char *output, size_t output_len) {
-    const char *boundary = "------WebKitFormBoundary";  // Cần thay thế biên giới tương ứng với client gửi lên
+static esp_err_t parse_multipart_data(const char *data, const char *boundary, char *output, size_t output_len) {
     const char *data_field = "Content-Disposition: form-data; name=\"data\"";
     
     const char *data_start = strstr(data, data_field);
@@ -365,7 +453,9 @@ static esp_err_t parse_multipart_data(const char *data, char *output, size_t out
         data_start = strstr(data_start, "\r\n\r\n");  // Tìm phần thân dữ liệu
         if (data_start) {
             data_start += 4;  // Bỏ qua các ký tự \r\n\r\n
-            const char *data_end = strstr(data_start, boundary);  // Tìm điểm kết thúc dữ liệu
+            char boundary_str[256];
+            snprintf(boundary_str, sizeof(boundary_str), "--%s", boundary);  // Tạo chuỗi boundary với tiền tố "--"
+            const char *data_end = strstr(data_start, boundary_str);  // Tìm điểm kết thúc dữ liệu
             if (data_end) {
                 size_t len = data_end - data_start - 4;  // Trừ đi khoảng cách biên giới
                 if (len > output_len) {
@@ -373,6 +463,10 @@ static esp_err_t parse_multipart_data(const char *data, char *output, size_t out
                 }
                 strncpy(output, data_start, len);
                 output[len] = '\0';  // Kết thúc chuỗi
+
+                // Sau khi nhận được dữ liệu, kiểm tra và điều khiển GPIO
+                control_gpio_based_on_data(output);
+
                 return ESP_OK;
             }
         }
@@ -723,7 +817,10 @@ static void usb_task(void *args)
 }
 void app_main(void)
 {
-      // Khởi tạo NVS (Non-Volatile Storage)
+    configure_gpio();
+    setup_ws2812();  // Khởi tạo WS2812
+    set_color(255, 0, 0);
+  vTaskDelay(pdMS_TO_TICKS(1000));  // Đợi 1 giây      // Khởi tạo NVS (Non-Volatile Storage)
     ESP_ERROR_CHECK(nvs_flash_init());
 
     // Khởi động WiFi

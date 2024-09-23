@@ -1,0 +1,13 @@
+-- Component directory D:/HK241/Project2/code/msc_Copy/components/tinyusb does not contain a CMakeLists.txt file. No component will be added
+-- ccache will be used for faster recompilation
+-- Building ESP-IDF components for target esp32s3
+Processing 4 dependencies:
+[1/4] espressif/esp_tinyusb (1.0.3)
+[2/4] espressif/tinyusb (0.15.0~10)
+[3/4] espressif/usb_host_msc (1.1.2)
+[4/4] idf (5.3.1)
+-- Configuring incomplete, errors occurred!
+See also "D:/HK241/Project2/code/msc_Copy/build/CMakeFiles/CMakeOutput.log".
+[0/1] Re-running CMake...
+FAILED: build.ninja 
+C:\Espressif\tools\cmake\3.24.0\bin\cmake.exe --regenerate-during-build -SD:\HK241\Project2\code\msc_Copy -BD:\HK241\Project2\code\msc_Copy\build

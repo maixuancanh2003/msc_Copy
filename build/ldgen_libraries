@@ -55,6 +55,7 @@ D:/HK241/Project2/code/msc_Copy/build/esp-idf/esp_http_server/libesp_http_server
 D:/HK241/Project2/code/msc_Copy/build/esp-idf/wear_levelling/libwear_levelling.a
 D:/HK241/Project2/code/msc_Copy/build/esp-idf/fatfs/libfatfs.a
 D:/HK241/Project2/code/msc_Copy/build/esp-idf/usb/libusb.a
+D:/HK241/Project2/code/msc_Copy/build/esp-idf/espressif__led_strip/libespressif__led_strip.a
 D:/HK241/Project2/code/msc_Copy/build/esp-idf/espressif__tinyusb/libespressif__tinyusb.a
 D:/HK241/Project2/code/msc_Copy/build/esp-idf/espressif__esp_tinyusb/libespressif__esp_tinyusb.a
 D:/HK241/Project2/code/msc_Copy/build/esp-idf/espressif__usb_host_msc/libespressif__usb_host_msc.a

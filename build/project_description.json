@@ -1,7 +1,7 @@
 {
     "version":            "1.1",
     "project_name":       "usb-msc",
-    "project_version":    "ed968fc-dirty",
+    "project_version":    "d7d60ef-dirty",
     "project_path":       "D:/HK241/Project2/code/msc_Copy",
     "idf_path":           "C:/Espressif/frameworks/esp-idf-v5.3.1",
     "build_dir":          "D:/HK241/Project2/code/msc_Copy/build",
@@ -25,8 +25,8 @@
         "COMPONENT_KCONFIGS_PROJBUILD" : "C:/Espressif/frameworks/esp-idf-v5.3.1/components/bootloader/Kconfig.projbuild;C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_app_format/Kconfig.projbuild;C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_rom/Kconfig.projbuild;C:/Espressif/frameworks/esp-idf-v5.3.1/components/esptool_py/Kconfig.projbuild;C:/Espressif/frameworks/esp-idf-v5.3.1/components/partition_table/Kconfig.projbuild"
     },
     "common_component_reqs": [ "cxx", "newlib", "freertos", "esp_hw_support", "heap", "log", "soc", "hal", "esp_rom", "esp_common", "esp_system", "xtensa" ],
-    "build_components" : [ "app_update", "bootloader", "bootloader_support", "cxx", "driver", "efuse", "esp_app_format", "esp_bootloader_format", "esp_coex", "esp_common", "esp_driver_ana_cmpr", "esp_driver_dac", "esp_driver_gpio", "esp_driver_gptimer", "esp_driver_i2c", "esp_driver_i2s", "esp_driver_ledc", "esp_driver_mcpwm", "esp_driver_parlio", "esp_driver_pcnt", "esp_driver_rmt", "esp_driver_sdio", "esp_driver_sdm", "esp_driver_sdmmc", "esp_driver_sdspi", "esp_driver_spi", "esp_driver_tsens", "esp_driver_uart", "esp_driver_usb_serial_jtag", "esp_event", "esp_http_server", "esp_hw_support", "esp_mm", "esp_netif", "esp_netif_stack", "esp_partition", "esp_phy", "esp_pm", "esp_ringbuf", "esp_rom", "esp_system", "esp_timer", "esp_vfs_console", "esp_wifi", "espressif__esp_tinyusb", "espressif__tinyusb", "espressif__usb_host_msc", "esptool_py", "fatfs", "freertos", "hal", "heap", "http_parser", "log", "lwip", "main", "mbedtls", "newlib", "nvs_flash", "partition_table", "pthread", "sdmmc", "soc", "spi_flash", "usb", "vfs", "wear_levelling", "wpa_supplicant", "xtensa", "" ],
-    "build_component_paths" : [ "C:/Espressif/frameworks/esp-idf-v5.3.1/components/app_update", "C:/Espressif/frameworks/esp-idf-v5.3.1/components/bootloader", "C:/Espressif/frameworks/esp-idf-v5.3.1/components/bootloader_support", "C:/Espressif/frameworks/esp-idf-v5.3.1/components/cxx", "C:/Espressif/frameworks/esp-idf-v5.3.1/components/driver", "C:/Espressif/frameworks/esp-idf-v5.3.1/components/efuse", "C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_app_format", "C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_bootloader_format", "C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_coex", "C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_common", "C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_driver_ana_cmpr", "C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_driver_dac", "C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_driver_gpio", "C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_driver_gptimer", "C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_driver_i2c", "C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_driver_i2s", "C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_driver_ledc", "C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_driver_mcpwm", "C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_driver_parlio", "C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_driver_pcnt", "C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_driver_rmt", "C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_driver_sdio", "C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_driver_sdm", "C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_driver_sdmmc", "C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_driver_sdspi", "C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_driver_spi", "C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_driver_tsens", "C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_driver_uart", "C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_driver_usb_serial_jtag", "C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_event", "C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_http_server", "C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_hw_support", "C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_mm", "C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_netif", "C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_netif_stack", "C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_partition", "C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_phy", "C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_pm", "C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_ringbuf", "C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_rom", "C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system", "C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_timer", "C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_vfs_console", "C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_wifi", "D:/HK241/Project2/code/msc_Copy/managed_components/espressif__esp_tinyusb", "D:/HK241/Project2/code/msc_Copy/managed_components/espressif__tinyusb", "D:/HK241/Project2/code/msc_Copy/managed_components/espressif__usb_host_msc", "C:/Espressif/frameworks/esp-idf-v5.3.1/components/esptool_py", "C:/Espressif/frameworks/esp-idf-v5.3.1/components/fatfs", "C:/Espressif/frameworks/esp-idf-v5.3.1/components/freertos", "C:/Espressif/frameworks/esp-idf-v5.3.1/components/hal", "C:/Espressif/frameworks/esp-idf-v5.3.1/components/heap", "C:/Espressif/frameworks/esp-idf-v5.3.1/components/http_parser", "C:/Espressif/frameworks/esp-idf-v5.3.1/components/log", "C:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip", "D:/HK241/Project2/code/msc_Copy/main", "C:/Espressif/frameworks/esp-idf-v5.3.1/components/mbedtls", "C:/Espressif/frameworks/esp-idf-v5.3.1/components/newlib", "C:/Espressif/frameworks/esp-idf-v5.3.1/components/nvs_flash", "C:/Espressif/frameworks/esp-idf-v5.3.1/components/partition_table", "C:/Espressif/frameworks/esp-idf-v5.3.1/components/pthread", "C:/Espressif/frameworks/esp-idf-v5.3.1/components/sdmmc", "C:/Espressif/frameworks/esp-idf-v5.3.1/components/soc", "C:/Espressif/frameworks/esp-idf-v5.3.1/components/spi_flash", "C:/Espressif/frameworks/esp-idf-v5.3.1/components/usb", "C:/Espressif/frameworks/esp-idf-v5.3.1/components/vfs", "C:/Espressif/frameworks/esp-idf-v5.3.1/components/wear_levelling", "C:/Espressif/frameworks/esp-idf-v5.3.1/components/wpa_supplicant", "C:/Espressif/frameworks/esp-idf-v5.3.1/components/xtensa", "" ],
+    "build_components" : [ "app_update", "bootloader", "bootloader_support", "cxx", "driver", "efuse", "esp_app_format", "esp_bootloader_format", "esp_coex", "esp_common", "esp_driver_ana_cmpr", "esp_driver_dac", "esp_driver_gpio", "esp_driver_gptimer", "esp_driver_i2c", "esp_driver_i2s", "esp_driver_ledc", "esp_driver_mcpwm", "esp_driver_parlio", "esp_driver_pcnt", "esp_driver_rmt", "esp_driver_sdio", "esp_driver_sdm", "esp_driver_sdmmc", "esp_driver_sdspi", "esp_driver_spi", "esp_driver_tsens", "esp_driver_uart", "esp_driver_usb_serial_jtag", "esp_event", "esp_http_server", "esp_hw_support", "esp_mm", "esp_netif", "esp_netif_stack", "esp_partition", "esp_phy", "esp_pm", "esp_ringbuf", "esp_rom", "esp_system", "esp_timer", "esp_vfs_console", "esp_wifi", "espressif__esp_tinyusb", "espressif__led_strip", "espressif__tinyusb", "espressif__usb_host_msc", "esptool_py", "fatfs", "freertos", "hal", "heap", "http_parser", "log", "lwip", "main", "mbedtls", "newlib", "nvs_flash", "partition_table", "pthread", "sdmmc", "soc", "spi_flash", "usb", "vfs", "wear_levelling", "wpa_supplicant", "xtensa", "" ],
+    "build_component_paths" : [ "C:/Espressif/frameworks/esp-idf-v5.3.1/components/app_update", "C:/Espressif/frameworks/esp-idf-v5.3.1/components/bootloader", "C:/Espressif/frameworks/esp-idf-v5.3.1/components/bootloader_support", "C:/Espressif/frameworks/esp-idf-v5.3.1/components/cxx", "C:/Espressif/frameworks/esp-idf-v5.3.1/components/driver", "C:/Espressif/frameworks/esp-idf-v5.3.1/components/efuse", "C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_app_format", "C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_bootloader_format", "C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_coex", "C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_common", "C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_driver_ana_cmpr", "C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_driver_dac", "C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_driver_gpio", "C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_driver_gptimer", "C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_driver_i2c", "C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_driver_i2s", "C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_driver_ledc", "C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_driver_mcpwm", "C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_driver_parlio", "C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_driver_pcnt", "C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_driver_rmt", "C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_driver_sdio", "C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_driver_sdm", "C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_driver_sdmmc", "C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_driver_sdspi", "C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_driver_spi", "C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_driver_tsens", "C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_driver_uart", "C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_driver_usb_serial_jtag", "C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_event", "C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_http_server", "C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_hw_support", "C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_mm", "C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_netif", "C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_netif_stack", "C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_partition", "C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_phy", "C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_pm", "C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_ringbuf", "C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_rom", "C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system", "C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_timer", "C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_vfs_console", "C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_wifi", "D:/HK241/Project2/code/msc_Copy/managed_components/espressif__esp_tinyusb", "D:/HK241/Project2/code/msc_Copy/managed_components/espressif__led_strip", "D:/HK241/Project2/code/msc_Copy/managed_components/espressif__tinyusb", "D:/HK241/Project2/code/msc_Copy/managed_components/espressif__usb_host_msc", "C:/Espressif/frameworks/esp-idf-v5.3.1/components/esptool_py", "C:/Espressif/frameworks/esp-idf-v5.3.1/components/fatfs", "C:/Espressif/frameworks/esp-idf-v5.3.1/components/freertos", "C:/Espressif/frameworks/esp-idf-v5.3.1/components/hal", "C:/Espressif/frameworks/esp-idf-v5.3.1/components/heap", "C:/Espressif/frameworks/esp-idf-v5.3.1/components/http_parser", "C:/Espressif/frameworks/esp-idf-v5.3.1/components/log", "C:/Espressif/frameworks/esp-idf-v5.3.1/components/lwip", "D:/HK241/Project2/code/msc_Copy/main", "C:/Espressif/frameworks/esp-idf-v5.3.1/components/mbedtls", "C:/Espressif/frameworks/esp-idf-v5.3.1/components/newlib", "C:/Espressif/frameworks/esp-idf-v5.3.1/components/nvs_flash", "C:/Espressif/frameworks/esp-idf-v5.3.1/components/partition_table", "C:/Espressif/frameworks/esp-idf-v5.3.1/components/pthread", "C:/Espressif/frameworks/esp-idf-v5.3.1/components/sdmmc", "C:/Espressif/frameworks/esp-idf-v5.3.1/components/soc", "C:/Espressif/frameworks/esp-idf-v5.3.1/components/spi_flash", "C:/Espressif/frameworks/esp-idf-v5.3.1/components/usb", "C:/Espressif/frameworks/esp-idf-v5.3.1/components/vfs", "C:/Espressif/frameworks/esp-idf-v5.3.1/components/wear_levelling", "C:/Espressif/frameworks/esp-idf-v5.3.1/components/wpa_supplicant", "C:/Espressif/frameworks/esp-idf-v5.3.1/components/xtensa", "" ],
     "build_component_info" : {
         "app_update": {
             "alias": "idf::app_update",
@@ -703,6 +703,21 @@
             "sources": [ "D:/HK241/Project2/code/msc_Copy/managed_components/espressif__esp_tinyusb/descriptors_control.c", "D:/HK241/Project2/code/msc_Copy/managed_components/espressif__esp_tinyusb/tinyusb.c", "D:/HK241/Project2/code/msc_Copy/managed_components/espressif__esp_tinyusb/usb_descriptors.c", "D:/HK241/Project2/code/msc_Copy/managed_components/espressif__esp_tinyusb/tusb_tasks.c" ],
             "include_dirs": [ "include" ]
         },
+        "espressif__led_strip": {
+            "alias": "idf::espressif__led_strip",
+            "target": "___idf_espressif__led_strip",
+            "prefix": "idf",
+            "dir": "D:/HK241/Project2/code/msc_Copy/managed_components/espressif__led_strip",
+            "type": "LIBRARY",
+            "lib": "__idf_espressif__led_strip",
+            "reqs": [],
+            "priv_reqs": [ "driver" ],
+            "managed_reqs": [],
+            "managed_priv_reqs": [],
+            "file": "D:/HK241/Project2/code/msc_Copy/build/esp-idf/espressif__led_strip/libespressif__led_strip.a",
+            "sources": [ "D:/HK241/Project2/code/msc_Copy/managed_components/espressif__led_strip/src/led_strip_rmt_ws2812.c" ],
+            "include_dirs": [ "include" ]
+        },
         "espressif__tinyusb": {
             "alias": "idf::espressif__tinyusb",
             "target": "___idf_espressif__tinyusb",
@@ -861,9 +876,9 @@
             "type": "LIBRARY",
             "lib": "__idf_main",
             "reqs": [],
-            "priv_reqs": [ "freertos", "esp_wifi", "esp_http_server", "nvs_flash", "fatfs", "esp_netif", "usb", "esp_driver_gpio", "esp_timer", "espressif__esp_tinyusb", "espressif__usb_host_msc" ],
+            "priv_reqs": [ "freertos", "esp_wifi", "esp_http_server", "nvs_flash", "fatfs", "esp_netif", "usb", "esp_driver_gpio", "esp_timer", "espressif__led_strip", "driver", "espressif__esp_tinyusb", "espressif__usb_host_msc" ],
             "managed_reqs": [],
-            "managed_priv_reqs": [ "espressif__esp_tinyusb", "espressif__usb_host_msc" ],
+            "managed_priv_reqs": [ "espressif__esp_tinyusb", "espressif__led_strip", "espressif__usb_host_msc" ],
             "file": "D:/HK241/Project2/code/msc_Copy/build/esp-idf/main/libmain.a",
             "sources": [ "D:/HK241/Project2/code/msc_Copy/main/main.c" ],
             "include_dirs": [ ".", "../components/tinyusb/src" ]
@@ -2308,9 +2323,9 @@
             "dir": "D:/HK241/Project2/code/msc_Copy/main",
             "lib": "__idf_main",
             "reqs": [],
-            "priv_reqs": [ "freertos", "esp_wifi", "esp_http_server", "nvs_flash", "fatfs", "esp_netif", "usb", "esp_driver_gpio", "esp_timer", "espressif__esp_tinyusb", "espressif__usb_host_msc" ],
+            "priv_reqs": [ "freertos", "esp_wifi", "esp_http_server", "nvs_flash", "fatfs", "esp_netif", "usb", "esp_driver_gpio", "esp_timer", "espressif__led_strip", "driver", "espressif__esp_tinyusb", "espressif__usb_host_msc" ],
             "managed_reqs": [],
-            "managed_priv_reqs": [ "espressif__esp_tinyusb", "espressif__usb_host_msc" ],
+            "managed_priv_reqs": [ "espressif__esp_tinyusb", "espressif__led_strip", "espressif__usb_host_msc" ],
             "include_dirs": [ ".", "../components/tinyusb/src" ]
         },
         "espressif__esp_tinyusb": {
@@ -2322,6 +2337,18 @@
             "reqs": [ "espressif__tinyusb" ],
             "priv_reqs": [ "usb", "vfs", "esp_ringbuf" ],
             "managed_reqs": [ "espressif__tinyusb" ],
+            "managed_priv_reqs": [],
+            "include_dirs": [ "include" ]
+        },
+        "espressif__led_strip": {
+            "alias": "idf::espressif__led_strip",
+            "target": "___idf_espressif__led_strip",
+            "prefix": "idf",
+            "dir": "D:/HK241/Project2/code/msc_Copy/managed_components/espressif__led_strip",
+            "lib": "__idf_espressif__led_strip",
+            "reqs": [],
+            "priv_reqs": [ "driver" ],
+            "managed_reqs": [],
             "managed_priv_reqs": [],
             "include_dirs": [ "include" ]
         },

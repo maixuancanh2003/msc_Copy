@@ -579,6 +579,13 @@ D:/HK241/Project2/code/msc_Copy/build/esp-idf/usb/CMakeFiles/list_install_compon
 D:/HK241/Project2/code/msc_Copy/build/esp-idf/usb/CMakeFiles/install.dir
 D:/HK241/Project2/code/msc_Copy/build/esp-idf/usb/CMakeFiles/install/local.dir
 D:/HK241/Project2/code/msc_Copy/build/esp-idf/usb/CMakeFiles/install/strip.dir
+D:/HK241/Project2/code/msc_Copy/build/esp-idf/espressif__led_strip/CMakeFiles/__idf_espressif__led_strip.dir
+D:/HK241/Project2/code/msc_Copy/build/esp-idf/espressif__led_strip/CMakeFiles/edit_cache.dir
+D:/HK241/Project2/code/msc_Copy/build/esp-idf/espressif__led_strip/CMakeFiles/rebuild_cache.dir
+D:/HK241/Project2/code/msc_Copy/build/esp-idf/espressif__led_strip/CMakeFiles/list_install_components.dir
+D:/HK241/Project2/code/msc_Copy/build/esp-idf/espressif__led_strip/CMakeFiles/install.dir
+D:/HK241/Project2/code/msc_Copy/build/esp-idf/espressif__led_strip/CMakeFiles/install/local.dir
+D:/HK241/Project2/code/msc_Copy/build/esp-idf/espressif__led_strip/CMakeFiles/install/strip.dir
 D:/HK241/Project2/code/msc_Copy/build/esp-idf/espressif__tinyusb/CMakeFiles/__idf_espressif__tinyusb.dir
 D:/HK241/Project2/code/msc_Copy/build/esp-idf/espressif__tinyusb/CMakeFiles/edit_cache.dir
 D:/HK241/Project2/code/msc_Copy/build/esp-idf/espressif__tinyusb/CMakeFiles/rebuild_cache.dir
