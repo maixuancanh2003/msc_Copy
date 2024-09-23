@@ -21,7 +21,8 @@
         "msc_host_vfs.h": "c",
         "string.h": "c",
         "stdio.h": "c",
-        "esp_netif.h": "c"
+        "esp_netif.h": "c",
+        "cstring": "c"
     },
     "C_Cpp.errorSquiggles": "disabled"
 }

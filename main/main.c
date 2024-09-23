@@ -445,34 +445,6 @@ const char *html_page = R"rawliteral(
 </html>
 )rawliteral";
 
-static esp_err_t parse_multipart_data(const char *data, const char *boundary, char *output, size_t output_len) {
-    const char *data_field = "Content-Disposition: form-data; name=\"data\"";
-    
-    const char *data_start = strstr(data, data_field);
-    if (data_start) {
-        data_start = strstr(data_start, "\r\n\r\n");  // Tìm phần thân dữ liệu
-        if (data_start) {
-            data_start += 4;  // Bỏ qua các ký tự \r\n\r\n
-            char boundary_str[256];
-            snprintf(boundary_str, sizeof(boundary_str), "--%s", boundary);  // Tạo chuỗi boundary với tiền tố "--"
-            const char *data_end = strstr(data_start, boundary_str);  // Tìm điểm kết thúc dữ liệu
-            if (data_end) {
-                size_t len = data_end - data_start - 4;  // Trừ đi khoảng cách biên giới
-                if (len > output_len) {
-                    len = output_len;  // Đảm bảo không vượt quá kích thước buffer
-                }
-                strncpy(output, data_start, len);
-                output[len] = '\0';  // Kết thúc chuỗi
-
-                // Sau khi nhận được dữ liệu, kiểm tra và điều khiển GPIO
-                control_gpio_based_on_data(output);
-
-                return ESP_OK;
-            }
-        }
-    }
-    return ESP_FAIL;
-}
 
 
 // Xử lý yêu cầu HTTP GET cho trang web chính
@@ -519,13 +491,27 @@ esp_err_t handle_post_data(httpd_req_t *req) {
 
     content[cur_len] = '\0';  // Đảm bảo kết thúc chuỗi
 
-    // In dữ liệu lên console (dữ liệu đầy đủ)
-    ESP_LOGI(TAG, "Received data: %s", content);
+    // Tìm phần dữ liệu chính sau "Content-Disposition"
+    char *data_start = strstr(content, "\r\n\r\n");  // Tìm vị trí bắt đầu của dữ liệu sau metadata
+    if (data_start != NULL) {
+        data_start += 4; // Bỏ qua đoạn \r\n\r\n để đến dữ liệu chính
+        char *data_end = strstr(data_start, "\r\n------");  // Tìm vị trí kết thúc dữ liệu dựa trên boundary
+        if (data_end != NULL) {
+            *data_end = '\0';  // Kết thúc chuỗi dữ liệu tại boundary
+        }
 
-    // Trả về phản hồi cho client
-    httpd_resp_send(req, "Data received and logged", HTTPD_RESP_USE_STRLEN);
+        // In dữ liệu chính lên console
+        ESP_LOGI(TAG, "Extracted data: %s", data_start);
+        httpd_resp_send(req, "Data received and extracted", HTTPD_RESP_USE_STRLEN);
+    } else {
+        ESP_LOGI(TAG, "Could not find data");
+        httpd_resp_send_500(req);
+        return ESP_FAIL;
+    }
+
     return ESP_OK;
 }
+
 
 
 // Định nghĩa handler cho send_usb_status

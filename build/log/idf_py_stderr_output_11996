@@ -1,0 +1,19 @@
+[0;33m--- WARNING: GDB cannot open serial ports accessed as COMx[0m
+[0;33m--- Using \\.\COM5 instead...[0m
+[0;33m--- esp-idf-monitor 1.4.0 on \\.\COM5 115200 ---[0m
+[0;33m--- Quit: Ctrl+] | Menu: Ctrl+T | Help: Ctrl+T followed by Ctrl+H ---[0m
+[0;33m0x4200ba1c: app_main at D:/HK241/Project2/code/msc_Copy/main/main.c:861 (discriminator 1)
+[0m
+[0;33m0x4037dccb: _esp_error_check_failed at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/esp_err.c:49
+[0m
+[0;33m0x40375dca: panic_abort at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/panic.c:463
+0x4037dcd5: esp_system_abort at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/port/esp_system_chip.c:92
+0x40386005: abort at C:/Espressif/frameworks/esp-idf-v5.3.1/components/newlib/abort.c:38
+0x4037dccb: _esp_error_check_failed at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/esp_err.c:49
+0x4200ba1c: app_main at D:/HK241/Project2/code/msc_Copy/main/main.c:861 (discriminator 1)
+0x420a2993: main_task at C:/Espressif/frameworks/esp-idf-v5.3.1/components/freertos/app_startup.c:208
+0x4037e7e1: vPortTaskWrapper at C:/Espressif/frameworks/esp-idf-v5.3.1/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:134
+[0m
+[0;33m0x40375d04: esp_restart_noos at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/port/soc/esp32s3/system_internal.c:158
+[0m
+[0m
