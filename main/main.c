@@ -489,25 +489,35 @@ esp_err_t handle_post_data(httpd_req_t *req) {
         // In dữ liệu chính lên console
         ESP_LOGI(TAG, "Extracted data: %s", data_start);
         httpd_resp_send(req, "Data received and extracted", HTTPD_RESP_USE_STRLEN);
-       // Loại bỏ các ký tự \r\n hoặc khoảng trắng thừa
-    char trimmed_data[128];
-    strncpy(trimmed_data, data_start, sizeof(trimmed_data));
-    trimmed_data[strcspn(trimmed_data, "\r\n")] = 0;  // Loại bỏ ký tự xuống dòng
+        
+        // Loại bỏ các ký tự \r\n hoặc khoảng trắng thừa
+        char trimmed_data[128];
+        strncpy(trimmed_data, data_start, sizeof(trimmed_data));
+        trimmed_data[strcspn(trimmed_data, "\r\n")] = 0;  // Loại bỏ ký tự xuống dòng
 
-    // So sánh chuỗi nhận được với "disabled" hoặc "enabled"
-    if (strcmp(trimmed_data, "disabled") == 0) {
-        // Đèn sáng màu đỏ khi nhận "disabled"
-        set_color(255, 0, 0);
-        gpio_set_level(GPIO_3, 0);  
-        printf("Đèn LED đã được đặt thành màu đỏ (disabled)\n");
-    } else if (strcmp(trimmed_data, "enabled") == 0) {
-        // Đèn sáng màu xanh khi nhận "enabled"
-        set_color(0, 255, 0);
-        gpio_set_level(GPIO_3, 1);  
-        // esp_restart();
-
-        printf("Đèn LED đã được đặt thành màu xanh (enabled)\n");
-    }
+        // So sánh chuỗi nhận được với "disabled" hoặc "enabled"
+        if (strcmp(trimmed_data, "disabled") == 0) {
+            // Đèn sáng màu đỏ khi nhận "disabled"
+            set_color(255, 0, 0);
+            gpio_set_level(GPIO_3, 0);  
+            printf("Đèn LED đã được đặt thành màu đỏ (disabled)\n");
+        } else if (strcmp(trimmed_data, "enabled") == 0) {
+            // Đèn sáng màu xanh khi nhận "enabled"
+            set_color(0, 255, 0);
+            gpio_set_level(GPIO_3, 1);  
+            printf("Đèn LED đã được đặt thành màu xanh (enabled)\n");
+        } else {
+            // Nếu chuỗi không phải "enabled" hoặc "disabled", lưu chuỗi vào file data.txt
+            const char *file_path = "/usb/esp/data.txt";
+            FILE *f = fopen(file_path, "a");  // Mở file ở chế độ append
+            if (f == NULL) {
+                ESP_LOGE(TAG, "Failed to open file for writing");
+                return ESP_FAIL;
+            }
+            fprintf(f, "%s\n", trimmed_data);  // Ghi chuỗi vào file
+            fclose(f);
+            ESP_LOGI(TAG, "Data '%s' has been saved to %s", trimmed_data, file_path);
+        }
     } else {
         ESP_LOGI(TAG, "Could not find data");
         httpd_resp_send_500(req);
@@ -516,6 +526,7 @@ esp_err_t handle_post_data(httpd_req_t *req) {
 
     return ESP_OK;
 }
+
 
 
 
@@ -697,7 +708,7 @@ static void file_operations(void)
             ESP_LOGE(TAG, "Failed to open file for writing");
             return;
         }
-        fprintf(f, "Hello World!\n");
+        fprintf(f, "Hello XuanCanhMai!\n");
         fclose(f);
     }
 
@@ -860,6 +871,7 @@ void app_main(void)
             ESP_ERROR_CHECK(msc_host_get_device_info(msc_device, &info));
             msc_host_print_descriptors(msc_device);
             print_device_info(&info);
+            file_operations();
 
             // 3. List all the files in root directory
             ESP_LOGI(TAG, "ls command output:");
@@ -872,7 +884,6 @@ void app_main(void)
             closedir(dh);
 
             // 4. The disk is mounted to Virtual File System, perform some basic demo file operation
-            file_operations();
             start_webserver();
             // 5. Perform speed test
             speed_test();
