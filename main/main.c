@@ -527,7 +527,50 @@ esp_err_t handle_post_data(httpd_req_t *req) {
     return ESP_OK;
 }
 
+esp_err_t handle_post_data2(httpd_req_t *req) {
+    char content[1024];  // Bộ đệm để chứa dữ liệu
+    int total_len = req->content_len;
+    int cur_len = 0;
+    int received = 0;
+    
+    ESP_LOGI(TAG, "Total request length: %d", total_len);
+    
+    // Kiểm tra nếu kích thước dữ liệu vượt quá kích thước bộ đệm
+    if (total_len <= 0) {
+        ESP_LOGI(TAG, "Invalid request length");
+        httpd_resp_send_500(req);
+        return ESP_FAIL;
+    }
 
+    // Nhận dữ liệu từng phần
+    while (cur_len < total_len) {
+        received = httpd_req_recv(req, content, sizeof(content) - 1);
+        if (received < 0) {
+            if (received == HTTPD_SOCK_ERR_TIMEOUT) {
+                httpd_resp_send_408(req);
+            }
+            return ESP_FAIL;
+        }
+
+        cur_len += received;
+        content[received] = '\0';  // Đảm bảo kết thúc chuỗi
+
+        // Xử lý dữ liệu đã nhận
+        // (Giả sử chúng ta chỉ muốn in ra tên file)
+        char *filename_start = strstr(content, "filename=\"");
+        if (filename_start != NULL) {
+            filename_start += 10;  // Bỏ qua "filename=\""
+            char *filename_end = strchr(filename_start, '\"');
+            if (filename_end != NULL) {
+                *filename_end = '\0';  // Kết thúc chuỗi tên tệp
+                ESP_LOGI(TAG, "File uploaded: %s", filename_start);
+            }
+        }
+    }
+
+    httpd_resp_send(req, "File name received", HTTPD_RESP_USE_STRLEN);
+    return ESP_OK;
+}
 
 
 // Định nghĩa handler cho send_usb_status
@@ -562,7 +605,12 @@ httpd_uri_t uri_post = {
     .handler  = handle_post_data, // Gọi hàm handle_post_data
     .user_ctx = NULL
 };
-
+httpd_uri_t uri_post_files = {
+    .uri      = "/send",
+    .method   = HTTP_POST,
+    .handler  = handle_post_data2, // Gọi hàm handle_post_data
+    .user_ctx = NULL
+};
 
 
 // Đăng ký URI handler trong server
@@ -577,8 +625,8 @@ httpd_handle_t start_webserver(void) {
         httpd_register_uri_handler(server, &uri_get_root);
 
         // Đăng ký URI handler cho đường dẫn /send
-        httpd_register_uri_handler(server, &uri_post); // Thêm dòng này
-
+        // httpd_register_uri_handler(server, &uri_post); // Thêm dòng này
+        httpd_register_uri_handler(server, &uri_post_files); // Thêm dòng này
         // Đăng ký URI handler cho đường dẫn /send_usb_status
         httpd_register_uri_handler(server, &uri_post_usb_status);
 
