@@ -1,0 +1,127 @@
+[0;33m--- WARNING: GDB cannot open serial ports accessed as COMx[0m
+[0;33m--- Using \\.\COM3 instead...[0m
+[0;33m--- esp-idf-monitor 1.4.0 on \\.\COM3 115200 ---[0m
+[0;33m--- Quit: Ctrl+] | Menu: Ctrl+T | Help: Ctrl+T followed by Ctrl+H ---[0m
+[0;33m0x4200ba23: app_main at D:/HK241/Project2/code/msc_Copy/main/main.c:909 (discriminator 1)
+[0m
+[0;33m0x4037dccb: _esp_error_check_failed at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/esp_err.c:49
+[0m
+[0;33m0x40375dca: panic_abort at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/panic.c:463
+0x4037dcd5: esp_system_abort at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/port/esp_system_chip.c:92
+0x40386005: abort at C:/Espressif/frameworks/esp-idf-v5.3.1/components/newlib/abort.c:38
+0x4037dccb: _esp_error_check_failed at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/esp_err.c:49
+0x4200ba23: app_main at D:/HK241/Project2/code/msc_Copy/main/main.c:909 (discriminator 1)
+0x420a299f: main_task at C:/Espressif/frameworks/esp-idf-v5.3.1/components/freertos/app_startup.c:208
+0x4037e7e1: vPortTaskWrapper at C:/Espressif/frameworks/esp-idf-v5.3.1/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:134
+[0m
+[0;33m0x40375d04: esp_restart_noos at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/port/soc/esp32s3/system_internal.c:158
+[0m
+[0;33m0x4200ba23: app_main at D:/HK241/Project2/code/msc_Copy/main/main.c:909 (discriminator 1)
+[0m
+[0;33m0x4037dccb: _esp_error_check_failed at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/esp_err.c:49
+[0m
+[0;33m0x40375dca: panic_abort at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/panic.c:463
+0x4037dcd5: esp_system_abort at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/port/esp_system_chip.c:92
+0x40386005: abort at C:/Espressif/frameworks/esp-idf-v5.3.1/components/newlib/abort.c:38
+0x4037dccb: _esp_error_check_failed at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/esp_err.c:49
+0x4200ba23: app_main at D:/HK241/Project2/code/msc_Copy/main/main.c:909 (discriminator 1)
+0x420a299f: main_task at C:/Espressif/frameworks/esp-idf-v5.3.1/components/freertos/app_startup.c:208
+0x4037e7e1: vPortTaskWrapper at C:/Espressif/frameworks/esp-idf-v5.3.1/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:134
+[0m
+[0;33m0x40375d04: esp_restart_noos at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/port/soc/esp32s3/system_internal.c:158
+[0m
+[0;33m0x4200ba23: app_main at D:/HK241/Project2/code/msc_Copy/main/main.c:909 (discriminator 1)
+[0m
+[0;33m0x4037dccb: _esp_error_check_failed at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/esp_err.c:49
+[0m
+[0;33m0x40375dca: panic_abort at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/panic.c:463
+0x4037dcd5: esp_system_abort at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/port/esp_system_chip.c:92
+0x40386005: abort at C:/Espressif/frameworks/esp-idf-v5.3.1/components/newlib/abort.c:38
+0x4037dccb: _esp_error_check_failed at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/esp_err.c:49
+0x4200ba23: app_main at D:/HK241/Project2/code/msc_Copy/main/main.c:909 (discriminator 1)
+0x420a299f: main_task at C:/Espressif/frameworks/esp-idf-v5.3.1/components/freertos/app_startup.c:208
+0x4037e7e1: vPortTaskWrapper at C:/Espressif/frameworks/esp-idf-v5.3.1/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:134
+[0m
+[0;33m0x40375d04: esp_restart_noos at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/port/soc/esp32s3/system_internal.c:158
+[0m
+[0;33m0x4200ba23: app_main at D:/HK241/Project2/code/msc_Copy/main/main.c:909 (discriminator 1)
+[0m
+[0;33m0x4037dccb: _esp_error_check_failed at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/esp_err.c:49
+[0m
+[0;33m0x40375dca: panic_abort at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/panic.c:463
+0x4037dcd5: esp_system_abort at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/port/esp_system_chip.c:92
+0x40386005: abort at C:/Espressif/frameworks/esp-idf-v5.3.1/components/newlib/abort.c:38
+0x4037dccb: _esp_error_check_failed at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/esp_err.c:49
+0x4200ba23: app_main at D:/HK241/Project2/code/msc_Copy/main/main.c:909 (discriminator 1)
+0x420a299f: main_task at C:/Espressif/frameworks/esp-idf-v5.3.1/components/freertos/app_startup.c:208
+0x4037e7e1: vPortTaskWrapper at C:/Espressif/frameworks/esp-idf-v5.3.1/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:134
+[0m
+[0;33m0x40375d04: esp_restart_noos at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/port/soc/esp32s3/system_internal.c:158
+[0m
+[0;33m0x4201725c: root_port_handle_events at C:/Espressif/frameworks/esp-idf-v5.3.1/components/usb/hub.c:830
+[0m
+[0;33m0x40375dca: panic_abort at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/panic.c:463
+0x4037dcd5: esp_system_abort at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/port/esp_system_chip.c:92
+0x40386005: abort at C:/Espressif/frameworks/esp-idf-v5.3.1/components/newlib/abort.c:38
+0x4201725c: root_port_handle_events at C:/Espressif/frameworks/esp-idf-v5.3.1/components/usb/hub.c:830
+0x42017f76: hub_process at C:/Espressif/frameworks/esp-idf-v5.3.1/components/usb/hub.c:1101
+0x420123b3: usb_host_lib_handle_events at C:/Espressif/frameworks/esp-idf-v5.3.1/components/usb/usb_host.c:559
+0x4200b1b3: usb_task at D:/HK241/Project2/code/msc_Copy/main/main.c:849
+0x4037e7e1: vPortTaskWrapper at C:/Espressif/frameworks/esp-idf-v5.3.1/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:134
+[0m
+[0;33m0x40375d04: esp_restart_noos at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/port/soc/esp32s3/system_internal.c:158
+[0m
+[0;33m0x4201725c: root_port_handle_events at C:/Espressif/frameworks/esp-idf-v5.3.1/components/usb/hub.c:830
+[0m
+[0;33m0x40375dca: panic_abort at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/panic.c:463
+0x4037dcd5: esp_system_abort at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/port/esp_system_chip.c:92
+0x40386005: abort at C:/Espressif/frameworks/esp-idf-v5.3.1/components/newlib/abort.c:38
+0x4201725c: root_port_handle_events at C:/Espressif/frameworks/esp-idf-v5.3.1/components/usb/hub.c:830
+0x42017f76: hub_process at C:/Espressif/frameworks/esp-idf-v5.3.1/components/usb/hub.c:1101
+0x420123b3: usb_host_lib_handle_events at C:/Espressif/frameworks/esp-idf-v5.3.1/components/usb/usb_host.c:559
+0x4200b1b3: usb_task at D:/HK241/Project2/code/msc_Copy/main/main.c:849
+0x4037e7e1: vPortTaskWrapper at C:/Espressif/frameworks/esp-idf-v5.3.1/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:134
+[0m
+[0;33m0x40375d04: esp_restart_noos at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/port/soc/esp32s3/system_internal.c:158
+[0m
+[0;33m0x4200ba23: app_main at D:/HK241/Project2/code/msc_Copy/main/main.c:909 (discriminator 1)
+[0m
+[0;33m0x4037dccb: _esp_error_check_failed at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/esp_err.c:49
+[0m
+[0;33m0x40375dca: panic_abort at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/panic.c:463
+0x4037dcd5: esp_system_abort at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/port/esp_system_chip.c:92
+0x40386005: abort at C:/Espressif/frameworks/esp-idf-v5.3.1/components/newlib/abort.c:38
+0x4037dccb: _esp_error_check_failed at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/esp_err.c:49
+0x4200ba23: app_main at D:/HK241/Project2/code/msc_Copy/main/main.c:909 (discriminator 1)
+0x420a299f: main_task at C:/Espressif/frameworks/esp-idf-v5.3.1/components/freertos/app_startup.c:208
+0x4037e7e1: vPortTaskWrapper at C:/Espressif/frameworks/esp-idf-v5.3.1/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:134
+[0m
+[0;33m0x40375d04: esp_restart_noos at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/port/soc/esp32s3/system_internal.c:158
+[0m
+[0;33m0x4200ba23: app_main at D:/HK241/Project2/code/msc_Copy/main/main.c:909 (discriminator 1)
+[0m
+[0;33m0x4037dccb: _esp_error_check_failed at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/esp_err.c:49
+[0m
+[0;33m0x40375dca: panic_abort at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/panic.c:463
+0x4037dcd5: esp_system_abort at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/port/esp_system_chip.c:92
+0x40386005: abort at C:/Espressif/frameworks/esp-idf-v5.3.1/components/newlib/abort.c:38
+0x4037dccb: _esp_error_check_failed at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/esp_err.c:49
+0x4200ba23: app_main at D:/HK241/Project2/code/msc_Copy/main/main.c:909 (discriminator 1)
+0x420a299f: main_task at C:/Espressif/frameworks/esp-idf-v5.3.1/components/freertos/app_startup.c:208
+0x4037e7e1: vPortTaskWrapper at C:/Espressif/frameworks/esp-idf-v5.3.1/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:134
+[0m
+[0;33m0x40375d04: esp_restart_noos at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/port/soc/esp32s3/system_internal.c:158
+[0m
+[1;31mNone[0m
+[0;33mWaiting for the device to reconnect[0m[0;33m.[0m[0;33m.[0m[0;33m.[0m[0;33m.[0m[0;33m.[0m[0;33m.[0m[0;33m.[0m[0;33m.[0m[0;33m.[0m[0;33m.[0m[0;33m.[0m[0;33m.[0m[0;33m.[0m[0;33m.[0m[0;33m.[0m[0;33m.[0m[0;33m.[0m[0;33m.[0m[0;33m.[0m[0;33m.[0m[0;33m.[0m[0;33m.[0m[0;33m.[0m[0;33m.[0m[0;33m.[0m[0;33m.[0m[0;33m.[0m[0;33m.[0m[0;33m.[0m[0;33mTo exit from IDF monitor please use "Ctrl+]". Alternatively, you can use Ctrl+T Ctrl+X to exit.[0m
+[0;33m.[0m[0;33m.[0m[0;33m.[0m[0;33m.[0m[0;33m[0m
+[0m
+Traceback (most recent call last):
+  File "C:\Espressif\frameworks\esp-idf-v5.3.1\tools/idf_monitor.py", line 11, in <module>
+    sys.exit(subprocess.run([sys.executable, '-m', 'esp_idf_monitor'] + sys.argv[1:]).returncode)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "subprocess.py", line 550, in run
+  File "subprocess.py", line 1199, in communicate
+  File "subprocess.py", line 1262, in wait
+  File "subprocess.py", line 1543, in _wait
+KeyboardInterrupt

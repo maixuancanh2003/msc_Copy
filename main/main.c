@@ -527,20 +527,69 @@ esp_err_t handle_post_data(httpd_req_t *req) {
     return ESP_OK;
 }
 
+// esp_err_t handle_post_data2(httpd_req_t *req) {
+//     char content[1024];  // Bộ đệm để chứa dữ liệu
+//     int total_len = req->content_len;
+//     int cur_len = 0;
+//     int received = 0;
+    
+//     ESP_LOGI(TAG, "Total request length: %d", total_len);
+    
+//     // Kiểm tra nếu kích thước dữ liệu vượt quá kích thước bộ đệm
+//     if (total_len <= 0) {
+//         ESP_LOGI(TAG, "Invalid request length");
+//         httpd_resp_send_500(req);
+//         return ESP_FAIL;
+//     }
+
+//     // Nhận dữ liệu từng phần
+//     while (cur_len < total_len) {
+//         received = httpd_req_recv(req, content, sizeof(content) - 1);
+//         if (received < 0) {
+//             if (received == HTTPD_SOCK_ERR_TIMEOUT) {
+//                 httpd_resp_send_408(req);
+//             }
+//             return ESP_FAIL;
+//         }
+
+//         cur_len += received;
+//         content[received] = '\0';  // Đảm bảo kết thúc chuỗi
+
+//         // Xử lý dữ liệu đã nhận
+//         // (Giả sử chúng ta chỉ muốn in ra tên file)
+//         char *filename_start = strstr(content, "filename=\"");
+//         if (filename_start != NULL) {
+//             filename_start += 10;  // Bỏ qua "filename=\""
+//             char *filename_end = strchr(filename_start, '\"');
+//             if (filename_end != NULL) {
+//                 *filename_end = '\0';  // Kết thúc chuỗi tên tệp
+//                 ESP_LOGI(TAG, "File uploaded: %s", filename_start);
+//             }
+//         }
+//     }
+
+//     httpd_resp_send(req, "File name received", HTTPD_RESP_USE_STRLEN);
+//     return ESP_OK;
+// }
+
 esp_err_t handle_post_data2(httpd_req_t *req) {
     char content[1024];  // Bộ đệm để chứa dữ liệu
     int total_len = req->content_len;
     int cur_len = 0;
     int received = 0;
-    
+
     ESP_LOGI(TAG, "Total request length: %d", total_len);
-    
+
     // Kiểm tra nếu kích thước dữ liệu vượt quá kích thước bộ đệm
     if (total_len <= 0) {
         ESP_LOGI(TAG, "Invalid request length");
         httpd_resp_send_500(req);
         return ESP_FAIL;
     }
+
+    char file_path[256] = "/usb/esp/";
+    FILE *file = NULL;
+    bool file_opened = false;
 
     // Nhận dữ liệu từng phần
     while (cur_len < total_len) {
@@ -555,23 +604,56 @@ esp_err_t handle_post_data2(httpd_req_t *req) {
         cur_len += received;
         content[received] = '\0';  // Đảm bảo kết thúc chuỗi
 
-        // Xử lý dữ liệu đã nhận
-        // (Giả sử chúng ta chỉ muốn in ra tên file)
-        char *filename_start = strstr(content, "filename=\"");
-        if (filename_start != NULL) {
-            filename_start += 10;  // Bỏ qua "filename=\""
-            char *filename_end = strchr(filename_start, '\"');
-            if (filename_end != NULL) {
-                *filename_end = '\0';  // Kết thúc chuỗi tên tệp
-                ESP_LOGI(TAG, "File uploaded: %s", filename_start);
+        // Lấy tên file từ dữ liệu nhận được
+        if (!file_opened) {
+            char *filename_start = strstr(content, "filename=\"");
+            if (filename_start != NULL) {
+                filename_start += 10;  // Bỏ qua "filename=\""
+                char *filename_end = strchr(filename_start, '\"');
+                if (filename_end != NULL) {
+                    *filename_end = '\0';  // Kết thúc chuỗi tên tệp
+                    strcat(file_path, filename_start);  // Nối tên file vào đường dẫn
+
+                    // Mở file để ghi vào USB flash drive
+                    file = fopen(file_path, "wb");
+                    if (file == NULL) {
+                        ESP_LOGE(TAG, "Failed to open file for writing");
+                        httpd_resp_send_500(req);
+                        return ESP_FAIL;
+                    }
+                    file_opened = true;
+                    ESP_LOGI(TAG, "Saving file to USB: %s", file_path);
+                }
+            }
+        }
+
+        // Nếu file đã được mở, ghi dữ liệu vào file
+        if (file_opened && file != NULL) {
+            // Tìm phần dữ liệu chính sau "Content-Disposition" (bỏ qua metadata HTTP)
+            char *data_start = strstr(content, "\r\n\r\n");
+            if (data_start != NULL) {
+                data_start += 4; // Bỏ qua đoạn \r\n\r\n để đến dữ liệu chính
+
+                // Ghi dữ liệu chính vào file
+                size_t data_len = received - (data_start - content);
+                fwrite(data_start, 1, data_len, file);
+            } else {
+                // Nếu không có header HTTP, ghi trực tiếp vào file
+                fwrite(content, 1, received, file);
             }
         }
     }
 
-    httpd_resp_send(req, "File name received", HTTPD_RESP_USE_STRLEN);
+    // Đóng file sau khi hoàn tất ghi
+    if (file_opened && file != NULL) {
+        fclose(file);
+        ESP_LOGI(TAG, "File saved to USB successfully.");
+    }
+
+    // Gửi phản hồi xác nhận
+    httpd_resp_send(req, "File received and saved to USB", HTTPD_RESP_USE_STRLEN);
     return ESP_OK;
 }
-
 
 // Định nghĩa handler cho send_usb_status
 esp_err_t handle_post_usb_status(httpd_req_t *req) {
