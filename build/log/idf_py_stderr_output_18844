@@ -1,0 +1,209 @@
+[0;33m--- WARNING: GDB cannot open serial ports accessed as COMx[0m
+[0;33m--- Using \\.\COM4 instead...[0m
+[0;33m--- esp-idf-monitor 1.4.0 on \\.\COM4 115200 ---[0m
+[0;33m--- Quit: Ctrl+] | Menu: Ctrl+T | Help: Ctrl+T followed by Ctrl+H ---[0m
+[0;33m0x4201ad5f: task_wdt_timeout_handling at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/task_wdt/task_wdt.c:434
+0x4201b1c8: task_wdt_isr at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/task_wdt/task_wdt.c:507
+0x40377b29: _xt_lowint1 at C:/Espressif/frameworks/esp-idf-v5.3.1/components/xtensa/xtensa_vectors.S:1240
+0x4037b81b: xt_utils_wait_for_intr at C:/Espressif/frameworks/esp-idf-v5.3.1/components/xtensa/include/xt_utils.h:82
+ (inlined by) esp_cpu_wait_for_intr at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_hw_support/cpu.c:55
+0x420042ce: esp_vApplicationIdleHook at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/freertos_hooks.c:58
+0x4037fa61: prvIdleTask at C:/Espressif/frameworks/esp-idf-v5.3.1/components/freertos/FreeRTOS-Kernel/tasks.c:4344 (discriminator 1)
+0x4037e7e1: vPortTaskWrapper at C:/Espressif/frameworks/esp-idf-v5.3.1/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:134
+[0m
+[0;33m0x4037926a: esp_crosscore_isr at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/crosscore_int.c:73
+0x40377b29: _xt_lowint1 at C:/Espressif/frameworks/esp-idf-v5.3.1/components/xtensa/xtensa_vectors.S:1240
+0x4037b81b: xt_utils_wait_for_intr at C:/Espressif/frameworks/esp-idf-v5.3.1/components/xtensa/include/xt_utils.h:82
+ (inlined by) esp_cpu_wait_for_intr at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_hw_support/cpu.c:55
+0x420042ce: esp_vApplicationIdleHook at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/freertos_hooks.c:58
+0x4037fa61: prvIdleTask at C:/Espressif/frameworks/esp-idf-v5.3.1/components/freertos/FreeRTOS-Kernel/tasks.c:4344 (discriminator 1)
+0x4037e7e1: vPortTaskWrapper at C:/Espressif/frameworks/esp-idf-v5.3.1/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:134
+[0m
+[0;33m0x4201ad5f: task_wdt_timeout_handling at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/task_wdt/task_wdt.c:434
+0x4201b1c8: task_wdt_isr at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/task_wdt/task_wdt.c:507
+0x40377b29: _xt_lowint1 at C:/Espressif/frameworks/esp-idf-v5.3.1/components/xtensa/xtensa_vectors.S:1240
+0x4037b81b: xt_utils_wait_for_intr at C:/Espressif/frameworks/esp-idf-v5.3.1/components/xtensa/include/xt_utils.h:82
+ (inlined by) esp_cpu_wait_for_intr at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_hw_support/cpu.c:55
+0x420042ce: esp_vApplicationIdleHook at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/freertos_hooks.c:58
+0x4037fa61: prvIdleTask at C:/Espressif/frameworks/esp-idf-v5.3.1/components/freertos/FreeRTOS-Kernel/tasks.c:4344 (discriminator 1)
+0x4037e7e1: vPortTaskWrapper at C:/Espressif/frameworks/esp-idf-v5.3.1/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:134
+[0m
+[0;33m0x4037926a: esp_crosscore_isr at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/crosscore_int.c:73
+0x40377b29: _xt_lowint1 at C:/Espressif/frameworks/esp-idf-v5.3.1/components/xtensa/xtensa_vectors.S:1240
+0x4037b81b: xt_utils_wait_for_intr at C:/Espressif/frameworks/esp-idf-v5.3.1/components/xtensa/include/xt_utils.h:82
+ (inlined by) esp_cpu_wait_for_intr at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_hw_support/cpu.c:55
+0x420042ce: esp_vApplicationIdleHook at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/freertos_hooks.c:58
+0x4037fa61: prvIdleTask at C:/Espressif/frameworks/esp-idf-v5.3.1/components/freertos/FreeRTOS-Kernel/tasks.c:4344 (discriminator 1)
+0x4037e7e1: vPortTaskWrapper at C:/Espressif/frameworks/esp-idf-v5.3.1/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:134
+[0m
+[0;33m0x4037926a: esp_crosscore_isr at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/crosscore_int.c:73
+0x40377b29: _xt_lowint1 at C:/Espressif/frameworks/esp-idf-v5.3.1/components/xtensa/xtensa_vectors.S:1240
+0x400559dd: _xtos_set_intlevel in ROM
+0x4037eba3: vPortClearInterruptMaskFromISR at C:/Espressif/frameworks/esp-idf-v5.3.1/components/freertos/FreeRTOS-Kernel/portable/xtensa/include/freertos/portmacro.h:560
+ (inlined by) vPortExitCritical at C:/Espressif/frameworks/esp-idf-v5.3.1/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:505
+0x4201afd5: esp_task_wdt_reset at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/task_wdt/task_wdt.c:713
+0x4200b6af: handle_post_file at D:/HK241/Project2/code/msc_Copy/main/main.c:606
+0x42025a6f: httpd_uri at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_http_server/src/httpd_uri.c:329
+0x420262dd: httpd_parse_req at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_http_server/src/httpd_parse.c:663
+0x42026371: httpd_req_new at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_http_server/src/httpd_parse.c:791
+0x420251c8: httpd_sess_process at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_http_server/src/httpd_sess.c:426
+0x420243f4: httpd_process_session at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_http_server/src/httpd_main.c:262
+0x4209c50f: httpd_sess_enum at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_http_server/src/httpd_sess.c:50 (discriminator 1)
+0x42024bbe: httpd_server at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_http_server/src/httpd_main.c:312
+0x42024c2b: httpd_thread at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_http_server/src/httpd_main.c:334
+0x4037e7e1: vPortTaskWrapper at C:/Espressif/frameworks/esp-idf-v5.3.1/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:134
+[0m
+[0;33m0x4037926a: esp_crosscore_isr at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/crosscore_int.c:73
+0x40377b29: _xt_lowint1 at C:/Espressif/frameworks/esp-idf-v5.3.1/components/xtensa/xtensa_vectors.S:1240
+0x400559dd: _xtos_set_intlevel in ROM
+0x4037eba3: vPortClearInterruptMaskFromISR at C:/Espressif/frameworks/esp-idf-v5.3.1/components/freertos/FreeRTOS-Kernel/portable/xtensa/include/freertos/portmacro.h:560
+ (inlined by) vPortExitCritical at C:/Espressif/frameworks/esp-idf-v5.3.1/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:505
+0x4201afd5: esp_task_wdt_reset at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/task_wdt/task_wdt.c:713
+0x4200b6af: handle_post_file at D:/HK241/Project2/code/msc_Copy/main/main.c:606
+0x42025a6f: httpd_uri at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_http_server/src/httpd_uri.c:329
+0x420262dd: httpd_parse_req at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_http_server/src/httpd_parse.c:663
+0x42026371: httpd_req_new at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_http_server/src/httpd_parse.c:791
+0x420251c8: httpd_sess_process at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_http_server/src/httpd_sess.c:426
+0x420243f4: httpd_process_session at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_http_server/src/httpd_main.c:262
+0x4209c50f: httpd_sess_enum at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_http_server/src/httpd_sess.c:50 (discriminator 1)
+0x42024bbe: httpd_server at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_http_server/src/httpd_main.c:312
+0x42024c2b: httpd_thread at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_http_server/src/httpd_main.c:334
+0x4037e7e1: vPortTaskWrapper at C:/Espressif/frameworks/esp-idf-v5.3.1/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:134
+[0m
+[0;33m0x4037926a: esp_crosscore_isr at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/crosscore_int.c:73
+0x40377b29: _xt_lowint1 at C:/Espressif/frameworks/esp-idf-v5.3.1/components/xtensa/xtensa_vectors.S:1240
+0x400559dd: _xtos_set_intlevel in ROM
+0x4037eba3: vPortClearInterruptMaskFromISR at C:/Espressif/frameworks/esp-idf-v5.3.1/components/freertos/FreeRTOS-Kernel/portable/xtensa/include/freertos/portmacro.h:560
+ (inlined by) vPortExitCritical at C:/Espressif/frameworks/esp-idf-v5.3.1/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:505
+0x4201afd5: esp_task_wdt_reset at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/task_wdt/task_wdt.c:713
+0x4200b6af: handle_post_file at D:/HK241/Project2/code/msc_Copy/main/main.c:606
+0x42025a6f: httpd_uri at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_http_server/src/httpd_uri.c:329
+0x420262dd: httpd_parse_req at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_http_server/src/httpd_parse.c:663
+0x42026371: httpd_req_new at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_http_server/src/httpd_parse.c:791
+0x420251c8: httpd_sess_process at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_http_server/src/httpd_sess.c:426
+0x420243f4: httpd_process_session at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_http_server/src/httpd_main.c:262
+0x4209c50f: httpd_sess_enum at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_http_server/src/httpd_sess.c:50 (discriminator 1)
+0x42024bbe: httpd_server at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_http_server/src/httpd_main.c:312
+0x42024c2b: httpd_thread at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_http_server/src/httpd_main.c:334
+0x4037e7e1: vPortTaskWrapper at C:/Espressif/frameworks/esp-idf-v5.3.1/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:134
+[0m
+[0;33m0x4037926a: esp_crosscore_isr at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/crosscore_int.c:73
+0x40377b29: _xt_lowint1 at C:/Espressif/frameworks/esp-idf-v5.3.1/components/xtensa/xtensa_vectors.S:1240
+0x400559dd: _xtos_set_intlevel in ROM
+0x4037eba3: vPortClearInterruptMaskFromISR at C:/Espressif/frameworks/esp-idf-v5.3.1/components/freertos/FreeRTOS-Kernel/portable/xtensa/include/freertos/portmacro.h:560
+ (inlined by) vPortExitCritical at C:/Espressif/frameworks/esp-idf-v5.3.1/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:505
+0x4201afd5: esp_task_wdt_reset at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/task_wdt/task_wdt.c:713
+0x4200b6af: handle_post_file at D:/HK241/Project2/code/msc_Copy/main/main.c:606
+0x42025a6f: httpd_uri at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_http_server/src/httpd_uri.c:329
+0x420262dd: httpd_parse_req at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_http_server/src/httpd_parse.c:663
+0x42026371: httpd_req_new at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_http_server/src/httpd_parse.c:791
+0x420251c8: httpd_sess_process at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_http_server/src/httpd_sess.c:426
+0x420243f4: httpd_process_session at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_http_server/src/httpd_main.c:262
+0x4209c50f: httpd_sess_enum at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_http_server/src/httpd_sess.c:50 (discriminator 1)
+0x42024bbe: httpd_server at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_http_server/src/httpd_main.c:312
+0x42024c2b: httpd_thread at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_http_server/src/httpd_main.c:334
+0x4037e7e1: vPortTaskWrapper at C:/Espressif/frameworks/esp-idf-v5.3.1/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:134
+[0m
+[0;33m0x4037926a: esp_crosscore_isr at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/crosscore_int.c:73
+0x40377b29: _xt_lowint1 at C:/Espressif/frameworks/esp-idf-v5.3.1/components/xtensa/xtensa_vectors.S:1240
+0x400559dd: _xtos_set_intlevel in ROM
+0x4037eba3: vPortClearInterruptMaskFromISR at C:/Espressif/frameworks/esp-idf-v5.3.1/components/freertos/FreeRTOS-Kernel/portable/xtensa/include/freertos/portmacro.h:560
+ (inlined by) vPortExitCritical at C:/Espressif/frameworks/esp-idf-v5.3.1/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:505
+0x4201afd5: esp_task_wdt_reset at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/task_wdt/task_wdt.c:713
+0x4200b6af: handle_post_file at D:/HK241/Project2/code/msc_Copy/main/main.c:606
+0x42025a6f: httpd_uri at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_http_server/src/httpd_uri.c:329
+0x420262dd: httpd_parse_req at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_http_server/src/httpd_parse.c:663
+0x42026371: httpd_req_new at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_http_server/src/httpd_parse.c:791
+0x420251c8: httpd_sess_process at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_http_server/src/httpd_sess.c:426
+0x420243f4: httpd_process_session at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_http_server/src/httpd_main.c:262
+0x4209c50f: httpd_sess_enum at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_http_server/src/httpd_sess.c:50 (discriminator 1)
+0x42024bbe: httpd_server at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_http_server/src/httpd_main.c:312
+0x42024c2b: httpd_thread at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_http_server/src/httpd_main.c:334
+0x4037e7e1: vPortTaskWrapper at C:/Espressif/frameworks/esp-idf-v5.3.1/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:134
+[0m
+[0;33m0x4037926a: esp_crosscore_isr at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/crosscore_int.c:73
+0x40377b29: _xt_lowint1 at C:/Espressif/frameworks/esp-idf-v5.3.1/components/xtensa/xtensa_vectors.S:1240
+0x400559dd: _xtos_set_intlevel in ROM
+0x4037eba3: vPortClearInterruptMaskFromISR at C:/Espressif/frameworks/esp-idf-v5.3.1/components/freertos/FreeRTOS-Kernel/portable/xtensa/include/freertos/portmacro.h:560
+ (inlined by) vPortExitCritical at C:/Espressif/frameworks/esp-idf-v5.3.1/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:505
+0x4201afd5: esp_task_wdt_reset at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/task_wdt/task_wdt.c:713
+0x4200b6af: handle_post_file at D:/HK241/Project2/code/msc_Copy/main/main.c:606
+0x42025a6f: httpd_uri at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_http_server/src/httpd_uri.c:329
+0x420262dd: httpd_parse_req at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_http_server/src/httpd_parse.c:663
+0x42026371: httpd_req_new at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_http_server/src/httpd_parse.c:791
+0x420251c8: httpd_sess_process at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_http_server/src/httpd_sess.c:426
+0x420243f4: httpd_process_session at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_http_server/src/httpd_main.c:262
+0x4209c50f: httpd_sess_enum at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_http_server/src/httpd_sess.c:50 (discriminator 1)
+0x42024bbe: httpd_server at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_http_server/src/httpd_main.c:312
+0x42024c2b: httpd_thread at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_http_server/src/httpd_main.c:334
+0x4037e7e1: vPortTaskWrapper at C:/Espressif/frameworks/esp-idf-v5.3.1/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:134
+[0m
+[0;33m0x4037926a: esp_crosscore_isr at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/crosscore_int.c:73
+0x40377b29: _xt_lowint1 at C:/Espressif/frameworks/esp-idf-v5.3.1/components/xtensa/xtensa_vectors.S:1240
+0x400559dd: _xtos_set_intlevel in ROM
+0x4037eba3: vPortClearInterruptMaskFromISR at C:/Espressif/frameworks/esp-idf-v5.3.1/components/freertos/FreeRTOS-Kernel/portable/xtensa/include/freertos/portmacro.h:560
+ (inlined by) vPortExitCritical at C:/Espressif/frameworks/esp-idf-v5.3.1/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:505
+0x4201afd5: esp_task_wdt_reset at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/task_wdt/task_wdt.c:713
+0x4200b6af: handle_post_file at D:/HK241/Project2/code/msc_Copy/main/main.c:606
+0x42025a6f: httpd_uri at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_http_server/src/httpd_uri.c:329
+0x420262dd: httpd_parse_req at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_http_server/src/httpd_parse.c:663
+0x42026371: httpd_req_new at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_http_server/src/httpd_parse.c:791
+0x420251c8: httpd_sess_process at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_http_server/src/httpd_sess.c:426
+0x420243f4: httpd_process_session at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_http_server/src/httpd_main.c:262
+0x4209c50f: httpd_sess_enum at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_http_server/src/httpd_sess.c:50 (discriminator 1)
+0x42024bbe: httpd_server at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_http_server/src/httpd_main.c:312
+0x42024c2b: httpd_thread at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_http_server/src/httpd_main.c:334
+0x4037e7e1: vPortTaskWrapper at C:/Espressif/frameworks/esp-idf-v5.3.1/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:134
+[0m
+[0;33m0x4037926a: esp_crosscore_isr at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/crosscore_int.c:73
+0x40377b29: _xt_lowint1 at C:/Espressif/frameworks/esp-idf-v5.3.1/components/xtensa/xtensa_vectors.S:1240
+0x400559dd: _xtos_set_intlevel in ROM
+0x4037eba3: vPortClearInterruptMaskFromISR at C:/Espressif/frameworks/esp-idf-v5.3.1/components/freertos/FreeRTOS-Kernel/portable/xtensa/include/freertos/portmacro.h:560
+ (inlined by) vPortExitCritical at C:/Espressif/frameworks/esp-idf-v5.3.1/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:505
+0x4201afd5: esp_task_wdt_reset at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/task_wdt/task_wdt.c:713
+0x4200b6af: handle_post_file at D:/HK241/Project2/code/msc_Copy/main/main.c:606
+0x42025a6f: httpd_uri at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_http_server/src/httpd_uri.c:329
+0x420262dd: httpd_parse_req at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_http_server/src/httpd_parse.c:663
+0x42026371: httpd_req_new at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_http_server/src/httpd_parse.c:791
+0x420251c8: httpd_sess_process at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_http_server/src/httpd_sess.c:426
+0x420243f4: httpd_process_session at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_http_server/src/httpd_main.c:262
+0x4209c50f: httpd_sess_enum at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_http_server/src/httpd_sess.c:50 (discriminator 1)
+0x42024bbe: httpd_server at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_http_server/src/httpd_main.c:312
+0x42024c2b: httpd_thread at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_http_server/src/httpd_main.c:334
+0x4037e7e1: vPortTaskWrapper at C:/Espressif/frameworks/esp-idf-v5.3.1/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:134
+[0m
+[0;33m0x4037926a: esp_crosscore_isr at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/crosscore_int.c:73
+0x40377b29: _xt_lowint1 at C:/Espressif/frameworks/esp-idf-v5.3.1/components/xtensa/xtensa_vectors.S:1240
+0x400559dd: _xtos_set_intlevel in ROM
+0x4037eba3: vPortClearInterruptMaskFromISR at C:/Espressif/frameworks/esp-idf-v5.3.1/components/freertos/FreeRTOS-Kernel/portable/xtensa/include/freertos/portmacro.h:560
+ (inlined by) vPortExitCritical at C:/Espressif/frameworks/esp-idf-v5.3.1/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:505
+0x4201afd5: esp_task_wdt_reset at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/task_wdt/task_wdt.c:713
+0x4200b6af: handle_post_file at D:/HK241/Project2/code/msc_Copy/main/main.c:606
+0x42025a6f: httpd_uri at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_http_server/src/httpd_uri.c:329
+0x420262dd: httpd_parse_req at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_http_server/src/httpd_parse.c:663
+0x42026371: httpd_req_new at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_http_server/src/httpd_parse.c:791
+0x420251c8: httpd_sess_process at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_http_server/src/httpd_sess.c:426
+0x420243f4: httpd_process_session at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_http_server/src/httpd_main.c:262
+0x4209c50f: httpd_sess_enum at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_http_server/src/httpd_sess.c:50 (discriminator 1)
+0x42024bbe: httpd_server at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_http_server/src/httpd_main.c:312
+0x42024c2b: httpd_thread at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_http_server/src/httpd_main.c:334
+0x4037e7e1: vPortTaskWrapper at C:/Espressif/frameworks/esp-idf-v5.3.1/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:134
+[0m
+[0;33m0x4037926a: esp_crosscore_isr at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/crosscore_int.c:73
+0x40377b29: _xt_lowint1 at C:/Espressif/frameworks/esp-idf-v5.3.1/components/xtensa/xtensa_vectors.S:1240
+0x400559dd: _xtos_set_intlevel in ROM
+0x4037eba3: vPortClearInterruptMaskFromISR at C:/Espressif/frameworks/esp-idf-v5.3.1/components/freertos/FreeRTOS-Kernel/portable/xtensa/include/freertos/portmacro.h:560
+ (inlined by) vPortExitCritical at C:/Espressif/frameworks/esp-idf-v5.3.1/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:505
+0x4201afd5: esp_task_wdt_reset at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_system/task_wdt/task_wdt.c:713
+0x4200b6af: handle_post_file at D:/HK241/Project2/code/msc_Copy/main/main.c:606
+0x42025a6f: httpd_uri at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_http_server/src/httpd_uri.c:329
+0x420262dd: httpd_parse_req at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_http_server/src/httpd_parse.c:663
+0x42026371: httpd_req_new at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_http_server/src/httpd_parse.c:791
+0x420251c8: httpd_sess_process at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_http_server/src/httpd_sess.c:426
+0x420243f4: httpd_process_session at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_http_server/src/httpd_main.c:262
+0x4209c50f: httpd_sess_enum at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_http_server/src/httpd_sess.c:50 (discriminator 1)
+0x42024bbe: httpd_server at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_http_server/src/httpd_main.c:312
+0x42024c2b: httpd_thread at C:/Espressif/frameworks/esp-idf-v5.3.1/components/esp_http_server/src/httpd_main.c:334
+0x4037e7e1: vPortTaskWrapper at C:/Espressif/frameworks/esp-idf-v5.3.1/components/freertos/FreeRTOS-Kernel/portable/xtensa/port.c:134
+[0m
+[0m

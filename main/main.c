@@ -1,6 +1,8 @@
 #include <stdlib.h>
 #include <string.h>      
 #include <assert.h>
+#include "esp_log.h"
+
 #include <sys/stat.h>
 #include "driver/gpio.h"
 #include <dirent.h>
@@ -32,6 +34,12 @@
 #include "freertos/task.h"
 #include "driver/rmt.h"
 #include "led_strip.h"
+#include <stdio.h>
+#include <string.h>
+#include <sys/stat.h>
+#include <errno.h>
+#include "esp_log.h"
+#include "esp_http_server.h"
 
 #define RMT_TX_CHANNEL RMT_CHANNEL_0
 #define LED_PIN GPIO_NUM_4
@@ -43,9 +51,12 @@
 #define WIFI_SSID "HELLO"          // SSID của WiFi
 #define WIFI_PASS "12345678"       // Mật khẩu của WiFi
 
+#define ANSI_COLOR_RED     "\x1b[31m"
+#define ANSI_COLOR_GREEN   "\x1b[32m"
+#define ANSI_COLOR_RESET   "\x1b[0m"
 // HTTP server handle
 httpd_handle_t server = NULL;
-static const char *TAG = "example";
+static const char *TAG = "HTTP";
 #define MNT_PATH         "/usb"     // Path in the Virtual File System, where the USB flash drive is going to be mounted
 #define APP_QUIT_PIN     GPIO_NUM_0 // BOOT button on most boards
 #define BUFFER_SIZE      4096       // The read/write performance can be improved with larger buffer for the cost of RAM, 4kB is enough for most usecases
@@ -160,7 +171,7 @@ const char *html_page = R"rawliteral(
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f0f4f8;  /* Màu nền sáng */
+            background-color: #f0f4f8;
             margin: 0;
             padding: 0;
             display: flex;
@@ -179,7 +190,7 @@ const char *html_page = R"rawliteral(
         }
 
         h1 {
-            color: #0071C8;  /* Màu xanh Bách Khoa */
+            color: #0071C8;
             margin-bottom: 20px;
         }
 
@@ -199,7 +210,7 @@ const char *html_page = R"rawliteral(
         }
 
         input[type="submit"], button {
-            background-color: #0071C8;  /* Màu xanh Bách Khoa */
+            background-color: #0071C8;
             color: white;
             border: none;
             padding: 10px 20px;
@@ -211,13 +222,13 @@ const char *html_page = R"rawliteral(
         }
 
         input[type="submit"]:hover, button:hover {
-            background-color: #005999;  /* Màu xanh đậm hơn khi hover */
+            background-color: #005999;
         }
 
         #message {
             color: green;
             margin-top: 15px;
-            visibility: hidden;  /* Ẩn thông báo mặc định */
+            visibility: hidden;
         }
 
         footer {
@@ -319,13 +330,13 @@ const char *html_page = R"rawliteral(
         <!-- Form gửi dữ liệu (textarea) -->
         <form id="dataForm">
             <textarea name="data" rows="5" placeholder="Enter your data here..."></textarea>
-            <input type="submit" value="Send Data">  <!-- Nút gửi dữ liệu -->
+            <input type="submit" value="Send Data">
         </form>
 
         <!-- Input chọn file và nút gửi file -->
         <div class="file-upload-section">
-            <input type="file" id="fileInput">  <!-- Input chọn file -->
-            <button class="file-button" id="sendFileButton">Send File</button>  <!-- Nút gửi file -->
+            <input type="file" id="fileInput">
+            <button class="file-button" id="sendFileButton">Send File</button>
         </div>
 
         <!-- Công tắc bật tắt USB và nút gửi trạng thái -->
@@ -334,37 +345,36 @@ const char *html_page = R"rawliteral(
                 <input type="checkbox" id="usbToggle">
                 <span class="slider"></span>
             </label>
-            <button class="status-button" id="sendStatusButton">Send USB Status</button>  <!-- Nút gửi trạng thái -->
+            <button class="status-button" id="sendStatusButton">Send USB Status</button>
         </div>
         
-        <p id="message"></p> <!-- Thông báo hiển thị ở đây -->
+        <p id="message"></p>
         <footer>Powered by ESP32</footer>
     </div>
 
     <script>
-        // Hàm để hiển thị thông báo "Sending..." và ẩn sau khi gửi xong
+        // Hiển thị thông báo sau khi gửi dữ liệu
         function showMessage(text, isError = false) {
             const messageElement = document.getElementById('message');
             messageElement.style.visibility = 'visible';
             messageElement.textContent = text;
             messageElement.style.color = isError ? 'red' : 'green';
 
-            // Tự động ẩn sau 3 giây
             setTimeout(() => {
                 messageElement.style.visibility = 'hidden';
             }, 3000);
         }
 
-        // Khi nhấn nút "Send Data" (gửi dữ liệu từ textarea)
+        // Gửi dữ liệu từ textarea đến /send_data
         document.getElementById('dataForm').addEventListener('submit', function(event) {
-            event.preventDefault();  // Ngăn trang tải lại
-            showMessage('Sending...');  // Hiển thị "Sending..."
+            event.preventDefault();
+            showMessage('Sending data...');
 
-            var data = document.querySelector('textarea').value;  // Lấy giá trị của data
+            var data = document.querySelector('textarea').value;
             var formData = new FormData();
-            formData.append("data", data);  // Chỉ gửi trường "data"
-            
-            fetch('/send', {
+            formData.append("data", data);
+
+            fetch('/send_data', {
                 method: 'POST',
                 body: formData
             })
@@ -378,15 +388,15 @@ const char *html_page = R"rawliteral(
             });
         });
 
-        // Khi nhấn nút "Send USB Status" (gửi trạng thái của công tắc USB)
+        // Gửi trạng thái USB đến /send_usb_status
         document.getElementById('sendStatusButton').addEventListener('click', function() {
-            showMessage('Sending...');  // Hiển thị "Sending..."
-            var usbStatus = document.getElementById('usbToggle').checked ? "enabled" : "disabled";  // Lấy giá trị của công tắc USB
-            
+            showMessage('Sending USB status...');
+            var usbStatus = document.getElementById('usbToggle').checked ? "enabled" : "disabled";
+
             var formData = new FormData();
-            formData.append("usbStatus", usbStatus);  // Chỉ gửi trường "usbStatus"
-            
-            fetch('/send', {
+            formData.append("usbStatus", usbStatus);
+
+            fetch('/send_usb_status', {
                 method: 'POST',
                 body: formData
             })
@@ -400,17 +410,17 @@ const char *html_page = R"rawliteral(
             });
         });
 
-        // Khi nhấn nút "Send File" (gửi file mà người dùng đã chọn)
+        // Gửi file đến /upload_file
         document.getElementById('sendFileButton').addEventListener('click', function() {
-            showMessage('Sending...');  // Hiển thị "Sending..."
+            showMessage('Sending file...');
             var fileInput = document.getElementById('fileInput');
-            var file = fileInput.files[0];  // Lấy file từ input
-            
+            var file = fileInput.files[0];
+
             if (file) {
                 var formData = new FormData();
-                formData.append("file", file);  // Gửi file
+                formData.append("file", file);
 
-                fetch('/send', {
+                fetch('/upload_file', {
                     method: 'POST',
                     body: formData
                 })
@@ -446,148 +456,28 @@ httpd_uri_t uri_get_root = {
     .handler  = handle_get_root,
     .user_ctx = NULL
 };
-
-// Hàm xử lý POST từ HTTP server để in dữ liệu lên console
-// Hàm xử lý POST từ HTTP server để nhận dữ liệu từ form
-esp_err_t handle_post_data(httpd_req_t *req) {
-    char content[300];  // Bộ đệm để chứa dữ liệu
-    int total_len = req->content_len;  // Tổng số byte từ yêu cầu POST
-    int cur_len = 0;
-    int received = 0;
-
-    if (total_len >= sizeof(content)) {
-        // Nếu dữ liệu vượt quá kích thước bộ đệm, ta sẽ xử lý lỗi
-        ESP_LOGI(TAG, "Request content too long");
-        httpd_resp_send_500(req);
-        return ESP_FAIL;
-    }
-
-    while (cur_len < total_len) {
-        // Nhận dữ liệu từ HTTP request
-        received = httpd_req_recv(req, content + cur_len, total_len - cur_len);
-        if (received <= 0) {
-            // Nếu có lỗi khi nhận, trả về lỗi
-            if (received == HTTPD_SOCK_ERR_TIMEOUT) {
-                httpd_resp_send_408(req);
-            }
-            return ESP_FAIL;
-        }
-        cur_len += received;
-    }
-
-    content[cur_len] = '\0';  // Đảm bảo kết thúc chuỗi
-
-    // Tìm phần dữ liệu chính sau "Content-Disposition"
-    char *data_start = strstr(content, "\r\n\r\n");  // Tìm vị trí bắt đầu của dữ liệu sau metadata
-    if (data_start != NULL) {
-        data_start += 4; // Bỏ qua đoạn \r\n\r\n để đến dữ liệu chính
-        char *data_end = strstr(data_start, "\r\n------");  // Tìm vị trí kết thúc dữ liệu dựa trên boundary
-        if (data_end != NULL) {
-            *data_end = '\0';  // Kết thúc chuỗi dữ liệu tại boundary
-        }
-
-        // In dữ liệu chính lên console
-        ESP_LOGI(TAG, "Extracted data: %s", data_start);
-        httpd_resp_send(req, "Data received and extracted", HTTPD_RESP_USE_STRLEN);
-        
-        // Loại bỏ các ký tự \r\n hoặc khoảng trắng thừa
-        char trimmed_data[128];
-        strncpy(trimmed_data, data_start, sizeof(trimmed_data));
-        trimmed_data[strcspn(trimmed_data, "\r\n")] = 0;  // Loại bỏ ký tự xuống dòng
-
-        // So sánh chuỗi nhận được với "disabled" hoặc "enabled"
-        if (strcmp(trimmed_data, "disabled") == 0) {
-            // Đèn sáng màu đỏ khi nhận "disabled"
-            set_color(255, 0, 0);
-            gpio_set_level(GPIO_3, 0);  
-            printf("Đèn LED đã được đặt thành màu đỏ (disabled)\n");
-        } else if (strcmp(trimmed_data, "enabled") == 0) {
-            // Đèn sáng màu xanh khi nhận "enabled"
-            set_color(0, 255, 0);
-            gpio_set_level(GPIO_3, 1);  
-            printf("Đèn LED đã được đặt thành màu xanh (enabled)\n");
-        } else {
-            // Nếu chuỗi không phải "enabled" hoặc "disabled", lưu chuỗi vào file data.txt
-            const char *file_path = "/usb/esp/data.txt";
-            FILE *f = fopen(file_path, "a");  // Mở file ở chế độ append
-            if (f == NULL) {
-                ESP_LOGE(TAG, "Failed to open file for writing");
-                return ESP_FAIL;
-            }
-            fprintf(f, "%s\n", trimmed_data);  // Ghi chuỗi vào file
-            fclose(f);
-            ESP_LOGI(TAG, "Data '%s' has been saved to %s", trimmed_data, file_path);
-        }
-    } else {
-        ESP_LOGI(TAG, "Could not find data");
-        httpd_resp_send_500(req);
-        return ESP_FAIL;
-    }
-
-    return ESP_OK;
-}
-
-// esp_err_t handle_post_data2(httpd_req_t *req) {
-//     char content[1024];  // Bộ đệm để chứa dữ liệu
-//     int total_len = req->content_len;
-//     int cur_len = 0;
-//     int received = 0;
-    
-//     ESP_LOGI(TAG, "Total request length: %d", total_len);
-    
-//     // Kiểm tra nếu kích thước dữ liệu vượt quá kích thước bộ đệm
-//     if (total_len <= 0) {
-//         ESP_LOGI(TAG, "Invalid request length");
-//         httpd_resp_send_500(req);
-//         return ESP_FAIL;
-//     }
-
-//     // Nhận dữ liệu từng phần
-//     while (cur_len < total_len) {
-//         received = httpd_req_recv(req, content, sizeof(content) - 1);
-//         if (received < 0) {
-//             if (received == HTTPD_SOCK_ERR_TIMEOUT) {
-//                 httpd_resp_send_408(req);
-//             }
-//             return ESP_FAIL;
-//         }
-
-//         cur_len += received;
-//         content[received] = '\0';  // Đảm bảo kết thúc chuỗi
-
-//         // Xử lý dữ liệu đã nhận
-//         // (Giả sử chúng ta chỉ muốn in ra tên file)
-//         char *filename_start = strstr(content, "filename=\"");
-//         if (filename_start != NULL) {
-//             filename_start += 10;  // Bỏ qua "filename=\""
-//             char *filename_end = strchr(filename_start, '\"');
-//             if (filename_end != NULL) {
-//                 *filename_end = '\0';  // Kết thúc chuỗi tên tệp
-//                 ESP_LOGI(TAG, "File uploaded: %s", filename_start);
-//             }
-//         }
-//     }
-
-//     httpd_resp_send(req, "File name received", HTTPD_RESP_USE_STRLEN);
-//     return ESP_OK;
-// }
-
-esp_err_t handle_post_data2(httpd_req_t *req) {
+esp_err_t handle_post_file(httpd_req_t *req) {
     char content[1024];  // Bộ đệm để chứa dữ liệu
-    int total_len = req->content_len;
+    int total_len = req->content_len;  // Tổng độ dài dữ liệu từ request
     int cur_len = 0;
     int received = 0;
 
     ESP_LOGI(TAG, "Total request length: %d", total_len);
 
-    // Kiểm tra nếu kích thước dữ liệu vượt quá kích thước bộ đệm
-    if (total_len <= 0) {
-        ESP_LOGI(TAG, "Invalid request length");
-        httpd_resp_send_500(req);
-        return ESP_FAIL;
+    const char *base_path = "/usb/esp";
+    struct stat st;
+
+    // Kiểm tra xem thư mục có tồn tại không, nếu không thì tạo
+    if (stat(base_path, &st) == -1) {
+        if (mkdir(base_path, 0775) != 0) {
+            ESP_LOGE(TAG, "Failed to create directory: %s", strerror(errno));
+            httpd_resp_send_500(req);
+            return ESP_FAIL;
+        }
     }
 
-    char file_path[256] = "/usb/esp/";
+    // Đường dẫn đầy đủ của file cần lưu
+    char file_path[256];
     FILE *file = NULL;
     bool file_opened = false;
 
@@ -602,9 +492,17 @@ esp_err_t handle_post_data2(httpd_req_t *req) {
         }
 
         cur_len += received;
-        content[received] = '\0';  // Đảm bảo kết thúc chuỗi
+        content[received] = '\0';  // Đảm bảo chuỗi kết thúc
+// In thông tin về bộ nhớ và quyền truy cập trước khi mở file
+        ESP_LOGI(TAG, "Checking path: %s", base_path);
+        struct stat path_stat;
+        if (stat(base_path, &path_stat) == 0) {
+            ESP_LOGI(TAG, "Directory exists and is accessible");
+        } else {
+            ESP_LOGE(TAG, "Directory is not accessible: %s", strerror(errno));
+        }
 
-        // Lấy tên file từ dữ liệu nhận được
+        // Lấy tên file từ dữ liệu nhận được (phân tích "filename=" từ multipart data)
         if (!file_opened) {
             char *filename_start = strstr(content, "filename=\"");
             if (filename_start != NULL) {
@@ -612,12 +510,25 @@ esp_err_t handle_post_data2(httpd_req_t *req) {
                 char *filename_end = strchr(filename_start, '\"');
                 if (filename_end != NULL) {
                     *filename_end = '\0';  // Kết thúc chuỗi tên tệp
-                    strcat(file_path, filename_start);  // Nối tên file vào đường dẫn
+                    // Clean tên file bằng cách loại bỏ ký tự không hợp lệ
+                    for (int i = 0; filename_start[i] != '\0'; ++i) {
+                        if (!isalnum((unsigned char)filename_start[i]) && filename_start[i] != '.' && filename_start[i] != '_') {
+                            filename_start[i] = '_';  // Thay thế ký tự không hợp lệ bằng dấu gạch dưới
+                        }
+                    }
+                    // Giới hạn độ dài tên file nếu quá dài
+                    if (strlen(filename_start) > 100) {
+                        filename_start[100] = '\0';
+                    }
+
+                    // Tạo đường dẫn đầy đủ cho file
+                    snprintf(file_path, sizeof(file_path), "%s/%s", base_path, filename_start);
+                    ESP_LOGI(TAG, "Full file path: %s", file_path);
 
                     // Mở file để ghi vào USB flash drive
-                    file = fopen(file_path, "wb");
+                    file = fopen(file_path, "w");
                     if (file == NULL) {
-                        ESP_LOGE(TAG, "Failed to open file for writing");
+                        ESP_LOGE(TAG, "Failed to open file for writing: %s", strerror(errno));
                         httpd_resp_send_500(req);
                         return ESP_FAIL;
                     }
@@ -654,11 +565,9 @@ esp_err_t handle_post_data2(httpd_req_t *req) {
     httpd_resp_send(req, "File received and saved to USB", HTTPD_RESP_USE_STRLEN);
     return ESP_OK;
 }
-
-// Định nghĩa handler cho send_usb_status
 esp_err_t handle_post_usb_status(httpd_req_t *req) {
-    char content[100];
-    int ret = httpd_req_recv(req, content, sizeof(content));
+    char content[200];  // Tăng kích thước bộ đệm nếu cần thiết
+    int ret = httpd_req_recv(req, content, sizeof(content) - 1);  // Nhận dữ liệu với kích thước giới hạn -1 để dành chỗ cho '\0'
     if (ret <= 0) {
         if (ret == HTTPD_SOCK_ERR_TIMEOUT) {
             httpd_resp_send_408(req);
@@ -667,12 +576,53 @@ esp_err_t handle_post_usb_status(httpd_req_t *req) {
     }
     content[ret] = '\0';  // Đảm bảo chuỗi kết thúc
 
-    // In dữ liệu trạng thái USB lên console
-    ESP_LOGI(TAG, "Received USB status: %s", content);
+    // In dữ liệu thô ban đầu nhận được lên console với màu đỏ
+    ESP_LOGI(TAG, ANSI_COLOR_RED "Raw received USB status: %s" ANSI_COLOR_RESET, content);
 
-    httpd_resp_send(req, "USB status received and logged", HTTPD_RESP_USE_STRLEN);
+    // Tìm phần dữ liệu thực sự sau "Content-Disposition"
+    char *data_start = strstr(content, "\r\n\r\n");
+    if (data_start != NULL) {
+        data_start += 4;  // Bỏ qua đoạn phân cách "\r\n\r\n" để đến phần dữ liệu thực sự
+
+        // Loại bỏ khoảng trắng và ký tự xuống dòng thừa
+        for (int i = 0; i < strlen(data_start); i++) {
+            if (data_start[i] == '\r' || data_start[i] == '\n') {
+                data_start[i] = '\0';  // Kết thúc chuỗi khi gặp ký tự xuống dòng hoặc khoảng trắng
+                break;
+            }
+        }
+
+        // In dữ liệu sau khi tách ra với màu xanh lá cây
+        ESP_LOGI(TAG, ANSI_COLOR_GREEN "Cleaned USB status: %s" ANSI_COLOR_RESET, data_start);
+
+        // So sánh chuỗi nhận được với "disabled" hoặc "enabled"
+        if (strcmp(data_start, "disabled") == 0) {
+            // Đèn sáng màu đỏ khi nhận "disabled"
+            set_color(255, 0, 0);
+            gpio_set_level(GPIO_3, 0);  
+            printf("Đèn LED đã được đặt thành màu đỏ (disabled)\n");
+        } else if (strcmp(data_start, "enabled") == 0) {
+            // Đèn sáng màu xanh khi nhận "enabled"
+            set_color(0, 255, 0);
+            gpio_set_level(GPIO_3, 1);  
+            printf("Đèn LED đã được đặt thành màu xanh (enabled)\n");
+        } else {
+            // Nếu dữ liệu không hợp lệ, gửi phản hồi lỗi 400 (Bad Request)
+            ESP_LOGI(TAG, "Invalid USB status received: %s", data_start);
+            httpd_resp_send_500(req);
+            return ESP_FAIL;
+        }
+
+        // Gửi phản hồi xác nhận đã nhận dữ liệu và xử lý
+        httpd_resp_send(req, "USB status received and logged", HTTPD_RESP_USE_STRLEN);
+    } else {
+        ESP_LOGI(TAG, "Could not find data");
+        httpd_resp_send_500(req);  // Gửi phản hồi lỗi 500 (Internal Server Error)
+    }
+
     return ESP_OK;
 }
+
 // Đăng ký URI handler cho đường dẫn /send_usb_status
 httpd_uri_t uri_post_usb_status = {
     .uri      = "/send_usb_status",
@@ -681,16 +631,10 @@ httpd_uri_t uri_post_usb_status = {
     .user_ctx = NULL
 };
 
-httpd_uri_t uri_post = {
-    .uri      = "/send",
+httpd_uri_t uri_post_file = {
+    .uri      = "/upload_file",  // Thay đổi URI cho việc upload file
     .method   = HTTP_POST,
-    .handler  = handle_post_data, // Gọi hàm handle_post_data
-    .user_ctx = NULL
-};
-httpd_uri_t uri_post_files = {
-    .uri      = "/send",
-    .method   = HTTP_POST,
-    .handler  = handle_post_data2, // Gọi hàm handle_post_data
+    .handler  = handle_post_file,
     .user_ctx = NULL
 };
 
@@ -705,12 +649,9 @@ httpd_handle_t start_webserver(void) {
     if (httpd_start(&server, &config) == ESP_OK) {
         // Đăng ký URI handler cho đường dẫn /
         httpd_register_uri_handler(server, &uri_get_root);
+        httpd_register_uri_handler(server, &uri_post_usb_status); // Thêm dòng này
+        httpd_register_uri_handler(server, &uri_post_file); // Thêm dòng này
 
-        // Đăng ký URI handler cho đường dẫn /send
-        // httpd_register_uri_handler(server, &uri_post); // Thêm dòng này
-        httpd_register_uri_handler(server, &uri_post_files); // Thêm dòng này
-        // Đăng ký URI handler cho đường dẫn /send_usb_status
-        httpd_register_uri_handler(server, &uri_post_usb_status);
 
         return server;
     }
