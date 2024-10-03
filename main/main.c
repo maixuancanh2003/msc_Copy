@@ -500,7 +500,6 @@ esp_err_t handle_post_file(httpd_req_t *req) {
         }
 
         cur_len += received;
-        content[received] = '\0';  // Đảm bảo chuỗi kết thúc
 
         // Lấy tên file từ dữ liệu nhận được (phân tích "filename=" từ multipart data)
         if (!file_opened) {
@@ -522,8 +521,8 @@ esp_err_t handle_post_file(httpd_req_t *req) {
                     snprintf(file_path, sizeof(file_path), "%s/%s", base_path, filename_start);
                     ESP_LOGI(TAG, "Full file path: %s", file_path);
 
-                    // Mở file để ghi vào USB flash drive
-                    file = fopen(file_path, "w");
+                    // Mở file để ghi vào USB flash drive (write binary)
+                    file = fopen(file_path, "wb");
                     if (file == NULL) {
                         ESP_LOGE(TAG, "Failed to open file for writing: %s", strerror(errno));
                         httpd_resp_send_500(req);
