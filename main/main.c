@@ -1,49 +1,33 @@
 #include <stdlib.h>
-#include <string.h>      
+#include <string.h>
 #include <assert.h>
-#include "esp_log.h"
-
+#include <stdio.h>
 #include <sys/stat.h>
-#include "driver/gpio.h"
 #include <dirent.h>
 #include <ctype.h>
 #include <inttypes.h>
+#include <errno.h>
+#include "esp_log.h"
+#include "driver/gpio.h"
 #include "sdkconfig.h"
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 #include "freertos/queue.h"
 #include "esp_timer.h"
-#include "esp_err.h"     
-#include "esp_log.h"     
+#include "esp_err.h"
 #include "usb/usb_host.h"
 #include "usb/msc_host.h"
 #include "usb/msc_host_vfs.h"
 #include "ffconf.h"
-#include "errno.h"
-#include "driver/gpio.h"
-#include <stdio.h>
-#include <esp_http_server.h>
+#include "esp_http_server.h"
 #include <nvs_flash.h>
 #include <esp_event.h>
 #include <esp_wifi.h>
-#include <string.h>
 #include "esp_system.h"
-
-#include <stdio.h>
-#include "freertos/FreeRTOS.h"
-#include "freertos/task.h"
 #include "driver/rmt.h"
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-
 #include "led_strip.h"
-#include <stdio.h>
-#include <string.h>
-#include <sys/stat.h>
-#include <errno.h>
-#include "esp_log.h"
-#include "esp_http_server.h"
+
+
 #define CLEAN_BUFFER_SIZE 1024
 #define RMT_TX_CHANNEL RMT_CHANNEL_0
 #define LED_PIN GPIO_NUM_4
@@ -124,22 +108,6 @@ void set_color(uint8_t red, uint8_t green, uint8_t blue)
     strip->refresh(strip, 100);  // Cập nhật màu
 }
 
-void trim(char *str) {
-    char *end;
-    
-    // Loại bỏ khoảng trắng phía trước
-    while (isspace((unsigned char)*str)) str++;
-    
-    // Nếu chuỗi chỉ toàn khoảng trắng
-    if (*str == 0) return;
-
-    // Loại bỏ khoảng trắng phía sau
-    end = str + strlen(str) - 1;
-    while (end > str && isspace((unsigned char)*end)) end--;
-
-    // Kết thúc chuỗi
-    *(end + 1) = '\0';
-}
 static void gpio_cb(void *arg)
 {
     BaseType_t xTaskWoken = pdFALSE;
@@ -187,6 +155,15 @@ const char *html_page = R"rawliteral(
             height: 100vh;
         }
 
+        .main-container {
+            display: flex;
+            max-width: 1000px;
+            width: 100%;
+            margin: 20px;
+            align-items: stretch; /* Căn hai container ngang bằng nhau */
+}
+
+
         .container {
             background-color: #fff;
             padding: 30px;
@@ -194,6 +171,20 @@ const char *html_page = R"rawliteral(
             box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
             max-width: 500px;
             text-align: center;
+            margin-right: 20px;
+            flex: 1;
+        }
+
+        .guide-container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+            max-width: 400px; /* Tăng chiều rộng tối đa */
+            max-height: 1000px; /* Thêm giới hạn chiều cao tối đa */
+            overflow-y: auto; /* Thêm thanh cuộn nếu nội dung vượt quá chiều cao */
+            text-align: left;
+            flex: 0.8; /* Tăng tỷ lệ flex để mở rộng chiều ngang */
         }
 
         h1 {
@@ -325,38 +316,75 @@ const char *html_page = R"rawliteral(
             margin-top: 20px;
         }
 
+        .guide-container h2 {
+            margin-top: 0;
+            color: #0071C8;
+            text-align: center; /* Thêm dòng này để căn giữa */
+        }
+
+        .guide-container p {
+            margin-bottom: 10px;
+            line-height: 1.5;
+        }
+
+        .guide-container ul {
+            margin-left: 20px;
+            list-style-type: disc;
+        }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>ESP32 Data Interface</h1>
-        <p><strong>Name:</strong> Mai Xuan Canh</p>
-        <p><strong>Student ID:</strong> 2110834</p>
-        <p><strong>University:</strong> Ho Chi Minh City University of Technology</p>
+    <div class="main-container">
+        <!-- Main data interface container -->
+        <div class="container">
+            <h1>ESP32 Data Interface</h1>
+            <p><strong>Name:</strong> Mai Xuan Canh</p>
+            <p><strong>Student ID:</strong> 2110834</p>
+            <p><strong>University:</strong> Ho Chi Minh City University of Technology</p>
 
-        <!-- Form gửi dữ liệu (textarea) -->
-        <form id="dataForm">
-            <textarea name="data" rows="5" placeholder="Enter your data here..."></textarea>
-            <input type="submit" value="Send Data">
-        </form>
+            <!-- Form gửi dữ liệu (textarea) -->
+            <form id="dataForm">
+                <textarea name="data" rows="5" placeholder="Enter your data here..."></textarea>
+                <input type="submit" value="Send Data">
+            </form>
 
-        <!-- Input chọn file và nút gửi file -->
-        <div class="file-upload-section">
-            <input type="file" id="fileInput">
-            <button class="file-button" id="sendFileButton">Send File</button>
+            <!-- Input chọn file và nút gửi file -->
+            <div class="file-upload-section">
+                <input type="file" id="fileInput">
+                <button class="file-button" id="sendFileButton">Send File</button>
+            </div>
+
+            <!-- Công tắc bật tắt USB và nút gửi trạng thái -->
+            <div class="toggle-section">
+                <label class="switch">
+                    <input type="checkbox" id="usbToggle">
+                    <span class="slider"></span>
+                </label>
+                <button class="status-button" id="sendStatusButton">Send USB Status</button>
+            </div>
+            
+            <p id="message"></p>
+            <footer>Powered by ESP32</footer>
         </div>
 
-        <!-- Công tắc bật tắt USB và nút gửi trạng thái -->
-        <div class="toggle-section">
-            <label class="switch">
-                <input type="checkbox" id="usbToggle">
-                <span class="slider"></span>
-            </label>
-            <button class="status-button" id="sendStatusButton">Send USB Status</button>
+        <!-- User guide container -->
+        <div class="guide-container">
+            <h2>User Guide</h2>
+            <p><strong>Filename Rules:</strong></p>
+            <ul>
+                <li>Do not use spaces in filenames.</li>
+                <li>Do not start filenames with a number.</li>
+                <li>Do not use accented file names, if there are special characters they will be replaced with "_".</li>
+                <li>Files are saved to the path: <code>/ESP</code>.</li>
+            </ul>
+            <p><strong>Text Input:</strong></p>
+            <p>The "Enter your data here..." textbox is used for testing data transmission. Data will be sent to the ESP32 and saved.</p>
+            <p><strong>USB Toggle:</strong></p>
+            <ul>
+                <li>If <strong>enabled</strong>, the green light will be on (for ESP32S3).</li>
+                <li>If <strong>disabled</strong>, the red light will be on (for PC).</li>
+            </ul>
         </div>
-        
-        <p id="message"></p>
-        <footer>Powered by ESP32</footer>
     </div>
 
     <script>
@@ -369,7 +397,7 @@ const char *html_page = R"rawliteral(
 
             setTimeout(() => {
                 messageElement.style.visibility = 'hidden';
-            }, 3000);
+            }, 15000);
         }
 
         // Gửi dữ liệu từ textarea đến /send_data
@@ -463,7 +491,52 @@ httpd_uri_t uri_get_root = {
     .handler  = handle_get_root,
     .user_ctx = NULL
 };
+esp_err_t handle_data_test(httpd_req_t *req) {
+    char content[CLEAN_BUFFER_SIZE];  // Bộ đệm để chứa dữ liệu
+    int total_len = req->content_len;  // Tổng độ dài dữ liệu từ request
+    int cur_len = 0;
+    int received = 0;
 
+    const char *file_path = "/usb/esp/test_hhtp.txt";  // Đường dẫn đầy đủ của file cần lưu
+    FILE *file = NULL;
+
+    ESP_LOGI(TAG, "Total request length: %d", total_len);
+
+    // Mở file để ghi vào USB flash drive
+    file = fopen(file_path, "w");
+    if (file == NULL) {
+        ESP_LOGE(TAG, "Failed to open file for writing: %s", strerror(errno));
+        httpd_resp_send_500(req);
+        return ESP_FAIL;
+    }
+
+    // Nhận dữ liệu từng phần từ request
+    while (cur_len < total_len) {
+        received = httpd_req_recv(req, content, sizeof(content) - 1);
+        if (received < 0) {
+            if (received == HTTPD_SOCK_ERR_TIMEOUT) {
+                httpd_resp_send_408(req);
+            }
+            fclose(file);
+            return ESP_FAIL;
+        }
+
+        cur_len += received;
+        content[received] = '\0';  // Đảm bảo chuỗi kết thúc
+
+        // Ghi dữ liệu vào file
+        fwrite(content, 1, received, file);
+        ESP_LOGI(TAG, "Received and writing content chunk: \n%s", content);
+    }
+
+    // Đóng file sau khi hoàn tất ghi
+    fclose(file);
+    ESP_LOGI(TAG, "Data saved to file: %s", file_path);
+
+    // Gửi phản hồi xác nhận
+    httpd_resp_send(req, "Data received and saved to test.txt", HTTPD_RESP_USE_STRLEN);
+    return ESP_OK;
+}
 esp_err_t handle_post_file(httpd_req_t *req) {
     char content[CLEAN_BUFFER_SIZE];  // Bộ đệm để chứa dữ liệu
     int total_len = req->content_len;  // Tổng độ dài dữ liệu từ request
@@ -599,12 +672,12 @@ esp_err_t handle_post_usb_status(httpd_req_t *req) {
             // Đèn sáng màu đỏ khi nhận "disabled"
             set_color(255, 0, 0);
             gpio_set_level(GPIO_3, 0);  
-            printf("Đèn LED đã được đặt thành màu đỏ (disabled)\n");
+            printf("Led Red (disabled)\n");
         } else if (strcmp(data_start, "enabled") == 0) {
             // Đèn sáng màu xanh khi nhận "enabled"
             set_color(0, 255, 0);
             gpio_set_level(GPIO_3, 1);  
-            printf("Đèn LED đã được đặt thành màu xanh (enabled)\n");
+            printf("Led Green (enabled)\n");
         } else {
             // Nếu dữ liệu không hợp lệ, gửi phản hồi lỗi 400 (Bad Request)
             ESP_LOGI(TAG, "Invalid USB status received: %s", data_start);
@@ -637,6 +710,13 @@ httpd_uri_t uri_post_file = {
     .user_ctx = NULL
 };
 
+httpd_uri_t uri_post_test = {
+    .uri      = "/send_data",  // Thay đổi URI cho việc upload file
+    .method   = HTTP_POST,
+    .handler  = handle_data_test,
+    .user_ctx = NULL
+};
+
 
 // Đăng ký URI handler trong server
 // Khởi động webserver và đăng ký các handler
@@ -650,6 +730,7 @@ httpd_handle_t start_webserver(void) {
         httpd_register_uri_handler(server, &uri_get_root);
         httpd_register_uri_handler(server, &uri_post_usb_status); // Thêm dòng này
         httpd_register_uri_handler(server, &uri_post_file); // Thêm dòng này
+        httpd_register_uri_handler(server, &uri_post_test); // Thêm dòng này
 
 
         return server;
@@ -759,7 +840,7 @@ static void print_device_info(msc_host_device_info_t *info)
 static void file_operations(void)
 {
     const char *directory = "/usb/esp";
-    const char *file_path = "/usb/esp/test.txt";
+    const char *file_path = "/usb/esp/test_system.txt";
 
     // Create /usb/esp directory
     struct stat s = {0};
@@ -891,7 +972,7 @@ void app_main(void)
 {
     configure_gpio();
     setup_ws2812();
-    set_color(255, 0, 0);
+    set_color(0, 255, 0);
       // Khởi tạo NVS (Non-Volatile Storage)
     ESP_ERROR_CHECK(nvs_flash_init());
 
@@ -923,7 +1004,7 @@ void app_main(void)
     msc_host_vfs_handle_t vfs_handle = NULL;
 
     // Perform all example operations in a loop to allow USB reconnections
-    set_color(255, 0, 0);
+    set_color(0, 255, 0);
     while (1) {
         app_message_t msg;
         xQueueReceive(app_queue, &msg, portMAX_DELAY);
@@ -959,9 +1040,6 @@ void app_main(void)
             start_webserver();
             // 5. Perform speed test
             speed_test();
-            // while (1) {
-            // ESP_LOGI(TAG, "InitDone");
-            // }
 
         }
         if ((msg.id == APP_DEVICE_DISCONNECTED) || (msg.id == APP_QUIT)) {

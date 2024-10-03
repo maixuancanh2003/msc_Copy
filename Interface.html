@@ -3,93 +3,335 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>File Upload - Mai Xuân Cảnh</title>
+    <title>ESP32 Data</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f0f8ff; /* Màu nền nhạt */
-            color: #333;
-            text-align: center;
-            padding: 50px;
+            background-color: #f0f4f8;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
         }
 
-        h1 {
-            color: #0073e6; /* Màu xanh logo ĐH Bách Khoa */
-            margin-bottom: 10px;
-        }
+        .main-container {
+            display: flex;
+            max-width: 1000px;
+            width: 100%;
+            margin: 20px;
+            align-items: stretch; /* Căn hai container ngang bằng nhau */
+}
 
-        h2 {
-            color: #333;
-            margin-bottom: 30px;
-        }
 
         .container {
             background-color: #fff;
+            padding: 30px;
             border-radius: 10px;
-            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-            padding: 20px;
-            max-width: 600px;
-            margin: 0 auto;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            text-align: center;
+            margin-right: 20px;
+            flex: 1;
         }
 
-        .logo {
-            width: 150px;
+        .guide-container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+            max-width: 400px; /* Tăng chiều rộng tối đa */
+            max-height: 1000px; /* Thêm giới hạn chiều cao tối đa */
+            overflow-y: auto; /* Thêm thanh cuộn nếu nội dung vượt quá chiều cao */
+            text-align: left;
+            flex: 0.8; /* Tăng tỷ lệ flex để mở rộng chiều ngang */
+        }
+
+        h1 {
+            color: #0071C8;
             margin-bottom: 20px;
         }
 
-        .form-container {
-            background-color: #e6f7ff; /* Nền form xanh nhạt */
-            border-radius: 10px;
-            padding: 20px;
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
-        input[type="file"] {
-            margin-bottom: 20px;
+        textarea, input[type="file"] {
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            width: 100%;
         }
 
-        input[type="submit"] {
-            background-color: #0073e6; /* Màu xanh Bách Khoa */
-            color: #fff;
+        input[type="submit"], button {
+            background-color: #0071C8;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 10px;
+            width: 100%;
+        }
+
+        input[type="submit"]:hover, button:hover {
+            background-color: #005999;
+        }
+
+        #message {
+            color: green;
+            margin-top: 15px;
+            visibility: hidden;
+        }
+
+        footer {
+            margin-top: 20px;
+            font-size: 12px;
+            color: #999;
+        }
+
+        .file-upload-section,
+        .toggle-section {
+            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+        }
+
+        .file-button,
+        .status-button {
+            background-color: #0071C8;
+            color: white;
             padding: 10px 20px;
             border: none;
             border-radius: 5px;
             cursor: pointer;
+            font-size: 16px;
+            margin-top: 10px;
+            width: 100%;
         }
 
-        input[type="submit"]:hover {
-            background-color: #005bb5; /* Màu xanh đậm khi hover */
+        .file-button:hover, 
+        .status-button:hover {
+            background-color: #005999;
         }
 
-        footer {
-            margin-top: 30px;
-            font-size: 0.9em;
-            color: #666;
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 24px;
+            margin-right: 10px;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 24px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 20px;
+            width: 20px;
+            left: 4px;
+            bottom: 2px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: #0071C8;
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+        
+        .toggle-section {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        .guide-container h2 {
+            margin-top: 0;
+            color: #0071C8;
+            text-align: center; /* Thêm dòng này để căn giữa */
+        }
+
+        .guide-container p {
+            margin-bottom: 10px;
+            line-height: 1.5;
+        }
+
+        .guide-container ul {
+            margin-left: 20px;
+            list-style-type: disc;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <!-- Sử dụng đường dẫn cục bộ tới file logo -->
-        <img src="HCMUT_official_logo.png" alt="HCMUT Logo" class="logo">
-        <h1>Project 2</h1>  
-        <h2>Mai Xuan Canh</h2>       
-        <h3>ID: 2110834</h3>
-        <h4>Ho Chi Minh City University of Technology</h4>
-        <div class="form-container">
-            <h2>Upload your file to Data Logger</h2>
-        <!-- Change ESP32 IP board to Reciving your files -->
-        <!-- Change ESP32 IP board to Reciving your files -->
-<!-- Please Check esp32 is running with http server and Make sure that ESP cans recieve file -->
-            <form action="http://192.168.137.145/upload" method="post" enctype="multipart/form-data">
-                <input type="file" name="file" required>
-                <br>
-                <input type="submit" value="Upload File">
+    <div class="main-container">
+        <!-- Main data interface container -->
+        <div class="container">
+            <h1>ESP32 Data Interface</h1>
+            <p><strong>Name:</strong> Mai Xuan Canh</p>
+            <p><strong>Student ID:</strong> 2110834</p>
+            <p><strong>University:</strong> Ho Chi Minh City University of Technology</p>
+
+            <!-- Form gửi dữ liệu (textarea) -->
+            <form id="dataForm">
+                <textarea name="data" rows="5" placeholder="Enter your data here..."></textarea>
+                <input type="submit" value="Send Data">
             </form>
+
+            <!-- Input chọn file và nút gửi file -->
+            <div class="file-upload-section">
+                <input type="file" id="fileInput">
+                <button class="file-button" id="sendFileButton">Send File</button>
+            </div>
+
+            <!-- Công tắc bật tắt USB và nút gửi trạng thái -->
+            <div class="toggle-section">
+                <label class="switch">
+                    <input type="checkbox" id="usbToggle">
+                    <span class="slider"></span>
+                </label>
+                <button class="status-button" id="sendStatusButton">Send USB Status</button>
+            </div>
+            
+            <p id="message"></p>
+            <footer>Powered by ESP32</footer>
+        </div>
+
+        <!-- User guide container -->
+        <div class="guide-container">
+            <h2>User Guide</h2>
+            <p><strong>Filename Rules:</strong></p>
+            <ul>
+                <li>Do not use spaces in filenames.</li>
+                <li>Do not start filenames with a number.</li>
+                <li>Do not use accented file names, if there are special characters they will be replaced with "_".</li>
+                <li>Files are saved to the path: <code>/ESP</code>.</li>
+            </ul>
+            <p><strong>Text Input:</strong></p>
+            <p>The "Enter your data here..." textbox is used for testing data transmission. Data will be sent to the ESP32 and saved.</p>
+            <p><strong>USB Toggle:</strong></p>
+            <ul>
+                <li>If <strong>enabled</strong>, the green light will be on (for ESP32S3).</li>
+                <li>If <strong>disabled</strong>, the red light will be on (for PC).</li>
+            </ul>
         </div>
     </div>
 
-    <footer>
-        &copy; 2024 Mai Xuan Canh - Ho Chi Minh City University of Technology
-    </footer>
+    <script>
+        // Hiển thị thông báo sau khi gửi dữ liệu
+        function showMessage(text, isError = false) {
+            const messageElement = document.getElementById('message');
+            messageElement.style.visibility = 'visible';
+            messageElement.textContent = text;
+            messageElement.style.color = isError ? 'red' : 'green';
+
+            setTimeout(() => {
+                messageElement.style.visibility = 'hidden';
+            }, 3000);
+        }
+
+        // Gửi dữ liệu từ textarea đến /send_data
+        document.getElementById('dataForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            showMessage('Sending data...');
+
+            var data = document.querySelector('textarea').value;
+            var formData = new FormData();
+            formData.append("data", data);
+
+            fetch('/send_data', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.text())
+            .then(result => {
+                showMessage('Data sent successfully!');
+            })
+            .catch(error => {
+                showMessage('Error sending data!', true);
+                console.error('Error:', error);
+            });
+        });
+
+        // Gửi trạng thái USB đến /send_usb_status
+        document.getElementById('sendStatusButton').addEventListener('click', function() {
+            showMessage('Sending USB status...');
+            var usbStatus = document.getElementById('usbToggle').checked ? "enabled" : "disabled";
+
+            var formData = new FormData();
+            formData.append("usbStatus", usbStatus);
+
+            fetch('/send_usb_status', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.text())
+            .then(result => {
+                showMessage('USB Status sent successfully!');
+            })
+            .catch(error => {
+                showMessage('Error sending USB status!', true);
+                console.error('Error:', error);
+            });
+        });
+
+        // Gửi file đến /upload_file
+        document.getElementById('sendFileButton').addEventListener('click', function() {
+            showMessage('Sending file...');
+            var fileInput = document.getElementById('fileInput');
+            var file = fileInput.files[0];
+
+            if (file) {
+                var formData = new FormData();
+                formData.append("file", file);
+
+                fetch('/upload_file', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.text())
+                .then(result => {
+                    showMessage('File sent successfully!');
+                })
+                .catch(error => {
+                    showMessage('Error sending file!', true);
+                    console.error('Error:', error);
+                });
+            } else {
+                showMessage('No file selected!', true);
+            }
+        });
+    </script>
 </body>
 </html>
