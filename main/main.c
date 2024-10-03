@@ -91,86 +91,6 @@ typedef struct {
 // Hàm để làm sạch nội dung của file sau khi lưu
 
 
-// Hàm để làm sạch nội dung của file sau khi lưu
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-
-#define CLEAN_BUFFER_SIZE 1024
-
-// Hàm để làm sạch nội dung của file sau khi lưu
-void clean_file_content(const char *file_path) {
-    // Mở file gốc để đọc dữ liệu
-    FILE *file = fopen(file_path, "r");
-    if (!file) {
-        ESP_LOGE(TAG, "Failed to open file for reading");
-        return;
-    }
-
-    // Tạo buffer để chứa toàn bộ nội dung file
-    fseek(file, 0, SEEK_END);
-    long file_size = ftell(file);
-    rewind(file);
-
-    char *buffer = (char *)malloc(file_size + 1);
-    if (!buffer) {
-        ESP_LOGE(TAG, "Memory allocation failed");
-        fclose(file);
-        return;
-    }
-
-    fread(buffer, 1, file_size, file);
-    buffer[file_size] = '\0';
-    fclose(file);
-
-    // Tìm vị trí bắt đầu của nội dung thực tế trong file
-    char *content_start = strstr(buffer, "\r\n\r\n");
-    if (content_start) {
-        content_start += 4; // Bỏ qua đoạn "\r\n\r\n" để đến nội dung thực tế
-    } else {
-        free(buffer);
-        return;
-    }
-
-    // Tìm vị trí kết thúc của nội dung chính (trước boundary)
-    char *boundary_start = strstr(content_start, "\r\n------WebKitFormBoundary");
-    size_t content_length;
-    if (boundary_start) {
-        content_length = boundary_start - content_start;
-    } else {
-        content_length = strlen(content_start);
-    }
-
-    // Tạo một buffer mới để lưu lại nội dung đã làm sạch
-    char *cleaned_content = (char *)malloc(content_length + 1);
-    if (!cleaned_content) {
-        ESP_LOGE(TAG, "Memory allocation failed for cleaned content");
-        free(buffer);
-        return;
-    }
-
-    strncpy(cleaned_content, content_start, content_length);
-    cleaned_content[content_length] = '\0';
-
-    // Ghi lại nội dung đã làm sạch vào file mới
-    FILE *clean_file = fopen(file_path, "w");
-    if (!clean_file) {
-        ESP_LOGE(TAG, "Failed to open file for writing");
-        free(buffer);
-        free(cleaned_content);
-        return;
-    }
-
-    fwrite(cleaned_content, 1, content_length, clean_file);
-    fclose(clean_file);
-
-    free(buffer);
-    free(cleaned_content);
-
-    ESP_LOGI(TAG, "File cleaned successfully: %s", file_path);
-}
-
-
 void setup_ws2812()
 {
     // Cấu hình RMT
@@ -544,8 +464,6 @@ httpd_uri_t uri_get_root = {
     .user_ctx = NULL
 };
 
-
-
 esp_err_t handle_post_file(httpd_req_t *req) {
     char content[CLEAN_BUFFER_SIZE];  // Bộ đệm để chứa dữ liệu
     int total_len = req->content_len;  // Tổng độ dài dữ liệu từ request
@@ -584,15 +502,6 @@ esp_err_t handle_post_file(httpd_req_t *req) {
         cur_len += received;
         content[received] = '\0';  // Đảm bảo chuỗi kết thúc
 
-        // In thông tin về bộ nhớ và quyền truy cập trước khi mở file
-        ESP_LOGI(TAG, "Checking path: %s", base_path);
-        struct stat path_stat;
-        if (stat(base_path, &path_stat) == 0) {
-            ESP_LOGI(TAG, "Directory exists and is accessible");
-        } else {
-            ESP_LOGE(TAG, "Directory is not accessible: %s", strerror(errno));
-        }
-
         // Lấy tên file từ dữ liệu nhận được (phân tích "filename=" từ multipart data)
         if (!file_opened) {
             char *filename_start = strstr(content, "filename=\"");
@@ -600,16 +509,13 @@ esp_err_t handle_post_file(httpd_req_t *req) {
                 filename_start += 10;  // Bỏ qua "filename=\""
                 char *filename_end = strchr(filename_start, '\"');
                 if (filename_end != NULL) {
-                    *filename_end = '\0';  // Kết thúc chuỗi tên tệp
+                    *filename_end = '\0';  // Kết thúc chuỗi tên file
+
                     // Clean tên file bằng cách loại bỏ ký tự không hợp lệ
                     for (int i = 0; filename_start[i] != '\0'; ++i) {
                         if (!isalnum((unsigned char)filename_start[i]) && filename_start[i] != '.' && filename_start[i] != '_') {
                             filename_start[i] = '_';  // Thay thế ký tự không hợp lệ bằng dấu gạch dưới
                         }
-                    }
-                    // Giới hạn độ dài tên file nếu quá dài
-                    if (strlen(filename_start) > 100) {
-                        filename_start[100] = '\0';
                     }
 
                     // Tạo đường dẫn đầy đủ cho file
@@ -629,20 +535,21 @@ esp_err_t handle_post_file(httpd_req_t *req) {
             }
         }
 
+        // Tìm phần bắt đầu của nội dung thực tế
+        char *data_start = content;
+        if (!file_opened) {
+            // Chỉ tìm kiếm lần đầu để bỏ qua header
+            data_start = strstr(content, "\r\n\r\n");
+            if (data_start != NULL) {
+                data_start += 4;  // Bỏ qua đoạn \r\n\r\n
+            } else {
+                data_start = content;  // Nếu không tìm thấy, vẫn ghi toàn bộ
+            }
+        }
+
         // Nếu file đã được mở, ghi dữ liệu vào file
         if (file_opened && file != NULL) {
-            // Tìm phần dữ liệu chính sau "Content-Disposition" (bỏ qua metadata HTTP)
-            char *data_start = strstr(content, "\r\n\r\n");
-            if (data_start != NULL) {
-                data_start += 4; // Bỏ qua đoạn \r\n\r\n để đến nội dung thực tế
-
-                // Ghi dữ liệu chính vào file
-                size_t data_len = received - (data_start - content);
-                fwrite(data_start, 1, data_len, file);
-            } else {
-                // Nếu không có header HTTP, ghi trực tiếp vào file
-                fwrite(content, 1, received, file);
-            }
+            fwrite(data_start, 1, received - (data_start - content), file);
         }
     }
 
@@ -650,15 +557,14 @@ esp_err_t handle_post_file(httpd_req_t *req) {
     if (file_opened && file != NULL) {
         fclose(file);
         ESP_LOGI(TAG, "File saved to USB successfully.");
-
-        // Làm sạch nội dung của file
-        clean_file_content(file_path);
     }
 
     // Gửi phản hồi xác nhận
     httpd_resp_send(req, "File received and saved to USB", HTTPD_RESP_USE_STRLEN);
     return ESP_OK;
 }
+
+
 esp_err_t handle_post_usb_status(httpd_req_t *req) {
     char content[200];  // Tăng kích thước bộ đệm nếu cần thiết
     int ret = httpd_req_recv(req, content, sizeof(content) - 1);  // Nhận dữ liệu với kích thước giới hạn -1 để dành chỗ cho '\0'
@@ -986,6 +892,7 @@ void app_main(void)
 {
     configure_gpio();
     setup_ws2812();
+    set_color(255, 0, 0);
       // Khởi tạo NVS (Non-Volatile Storage)
     ESP_ERROR_CHECK(nvs_flash_init());
 
@@ -1017,6 +924,7 @@ void app_main(void)
     msc_host_vfs_handle_t vfs_handle = NULL;
 
     // Perform all example operations in a loop to allow USB reconnections
+    set_color(255, 0, 0);
     while (1) {
         app_message_t msg;
         xQueueReceive(app_queue, &msg, portMAX_DELAY);
